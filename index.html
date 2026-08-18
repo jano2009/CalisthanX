@@ -3701,17 +3701,13 @@
         const sb = getSupabase();
         const user = await ensureSocialAuth();
 
-        const { data: requests, error: reqError } = await sb
+        // 1) Freundschaften nur aus friendships laden.
+        // requester/addressee referenzieren auth.users – NICHT public.profiles.
+        // Deshalb dürfen wir hier keine automatische PostgREST-Beziehung
+        // friendships -> profiles verwenden.
+        const { data: requestRows, error: reqError } = await sb
           .from("friendships")
-          .select(`
-            id,
-            requester,
-            addressee,
-            status,
-            requester_profile:profiles!friendships_requester_fkey(
-              id, friend_code, display_name, avatar_data
-            )
-          `)
+          .select("id,requester,addressee,status,created_at")
           .eq("addressee", user.id)
           .eq("status", "pending")
           .order("created_at", { ascending: false });
@@ -3720,30 +3716,55 @@
 
         const { data: friendshipRows, error: friendsError } = await sb
           .from("friendships")
-          .select(`
-            id,
-            requester,
-            addressee,
-            status,
-            requester_profile:profiles!friendships_requester_fkey(
-              id, friend_code, display_name, avatar_data
-            ),
-            addressee_profile:profiles!friendships_addressee_fkey(
-              id, friend_code, display_name, avatar_data
-            )
-          `)
+          .select("id,requester,addressee,status,created_at")
           .eq("status", "accepted")
           .or(`requester.eq.${user.id},addressee.eq.${user.id}`)
           .order("created_at", { ascending: false });
 
         if (friendsError) throw friendsError;
 
-        const friends = (friendshipRows || []).map(row => ({
-          friendshipId: row.id,
-          profile: row.requester === user.id ? row.addressee_profile : row.requester_profile
-        })).filter(item => item.profile);
+        // 2) Alle dafür benötigten User-IDs sammeln.
+        const profileIds = new Set();
 
-        return { requests: requests || [], friends };
+        (requestRows || []).forEach(row => {
+          if (row.requester) profileIds.add(row.requester);
+        });
+
+        (friendshipRows || []).forEach(row => {
+          const otherId = row.requester === user.id ? row.addressee : row.requester;
+          if (otherId) profileIds.add(otherId);
+        });
+
+        // 3) Profile in EINER separaten Abfrage laden.
+        let profileMap = new Map();
+
+        if (profileIds.size) {
+          const ids = Array.from(profileIds);
+
+          const { data: profiles, error: profilesError } = await sb
+            .from("profiles")
+            .select("id,friend_code,display_name,avatar_data")
+            .in("id", ids);
+
+          if (profilesError) throw profilesError;
+          profileMap = new Map((profiles || []).map(profile => [profile.id, profile]));
+        }
+
+        // 4) Requests/Freunde wieder mit ihren Profilen zusammensetzen.
+        const requests = (requestRows || []).map(row => ({
+          ...row,
+          requester_profile: profileMap.get(row.requester) || null
+        }));
+
+        const friends = (friendshipRows || []).map(row => {
+          const otherId = row.requester === user.id ? row.addressee : row.requester;
+          return {
+            friendshipId: row.id,
+            profile: profileMap.get(otherId) || null
+          };
+        }).filter(item => item.profile);
+
+        return { requests, friends };
       }
 
       async function renderFriendsSection() {
@@ -5679,8 +5700,8 @@
           try {
             await sendFriendRequestByCode();
           } catch (error) {
-            console.error(error);
-            showToast("Freundesanfrage konnte nicht gesendet werden.");
+            console.error("Freundesanfrage:", error);
+            showToast(error?.message || "Freundesanfrage konnte nicht gesendet werden.");
           }
         },
 
@@ -5688,8 +5709,8 @@
           try {
             await answerFriendRequestOnline(id, accept);
           } catch (error) {
-            console.error(error);
-            showToast("Anfrage konnte nicht verarbeitet werden.");
+            console.error("Anfrage:", error);
+            showToast(error?.message || "Anfrage konnte nicht verarbeitet werden.");
           }
         },
 
@@ -5697,8 +5718,8 @@
           try {
             await openOnlineFriendProfile(id);
           } catch (error) {
-            console.error(error);
-            showToast("Freundesprofil konnte nicht geladen werden.");
+            console.error("Freundesprofil:", error);
+            showToast(error?.message || "Freundesprofil konnte nicht geladen werden.");
           }
         },
 
@@ -5706,8 +5727,8 @@
           try {
             await removeOnlineFriend(id);
           } catch (error) {
-            console.error(error);
-            showToast("Freund konnte nicht entfernt werden.");
+            console.error("Freund entfernen:", error);
+            showToast(error?.message || "Freund konnte nicht entfernt werden.");
           }
         },
 

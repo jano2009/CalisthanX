@@ -3518,8 +3518,11 @@
 
       let supabaseClient = null;
       let socialUser = null;
+      let socialAuthPromise = null;
       let socialSyncTimer = null;
       let onlineProfilePromise = null;
+      let friendsRenderPromise = null;
+      let friendsRefreshTimer = null;
 
       function supabaseConfigured() {
         return /^https:\/\/.+\.supabase\.co$/i.test(SUPABASE_URL) &&
@@ -3536,6 +3539,7 @@
             SUPABASE_PUBLISHABLE_KEY,
             {
               auth: {
+                storage: window.localStorage,
                 persistSession: true,
                 autoRefreshToken: true,
                 detectSessionInUrl: false
@@ -3554,20 +3558,36 @@
       }
 
       async function ensureSocialAuth() {
-        const sb = getSupabase();
-        if (!sb) return null;
         if (socialUser) return socialUser;
+        if (socialAuthPromise) return socialAuthPromise;
 
-        const { data: sessionData } = await sb.auth.getSession();
-        if (sessionData?.session?.user) {
-          socialUser = sessionData.session.user;
+        socialAuthPromise = (async () => {
+          const sb = getSupabase();
+          if (!sb) return null;
+
+          // Supabase persistiert Browser-Sessions in localStorage.
+          // Erst die bestehende Session laden; NUR wenn wirklich keine
+          // vorhanden ist, genau EINEN Anonymous User erzeugen.
+          const { data: sessionData, error: sessionError } = await sb.auth.getSession();
+          if (sessionError) throw sessionError;
+
+          if (sessionData?.session?.user) {
+            socialUser = sessionData.session.user;
+            return socialUser;
+          }
+
+          const { data, error } = await sb.auth.signInAnonymously();
+          if (error) throw error;
+
+          socialUser = data.user;
           return socialUser;
-        }
+        })();
 
-        const { data, error } = await sb.auth.signInAnonymously();
-        if (error) throw error;
-        socialUser = data.user;
-        return socialUser;
+        try {
+          return await socialAuthPromise;
+        } finally {
+          socialAuthPromise = null;
+        }
       }
 
       async function ensureOnlineProfile() {
@@ -3768,6 +3788,9 @@
       }
 
       async function renderFriendsSection() {
+        if (friendsRenderPromise) return friendsRenderPromise;
+
+        friendsRenderPromise = (async () => {
         const host = document.getElementById("friends-host");
         if (!host) return;
 
@@ -3878,7 +3901,32 @@
               <div class="friends-message">Supabase ist verbunden, aber die Freundesdaten konnten nicht geladen werden.<br>${escapeHtml(error.message || "")}</div>
             </section>`;
         }
+      
+        })();
+
+        try {
+          return await friendsRenderPromise;
+        } finally {
+          friendsRenderPromise = null;
+        }
       }
+
+      function startFriendsAutoRefresh() {
+        if (friendsRefreshTimer) return;
+
+        friendsRefreshTimer = setInterval(() => {
+          if (document.visibilityState !== "visible") return;
+          if (!document.getElementById("friends-host")) return;
+          renderFriendsSection().catch(error => console.error("Friends refresh:", error));
+        }, 12000);
+      }
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible" && document.getElementById("friends-host")) {
+          renderFriendsSection().catch(error => console.error("Friends visibility refresh:", error));
+        }
+      });
+
 
       async function sendFriendRequestByCode() {
         const input = document.getElementById("friend-code-input");
@@ -3891,13 +3939,12 @@
         const sb = getSupabase();
         const user = await ensureSocialAuth();
 
-        const { data: target, error: targetError } = await sb
-          .from("profiles")
-          .select("id,friend_code,display_name,avatar_data")
-          .eq("friend_code", code)
-          .maybeSingle();
+        const { data: lookupRows, error: targetError } = await sb
+          .rpc("find_profile_by_friend_code", { lookup_code: code });
 
         if (targetError) throw targetError;
+
+        const target = Array.isArray(lookupRows) ? lookupRows[0] : null;
         if (!target) {
           showToast("Freundescode nicht gefunden.");
           return;
@@ -4657,6 +4704,7 @@
           ${renderBottomNav('profile')}
         </div>`;
         renderFriendsSection();
+        startFriendsAutoRefresh();
         window.scrollTo({top:0,behavior:"auto"});
       }
 
@@ -5427,14 +5475,11 @@
           localStorage.removeItem(HISTORY_KEY);
         } catch (_) {}
 
-        // 3. Auch die anonyme Online-Identität zurücksetzen.
-        try {
-          const sb = getSupabase();
-          if (sb) sb.auth.signOut().catch(() => {});
-          socialUser = null;
-        } catch (_) {}
+        // Die Online-Identität bleibt absichtlich bestehen.
+        // Freundescode und Freundschaften gehören zum Profil und dürfen
+        // durch das Zurücksetzen lokaler Trainingsdaten nicht wechseln.
 
-        // 4. Dialog schließen und die komplette Oberfläche aus leerem Zustand neu aufbauen.
+        // Dialog schließen und die komplette Oberfläche aus leerem Zustand neu aufbauen.
         closeResetModal();
         closeRankModal();
         renderWelcome();
@@ -5701,7 +5746,14 @@
             await sendFriendRequestByCode();
           } catch (error) {
             console.error("Freundesanfrage:", error);
-            showToast(error?.message || "Freundesanfrage konnte nicht gesendet werden.");
+            const msg = String(error?.message || "");
+            if (msg.includes("FRIEND_RATE_LIMIT")) {
+              showToast("Zu viele Anfragen. Versuch es später erneut.");
+            } else if (msg.includes("FRIEND_PENDING_LIMIT")) {
+              showToast("Du hast bereits zu viele offene Anfragen.");
+            } else {
+              showToast(msg || "Freundesanfrage konnte nicht gesendet werden.");
+            }
           }
         },
 

@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#7257f7">
   <meta name="color-scheme" content="light dark">
   <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="./clastanic-icon-192.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%238b72ff'/%3E%3Cstop offset='1' stop-color='%235b3fe7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='20' fill='url(%23g)'/%3E%3Cg transform='rotate(-45 32 32)' fill='white'%3E%3Crect x='13' y='22' width='28' height='7' rx='4'/%3E%3Crect x='23' y='35' width='28' height='7' rx='4' opacity='.58'/%3E%3C/g%3E%3C/svg%3E">
   <title>Clastanic – Calisthenics Standards</title>
   <style>
@@ -1911,10 +1911,10 @@
     /* ===== Clastanic Performance Hub ===== */
     .performance-hub { margin-top: 22px; display: grid; grid-template-columns: 1.08fr .92fr; gap: 16px; }
     .hub-card { border: 1px solid var(--line); border-radius: 28px; background: var(--card); box-shadow: var(--shadow-card); overflow: hidden; }
-    .next-goal-card { position: relative; min-height: 220px; padding: 28px; color: #fff; background: linear-gradient(135deg,#171321,#2b2048 58%,#7257f7); }
+    .next-goal-card { grid-column: 1 / -1; position: relative; min-height: 220px; padding: 28px 34px; color: #fff; background: linear-gradient(135deg,#171321,#2b2048 58%,#7257f7); }
     .next-goal-card::after { position:absolute; width:230px; height:230px; right:-95px; bottom:-125px; border:1px solid rgba(255,255,255,.14); border-radius:50%; box-shadow:0 0 0 34px rgba(255,255,255,.035); content:""; }
     .hub-kicker { font-size:9px; font-weight:800; letter-spacing:.11em; text-transform:uppercase; opacity:.62; }
-    .next-goal-main { position:relative; z-index:1; display:flex; align-items:end; justify-content:space-between; gap:20px; margin-top:30px; }
+    .next-goal-main { position:relative; z-index:1; display:flex; align-items:end; justify-content:space-between; gap:36px; margin-top:30px; }
     .next-goal-name { margin-top:7px; font-size:30px; font-weight:830; letter-spacing:-.045em; }
     .next-goal-copy { margin-top:8px; color:rgba(255,255,255,.68); font-size:12px; }
     .goal-number { flex:0 0 auto; font-size:44px; font-weight:850; letter-spacing:-.06em; line-height:.9; }
@@ -2540,6 +2540,199 @@
     @media(max-width:760px){.journey-card,.apex-road-card{grid-column:auto}.journey-line{grid-template-columns:repeat(4,1fr)}.apex-road-main{grid-template-columns:1fr}.apex-percent{font-size:48px}}
     @media(max-width:460px){.journey-line{grid-template-columns:repeat(2,1fr)}}
 
+
+    /* ===== Bottom App Navigation ===== */
+    .app.with-bottom-nav { padding-bottom: max(112px, calc(92px + env(safe-area-inset-bottom))); }
+    .bottom-nav-shell {
+      position: fixed;
+      z-index: 80;
+      left: 50%;
+      bottom: max(14px, env(safe-area-inset-bottom));
+      width: min(520px, calc(100% - 32px));
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+    .bottom-nav {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      padding: 6px;
+      border: 1px solid rgba(255,255,255,.68);
+      border-radius: 24px;
+      background: rgba(255,255,255,.88);
+      box-shadow: 0 18px 48px rgba(23,18,48,.18);
+      backdrop-filter: blur(22px) saturate(150%);
+      -webkit-backdrop-filter: blur(22px) saturate(150%);
+      pointer-events: auto;
+    }
+    .bottom-nav-button {
+      position: relative;
+      display: flex;
+      min-width: 0;
+      min-height: 58px;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 12px;
+      border: 0;
+      border-radius: 18px;
+      color: var(--muted);
+      background: transparent;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 760;
+      transition: color .2s ease, background .25s var(--ease), transform .18s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .bottom-nav-button svg { width: 19px; height: 19px; flex: 0 0 auto; }
+    .bottom-nav-button:hover { color: var(--ink); background: var(--card-soft); }
+    .bottom-nav-button:active { transform: scale(.97); }
+    .bottom-nav-button.active {
+      color: #fff;
+      background: linear-gradient(135deg, var(--brand), #8b72ff);
+      box-shadow: 0 8px 18px rgba(114,87,247,.24);
+    }
+
+    /* ===== Fortschritt-Ansicht ===== */
+    /* Tab-Seiten dürfen keinen transformierten Elterncontainer haben:
+       position: fixed der Bottom-Navigation bleibt dadurch wirklich am Viewport. */
+    .tab-page { animation: tabPageFadeIn .35s ease both; }
+
+    @keyframes tabPageFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .tab-page-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 22px 4px 20px;
+    }
+    .tab-page-head h1 { margin: 6px 0 0; font-size: clamp(34px,5vw,48px); font-weight: 840; letter-spacing: -.055em; }
+    .tab-page-head p { max-width: 620px; margin: 9px 0 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
+    .progress-overview { display: grid; gap: 18px; }
+    .progress-category { padding: 24px; border: 1px solid var(--line); border-radius: 28px; background: var(--card); box-shadow: var(--shadow-card); }
+    .progress-category-head { display:flex; align-items:end; justify-content:space-between; gap:16px; margin-bottom:15px; }
+    .progress-category-title { font-size: 22px; font-weight: 820; letter-spacing: -.04em; }
+    .progress-category-meta { margin-top:5px; color:var(--muted); font-size:10px; }
+    .progress-list { display:grid; gap:9px; }
+    .progress-row {
+      --row-accent: var(--brand);
+      display:grid;
+      grid-template-columns: 1fr auto;
+      gap:14px;
+      align-items:center;
+      padding:14px 15px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:var(--card-soft);
+      cursor:pointer;
+      transition:transform .2s var(--ease),border-color .2s ease,background .2s ease;
+    }
+    .progress-row:hover { transform:translateY(-2px); border-color:color-mix(in srgb,var(--row-accent) 30%,var(--line)); }
+    .progress-row-main { min-width:0; }
+    .progress-row-top { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .progress-row-name { overflow:hidden; font-size:14px; font-weight:790; text-overflow:ellipsis; white-space:nowrap; }
+    .progress-row-value { flex:0 0 auto; color:var(--muted); font-size:10px; font-weight:720; }
+    .progress-row-rank { margin-top:5px; color:var(--row-accent); font-size:10px; font-weight:800; }
+    .progress-row-bar { height:5px; margin-top:10px; overflow:hidden; border-radius:99px; background:#e7e5eb; }
+    .progress-row-bar span { display:block; height:100%; border-radius:inherit; background:var(--row-accent); }
+    .progress-row-next { display:grid; width:34px; height:34px; place-items:center; border-radius:50%; color:var(--ink); background:var(--card); border:1px solid var(--line); }
+    .progress-row-next svg { width:14px; height:14px; }
+
+    /* ===== Profil-Ansicht ===== */
+    .profile-page-grid { display:block; }
+    .athlete-profile-shell { display:grid; gap:16px; }
+    .athlete-profile-hero {
+      --profile-accent: var(--brand);
+      position:relative;
+      min-height:390px;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 260px;
+      align-items:center;
+      gap:30px;
+      padding:42px;
+      overflow:hidden;
+      border-radius:34px;
+      color:#fff;
+      background:
+        radial-gradient(circle at 82% 18%,color-mix(in srgb,var(--profile-accent) 44%,transparent),transparent 18rem),
+        linear-gradient(140deg,#171321 0%,#211936 48%,color-mix(in srgb,var(--profile-accent) 70%,#171321) 100%);
+      box-shadow:0 30px 65px color-mix(in srgb,var(--profile-accent) 22%,rgba(20,15,40,.24));
+    }
+    .athlete-profile-hero::before { position:absolute; inset:0; pointer-events:none; background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px); background-size:42px 42px; mask-image:linear-gradient(90deg,rgba(0,0,0,.72),transparent 92%); content:""; }
+    .athlete-profile-hero::after { position:absolute; width:360px; height:360px; right:-165px; bottom:-205px; border:1px solid rgba(255,255,255,.13); border-radius:50%; box-shadow:0 0 0 44px rgba(255,255,255,.03),0 0 0 90px rgba(255,255,255,.018); content:""; }
+    .athlete-profile-copy { position:relative; z-index:2; min-width:0; }
+    .athlete-profile-label { display:inline-flex; align-items:center; gap:8px; padding:8px 11px; border:1px solid rgba(255,255,255,.15); border-radius:999px; color:rgba(255,255,255,.66); background:rgba(255,255,255,.07); font-size:9px; font-weight:820; letter-spacing:.12em; text-transform:uppercase; }
+    .athlete-profile-label::before { width:7px; height:7px; border-radius:50%; background:var(--profile-accent); box-shadow:0 0 0 5px color-mix(in srgb,var(--profile-accent) 18%,transparent); content:""; }
+    .athlete-profile-name-row { display:flex; align-items:center; flex-wrap:wrap; gap:12px; margin-top:24px; }
+    .athlete-profile-avatar { display:grid; width:72px; height:72px; flex:0 0 auto; place-items:center; border:1px solid rgba(255,255,255,.15); border-radius:24px; color:#171321; background:#fff; box-shadow:0 16px 34px rgba(0,0,0,.22); font-size:23px; font-weight:880; letter-spacing:-.04em; }
+    .athlete-profile-name { min-width:0; font-size:clamp(38px,5vw,58px); font-weight:860; letter-spacing:-.06em; line-height:.94; }
+    .athlete-profile-edit { display:grid; width:38px; height:38px; place-items:center; border:1px solid rgba(255,255,255,.15); border-radius:50%; color:#fff; background:rgba(255,255,255,.08); cursor:pointer; transition:transform .18s ease,background .18s ease; }
+    .athlete-profile-edit:hover { transform:translateY(-2px); background:rgba(255,255,255,.14); }
+    .athlete-profile-edit svg { width:15px; height:15px; }
+    .athlete-profile-rank { margin-top:20px; color:rgba(255,255,255,.68); font-size:12px; font-weight:700; }
+    .athlete-profile-archetype { display:inline-flex; align-items:center; gap:8px; margin-top:12px; padding:8px 11px; border:1px solid rgba(255,255,255,.13); border-radius:999px; color:#fff; background:rgba(255,255,255,.075); font-size:9px; font-weight:820; letter-spacing:.08em; text-transform:uppercase; }
+    .athlete-profile-archetype i { width:7px; height:7px; border-radius:50%; background:var(--archetype); box-shadow:0 0 0 5px color-mix(in srgb,var(--archetype) 18%,transparent); }
+    .athlete-profile-signature { max-width:570px; margin:16px 0 0; color:rgba(255,255,255,.58); font-size:13px; line-height:1.6; }
+    .athlete-profile-badge { position:relative; z-index:2; display:grid; place-items:center; min-height:260px; }
+    .athlete-profile-badge .rank-badge { width:220px; height:220px; filter:drop-shadow(0 26px 36px rgba(0,0,0,.28)); }
+    .athlete-profile-actions { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:24px; max-width:440px; }
+    .athlete-profile-action { min-height:48px; padding:0 17px; border:1px solid rgba(255,255,255,.14); border-radius:15px; color:#fff; background:rgba(255,255,255,.075); font-size:11px; font-weight:800; cursor:pointer; transition:transform .2s var(--ease),background .2s ease; }
+    .athlete-profile-action.primary { color:#171321; background:#fff; }
+    .athlete-profile-action:hover { transform:translateY(-2px); background:rgba(255,255,255,.13); }
+    .athlete-profile-action.primary:hover { background:#fff; box-shadow:0 13px 28px rgba(0,0,0,.18); }
+    .profile-identity-grid { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr); gap:16px; }
+    .profile-identity-card { padding:28px; border:1px solid var(--line); border-radius:28px; background:var(--card); box-shadow:var(--shadow-card); }
+    .profile-identity-card h2 { margin:7px 0 0; font-size:27px; font-weight:830; letter-spacing:-.045em; }
+    .profile-identity-card p { margin:10px 0 0; color:var(--muted); font-size:12px; line-height:1.6; }
+    .profile-signature-line { display:flex; align-items:center; gap:10px; margin-top:22px; padding-top:20px; border-top:1px solid var(--line); }
+    .profile-signature-dot { width:10px; height:10px; flex:0 0 auto; border-radius:50%; background:var(--signature); box-shadow:0 0 0 6px color-mix(in srgb,var(--signature) 11%,transparent); }
+    .profile-signature-line strong { display:block; font-size:13px; }
+    .profile-signature-line span { display:block; margin-top:3px; color:var(--muted); font-size:9px; }
+    .profile-mini-facts { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-top:20px; }
+    .profile-mini-fact { padding:15px; border-radius:17px; background:var(--card-soft); }
+    .profile-mini-fact strong { display:block; font-size:17px; font-weight:830; letter-spacing:-.03em; }
+    .profile-mini-fact span { display:block; margin-top:5px; color:var(--muted); font-size:8px; font-weight:700; }
+    html[data-theme="dark"] .profile-identity-card { background:var(--card); border-color:var(--line); }
+
+    html[data-theme="dark"] .bottom-nav {
+      border-color: rgba(255,255,255,.08);
+      background: rgba(23,26,34,.88);
+      box-shadow: 0 18px 48px rgba(0,0,0,.36);
+    }
+    html[data-theme="dark"] .progress-row-bar { background:#292d36; }
+
+    @media(max-width:760px){
+      .bottom-nav-shell { bottom:max(8px,env(safe-area-inset-bottom)); width:calc(100% - 22px); }
+      .bottom-nav { border-radius:22px; }
+      .bottom-nav-button { min-height:56px; flex-direction:column; gap:3px; padding:5px 6px; font-size:9px; }
+      .bottom-nav-button svg { width:18px; height:18px; }
+      .tab-page-head { padding-top:10px; }
+      .progress-category { padding:18px; border-radius:24px; }
+      .athlete-profile-hero { grid-template-columns:1fr 190px; min-height:350px; padding:30px; }
+      .athlete-profile-badge { min-height:210px; }
+      .athlete-profile-badge .rank-badge { width:175px; height:175px; }
+      .profile-identity-grid { grid-template-columns:1fr; }
+    }
+
+    @media(max-width:560px){
+      .athlete-profile-hero { grid-template-columns:1fr; gap:12px; min-height:auto; padding:25px 20px 22px; border-radius:28px; }
+      .athlete-profile-name-row { gap:10px; margin-top:20px; }
+      .athlete-profile-avatar { width:58px; height:58px; border-radius:19px; font-size:19px; }
+      .athlete-profile-name { font-size:38px; }
+      .athlete-profile-badge { min-height:170px; margin-top:5px; }
+      .athlete-profile-badge .rank-badge { width:160px; height:160px; }
+      .athlete-profile-actions { grid-template-columns:1fr; max-width:none; }
+      .profile-identity-card { padding:22px; border-radius:24px; }
+      .profile-mini-facts { grid-template-columns:1fr 1fr; }
+    }
+
+    /* Fortschritt: bewusst nur gespeicherte Wertfolgen, ohne Rang-/Profil-Dopplungen */
+    .progress-history-list { display:grid; gap:16px; }
+    .progress-history-card { margin-top:0; }
+
   </style>
 </head>
 <body>
@@ -2704,6 +2897,7 @@
       }
 
       const state = {
+        activeView: "home",
         activeCategory: CATEGORY_KEYS[0],
         activeExerciseId: null,
         values: loadValues(),
@@ -3127,6 +3321,121 @@
         return null;
       }
 
+
+      function renderBottomNav(active = "home") {
+        const items = [
+          { key: "home", label: "Home", icon: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 10.7 12 3.8l8.5 6.9v8.1a1.7 1.7 0 0 1-1.7 1.7H5.2a1.7 1.7 0 0 1-1.7-1.7v-8.1Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 20.5v-6.2h6v6.2" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>` },
+          { key: "progress", label: "Fortschritt", icon: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19V9M12 19V5M19 19v-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M3.5 19.5h17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>` },
+          { key: "profile", label: "Profil", icon: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.7"/><path d="M5.5 19c.7-3.3 3-5 6.5-5s5.8 1.7 6.5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>` }
+        ];
+        return `<div class="bottom-nav-shell"><nav class="bottom-nav" aria-label="Hauptnavigation">${items.map(item => `<button class="bottom-nav-button ${active===item.key?'active':''}" type="button" onclick="caliApp.openView('${item.key}')" aria-current="${active===item.key?'page':'false'}">${item.icon}<span>${item.label}</span></button>`).join('')}</nav></div>`;
+      }
+
+      function renderProfileCard(overall, entered, completion) {
+        const categories = CATEGORY_KEYS.map(key => ({ key, info: getCategoryRank(key) }));
+        const strongest = categories.filter(x => !x.info.isUnranked).sort((a,b) => b.info.score-a.info.score)[0];
+        const archetype = getAthleteArchetype();
+        const overallAccent = overall.isUnranked ? "#7257f7" : overall.accent;
+        const overallLabel = overall.isUnranked ? "Noch ohne Rang" : overall.name;
+        const strongestLabel = strongest ? DATA[strongest.key].label : "Noch offen";
+        return `<div class="athlete-profile-shell">
+          <section class="athlete-profile-hero" style="--profile-accent:${overallAccent}">
+            <div class="athlete-profile-copy">
+              <div class="athlete-profile-label">Clastanic Athlete</div>
+              <div class="athlete-profile-name-row">
+                <div class="athlete-profile-avatar">${escapeHtml(profileInitials(state.name))}</div>
+                <div class="athlete-profile-name">${escapeHtml(state.name)}</div>
+                <button class="athlete-profile-edit" type="button" onclick="caliApp.editName()" aria-label="Namen bearbeiten" title="Namen bearbeiten"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20l4.2-1 9.9-9.9a2.2 2.2 0 0 0-3.1-3.1L5.1 15.9 4 20Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.8 7.2l3 3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
+              </div>
+              <div class="athlete-profile-rank">Overall Strength · ${escapeHtml(overallLabel)}</div>
+              <div class="athlete-profile-archetype" style="--archetype:${archetype.accent}"><i></i>${escapeHtml(archetype.name)}</div>
+              <p class="athlete-profile-signature">${escapeHtml(archetype.copy)}</p>
+              <div class="athlete-profile-actions">
+                <button class="athlete-profile-action primary" type="button" onclick="caliApp.showShareCard()">Strength Card teilen ↗</button>
+                <button class="athlete-profile-action" type="button" onclick="caliApp.editName()">Profil bearbeiten</button>
+              </div>
+            </div>
+            <div class="athlete-profile-badge">${rankBadge(overall,220,overall.isUnranked?0:overall.progress)}</div>
+          </section>
+          <div class="profile-identity-grid">
+            <section class="profile-identity-card">
+              <div class="hub-kicker">Athleten-Identität</div>
+              <h2>${escapeHtml(archetype.name)}</h2>
+              <p>${escapeHtml(archetype.copy)} Dein Profil wird aus deinen tatsächlich erfassten Leistungen abgeleitet und entwickelt sich mit dir weiter.</p>
+              <div class="profile-signature-line" style="--signature:${archetype.accent}"><span class="profile-signature-dot"></span><div><strong>Deine aktuelle Signatur</strong><span>${escapeHtml(strongestLabel)} prägt dein Profil derzeit am stärksten.</span></div></div>
+            </section>
+            <section class="profile-identity-card">
+              <div class="hub-kicker">Profilstatus</div>
+              <h2>Deine Athlete Card.</h2>
+              <p>Persönlich, lokal gespeichert und jederzeit teilbar.</p>
+              <div class="profile-mini-facts">
+                <div class="profile-mini-fact"><strong>${escapeHtml(overallLabel)}</strong><span>Aktuelle Identität</span></div>
+                <div class="profile-mini-fact"><strong>${completion}%</strong><span>Profil ausgefüllt</span></div>
+                <div class="profile-mini-fact"><strong>${entered}</strong><span>Leistungen hinterlegt</span></div>
+                <div class="profile-mini-fact"><strong>${escapeHtml(strongestLabel)}</strong><span>Signature Area</span></div>
+              </div>
+            </section>
+          </div>
+        </div>`;
+      }
+
+      function renderProgressPage() {
+        if (!state.name) { renderWelcome(); return; }
+        state.activeView = "progress";
+        const overall = getOverallRank();
+        document.documentElement.style.setProperty("--accent", overall.isUnranked ? "#7257f7" : overall.accent);
+
+        const historyItems = ALL_EXERCISES.map(exercise => {
+          const list = Array.isArray(state.history[exercise.id]) ? state.history[exercise.id] : [];
+          if (!list.length) return "";
+          return `<section class="history-card progress-history-card">
+            <div class="history-head">
+              <div>
+                <div class="hub-kicker">${escapeHtml(DATA[exercise.category].label)}</div>
+                <h2>${escapeHtml(exercise.name)}</h2>
+              </div>
+            </div>
+            <div class="history-values">${list.map(x => `<span class="history-value">${escapeHtml(formatValue(x.value, exercise.type))}</span>`).join('<span aria-hidden="true">→</span>')}</div>
+          </section>`;
+        }).filter(Boolean).join("");
+
+        document.getElementById("app").innerHTML = `<div class="app with-bottom-nav tab-page">
+          <header class="topbar">${brandMarkup()}<div class="top-actions">${themeToggleMarkup()}</div></header>
+          <section class="tab-page-head">
+            <div>
+              <div class="hub-kicker">Fortschrittsverlauf</div>
+              <h1>Dein Fortschritt.</h1>
+            </div>
+          </section>
+          <div class="progress-history-list">
+            ${historyItems || `<section class="history-card progress-history-card"><div class="history-values"><span class="history-value">Noch keine Fortschritte gespeichert</span></div></section>`}
+          </div>
+          ${renderBottomNav('progress')}
+        </div>`;
+        window.scrollTo({top:0,behavior:"auto"});
+      }
+
+      function renderProfilePage() {
+        if (!state.name) { renderWelcome(); return; }
+        state.activeView = "profile";
+        const overall = getOverallRank();
+        const entered = ALL_EXERCISES.filter(exercise => hasStoredValue(exercise.id)).length;
+        const completion = Math.round((entered / ALL_EXERCISES.length) * 100);
+        document.documentElement.style.setProperty("--accent", overall.isUnranked ? "#7257f7" : overall.accent);
+        document.getElementById("app").innerHTML = `<div class="app with-bottom-nav tab-page">
+          <header class="topbar">${brandMarkup()}<div class="top-actions">${themeToggleMarkup()}<button class="icon-button" type="button" onclick="caliApp.requestReset()" aria-label="Alle Trainingswerte zurücksetzen" title="Alles zurücksetzen">${resetIcon()}</button></div></header>
+          <section class="tab-page-head">
+            <div>
+              <div class="hub-kicker">Athletenprofil</div>
+              <h1>Profil.</h1>
+            </div>
+          </section>
+          <div class="profile-page-grid">${renderProfileCard(overall,entered,completion)}</div>
+          ${renderBottomNav('profile')}
+        </div>`;
+        window.scrollTo({top:0,behavior:"auto"});
+      }
+
       function renderPerformanceHub(overall, entered, completion) {
         const goal = getNextGoal();
         const categories = CATEGORY_KEYS.map(key => ({ key, info: getCategoryRank(key) }));
@@ -3139,7 +3448,7 @@
           const roundText = `${nextName} · ${goal.position}/${goal.total}`;
           return `<section class="hub-card next-goal-card" role="button" tabindex="0" onclick="caliApp.openExercise('${goal.exercise.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();caliApp.openExercise('${goal.exercise.id}')}" style="cursor:pointer"><div class="hub-kicker">Heute verbessern · Runde ${escapeHtml(roundText)}</div><div class="next-goal-main"><div><div class="next-goal-name">${escapeHtml(goal.exercise.name)}</div><div class="next-goal-copy">Noch ${escapeHtml(missingText)} bis ${escapeHtml(nextName)}</div><div class="goal-action">Ziel angehen →</div></div><div class="goal-number">${Math.round(goal.ratio*100)}%<small>${escapeHtml(nextName)}</small></div></div><div class="goal-track"><span style="width:${clamp(goal.ratio*100,0,100)}%"></span></div></section>`;
         })() : `<section class="hub-card next-goal-card"><div class="hub-kicker">Alle Runden abgeschlossen</div><div class="next-goal-main"><div><div class="next-goal-name">Apex komplett.</div><div class="next-goal-copy">Alle ${ALL_EXERCISES.length} Übungen haben den höchsten Rang erreicht.</div></div><div class="goal-number">100%<small>Apex</small></div></div><div class="goal-track"><span style="width:100%"></span></div></section>`;
-        return `<div class="performance-hub">${goalMarkup}<section class="hub-card profile-card"><div class="profile-head"><div class="profile-avatar">${escapeHtml(profileInitials(state.name))}</div><div><div class="hub-kicker">Athletenprofil</div><div class="profile-name-row"><div class="profile-name">${escapeHtml(state.name)}</div><button class="edit-name-button" type="button" onclick="caliApp.editName();event.stopPropagation()" aria-label="Namen bearbeiten" title="Namen bearbeiten"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20l4.2-1 9.9-9.9a2.2 2.2 0 0 0-3.1-3.1L5.1 15.9 4 20Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.8 7.2l3 3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button></div><div class="profile-rank">${overall.isUnranked?'Dein Strength Profile startet hier':`Overall Strength · ${escapeHtml(overall.name)}`}</div><div class="archetype-pill" style="--archetype:${archetype.accent}" title="${escapeHtml(archetype.copy)}"><i></i>${escapeHtml(archetype.name)}</div></div></div><div class="profile-stats"><div class="profile-stat"><strong>${completion}%</strong><span>Profil vollständig</span></div><div class="profile-stat"><strong>${entered}/${ALL_EXERCISES.length}</strong><span>Übungen erfasst</span></div><div class="profile-stat"><strong>${strongest?escapeHtml(DATA[strongest.key].label):'–'}</strong><span>Stärkster Bereich</span></div><button class="share-profile-button" type="button" onclick="caliApp.showShareCard()">Strength Card teilen ↗</button></div></section>${renderClosestCard()}${renderRoadToApex()}${renderStrengthDNA()}<section class="hub-card strength-card"><div class="strength-head"><div><div class="hub-kicker">Strength Breakdown</div><h2>Deine vier Bereiche.</h2><p>Rang und Vollständigkeit werden pro Kategorie getrennt berechnet.</p></div></div><div class="strength-grid">${categories.map(({key,info})=>`<div class="strength-item" style="--cat:${getCategoryAccent(key)}"><div class="strength-item-top"><span class="strength-label">${escapeHtml(DATA[key].label)}</span><span class="strength-dot"></span></div><div class="strength-rank">${info.isUnranked?'Offen':escapeHtml(info.name)}</div><div class="strength-meta">${info.entered}/${info.total} Übungen · ${info.completion}% komplett</div><div class="strength-bar"><span style="width:${info.isUnranked?0:clamp(((info.idx+info.progress/100)/12)*100,0,100)}%"></span></div></div>`).join('')}</div></section></div>`;
+        return `<div class="performance-hub">${goalMarkup}${renderClosestCard()}${renderRoadToApex()}${renderStrengthDNA()}<section class="hub-card strength-card"><div class="strength-head"><div><div class="hub-kicker">Strength Breakdown</div><h2>Deine vier Bereiche.</h2><p>Rang und Vollständigkeit werden pro Kategorie getrennt berechnet.</p></div></div><div class="strength-grid">${categories.map(({key,info})=>`<div class="strength-item" style="--cat:${getCategoryAccent(key)}"><div class="strength-item-top"><span class="strength-label">${escapeHtml(DATA[key].label)}</span><span class="strength-dot"></span></div><div class="strength-rank">${info.isUnranked?'Offen':escapeHtml(info.name)}</div><div class="strength-meta">${info.entered}/${info.total} Übungen · ${info.completion}% komplett</div><div class="strength-bar"><span style="width:${info.isUnranked?0:clamp(((info.idx+info.progress/100)/12)*100,0,100)}%"></span></div></div>`).join('')}</div></section></div>`;
       }
 
       function formatTime(seconds) {
@@ -3392,6 +3701,7 @@
       }
 
       function renderHome() {
+        state.activeView = "home";
         if (!state.name) { renderWelcome(); return; }
         const overall = getOverallRank();
         const entered = ALL_EXERCISES.filter(exercise => hasStoredValue(exercise.id)).length;
@@ -3408,7 +3718,7 @@
         document.documentElement.style.setProperty("--accent-deep", overall.deep);
 
         document.getElementById("app").innerHTML = `
-          <div class="app clean-home">
+          <div class="app clean-home with-bottom-nav">
             <header class="topbar">
               ${brandMarkup()}
               <div class="top-actions">
@@ -3480,6 +3790,7 @@
             </section>
 
             <div class="footer-note">Deine Werte werden ausschließlich lokal in diesem Browser gespeichert.</div>
+            ${renderBottomNav("home")}
           </div>`;
 
         updateTabSlider(false);
@@ -3953,6 +4264,14 @@
           }
         },
 
+        openView(view) {
+          commitPendingHistory();
+          state.activeExerciseId = null;
+          if (view === "progress") renderProgressPage();
+          else if (view === "profile") renderProfilePage();
+          else renderHome();
+        },
+
         openExercise(id) {
           const exercise = ALL_EXERCISES.find(item => item.id === id);
           if (!exercise) return;
@@ -4065,7 +4384,9 @@
           const name = saveProfileName(input?.value || "");
           if (!name) { input?.focus(); return; }
           closeNameEditModal();
-          renderHome();
+          if (state.activeView === "profile") renderProfilePage();
+          else if (state.activeView === "progress") renderProgressPage();
+          else renderHome();
           showToast("Name aktualisiert.");
         },
 

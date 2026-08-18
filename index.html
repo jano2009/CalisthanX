@@ -3571,8 +3571,7 @@
       }
 
       async function ensureOnlineProfile() {
-        // Verhindert, dass mehrere gleichzeitige Syncs dasselbe Profil
-        // parallel anlegen und dadurch einen 23505-Fehler erzeugen.
+        // Es darf immer nur ein Profil-Sync gleichzeitig laufen.
         if (onlineProfilePromise) return onlineProfilePromise;
 
         onlineProfilePromise = (async () => {
@@ -3580,8 +3579,8 @@
           const user = await ensureSocialAuth();
           if (!sb || !user || !state.name) return null;
 
-          let profile = null;
-
+          // Vorhandenes Profil laden, damit der bestehende Freundescode
+          // auf keinen Fall unnötig geändert wird.
           const { data: existing, error: readError } = await sb
             .from("profiles")
             .select("id,friend_code,display_name,avatar_data")
@@ -3589,74 +3588,53 @@
             .maybeSingle();
 
           if (readError) throw readError;
-          profile = existing || null;
 
-          if (!profile) {
-            let lastError = null;
+          let friendCode = existing?.friend_code || null;
 
-            for (let attempt = 0; attempt < 8 && !profile; attempt += 1) {
-              const friendCode = randomFriendCode();
+          // Nur für einen wirklich neuen User einen Code erzeugen.
+          if (!friendCode) {
+            for (let attempt = 0; attempt < 8; attempt += 1) {
+              const candidate = randomFriendCode();
 
-              const { data, error } = await sb
+              const { data: codeOwner, error: codeError } = await sb
                 .from("profiles")
-                .insert({
-                  id: user.id,
-                  friend_code: friendCode,
-                  display_name: state.name,
-                  avatar_data: state.profileImage || null
-                })
-                .select("id,friend_code,display_name,avatar_data")
-                .single();
+                .select("id")
+                .eq("friend_code", candidate)
+                .maybeSingle();
 
-              if (!error) {
-                profile = data;
+              if (codeError) throw codeError;
+
+              if (!codeOwner) {
+                friendCode = candidate;
                 break;
               }
-
-              lastError = error;
-
-              if (error.code === "23505") {
-                // Ein paralleler Request könnte unser Profil gerade angelegt haben.
-                const { data: nowExisting, error: retryReadError } = await sb
-                  .from("profiles")
-                  .select("id,friend_code,display_name,avatar_data")
-                  .eq("id", user.id)
-                  .maybeSingle();
-
-                if (retryReadError) throw retryReadError;
-
-                if (nowExisting) {
-                  profile = nowExisting;
-                  break;
-                }
-
-                // Existiert unsere ID weiterhin nicht, war nur der zufällige
-                // friend_code bereits vergeben -> nächsten Code versuchen.
-                continue;
-              }
-
-              throw error;
             }
 
-            if (!profile) {
-              throw lastError || new Error("Profil konnte nicht angelegt werden.");
+            if (!friendCode) {
+              throw new Error("Kein eindeutiger Freundescode konnte erzeugt werden.");
             }
           }
 
-          const { data: updatedProfile, error: updateError } = await sb
+          // WICHTIG:
+          // Nicht mehr INSERT, sondern UPSERT über die Auth-User-ID.
+          // Existiert dieselbe ID bereits, wird das Profil aktualisiert.
+          // Dadurch kann profiles_pkey nicht mehr durch einen zweiten Sync
+          // derselben User-ID ausgelöst werden.
+          const { data: profile, error: profileError } = await sb
             .from("profiles")
-            .update({
+            .upsert({
+              id: user.id,
+              friend_code: friendCode,
               display_name: state.name,
               avatar_data: state.profileImage || null,
               updated_at: new Date().toISOString()
-            })
-            .eq("id", user.id)
+            }, { onConflict: "id" })
             .select("id,friend_code,display_name,avatar_data")
             .single();
 
-          if (updateError) throw updateError;
-          profile = updatedProfile;
+          if (profileError) throw profileError;
 
+          // Trainingswerte ebenfalls per User-ID spiegeln.
           const { error: statsError } = await sb
             .from("stats")
             .upsert({

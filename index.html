@@ -2218,6 +2218,7 @@
     .share-stat strong { display:block; font-size:15px; }
     .share-stat span { display:block; margin-top:4px; color:rgba(255,255,255,.52); font-size:8px; }
     .share-actions { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-top:12px; }
+    .share-export-note { margin-top:12px; color:var(--muted); font-size:9px; line-height:1.5; text-align:center; }
     @media(max-width:760px){.closest-grid{grid-template-columns:1fr}.closest-card{grid-column:auto}}
 
 
@@ -3179,12 +3180,149 @@
       function showShareCard() {
         const overall = getOverallRank();
         const categories = CATEGORY_KEYS.map(key => ({key,info:getCategoryRank(key)}));
-        const entered = ALL_EXERCISES.filter(exercise => hasStoredValue(exercise.id)).length;
+        const archetype = getAthleteArchetype();
         const modal = document.createElement("div");
-        modal.className="modal"; modal.id="share-modal";
+        modal.className="modal";
+        modal.id="share-modal";
         modal.onclick=e=>{if(e.target===modal) modal.remove();};
-        modal.innerHTML=`<section class="modal-panel share-panel"><div class="share-card"><div class="hub-kicker">Clastanic Strength Profile</div><div class="share-name">${escapeHtml(state.name)}</div><div class="share-rank">Overall Strength · ${escapeHtml(overall.isUnranked?'Offen':overall.name)}</div><div class="share-grid">${categories.map(({key,info})=>`<div class="share-stat"><strong>${escapeHtml(DATA[key].label)} · ${escapeHtml(info.isUnranked?'Offen':info.name)}</strong><span>${info.entered}/${info.total} Übungen erfasst</span></div>`).join("")}</div></div><div class="share-actions"><button class="quiet-button" onclick="document.getElementById('share-modal')?.remove()">Schließen</button><button class="primary-button" onclick="caliApp.shareProfile()">Teilen</button></div></section>`;
+
+        modal.innerHTML=`<section class="modal-panel share-panel">
+          <div class="share-card">
+            <div class="hub-kicker">Clastanic Strength Profile</div>
+            <div class="share-name">${escapeHtml(state.name)}</div>
+            <div class="share-rank">Overall Strength · ${escapeHtml(overall.isUnranked?'Offen':overall.name)} · ${escapeHtml(archetype.name)}</div>
+            <div class="share-grid">
+              ${categories.map(({key,info})=>`
+                <div class="share-stat">
+                  <strong>${escapeHtml(DATA[key].label)} · ${escapeHtml(info.isUnranked?'Offen':info.name)}</strong>
+                  <span>${info.entered}/${info.total} Übungen erfasst</span>
+                </div>`).join("")}
+            </div>
+          </div>
+          <div class="share-actions">
+            <button class="quiet-button" onclick="document.getElementById('share-modal')?.remove()">Schließen</button>
+            <button class="primary-button" onclick="caliApp.shareProfile()">Card teilen ↗</button>
+          </div>
+          <div class="share-export-note">Beim Teilen wird diese Strength Card als gestaltetes PNG erzeugt – nicht nur als Text.</div>
+        </section>`;
         document.body.appendChild(modal);
+      }
+
+      function escapeXml(value) {
+        return String(value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&apos;");
+      }
+
+      function strengthCardSvg() {
+        const overall = getOverallRank();
+        const archetype = getAthleteArchetype();
+        const categories = CATEGORY_KEYS.map(key => ({ key, info: getCategoryRank(key) }));
+        const overallLabel = overall.isUnranked ? "Offen" : overall.name;
+        const overallAccent = overall.isUnranked ? "#7257f7" : overall.accent;
+        const name = escapeXml(state.name || "Athlet");
+
+        const cards = categories.map(({key, info}, index) => {
+          const x = index % 2 === 0 ? 72 : 604;
+          const y = index < 2 ? 650 : 824;
+          const label = escapeXml(DATA[key].label);
+          const rank = escapeXml(info.isUnranked ? "Offen" : info.name);
+          const meta = `${info.entered}/${info.total} Übungen`;
+          const accent = getCategoryAccent(key);
+          return `
+            <g transform="translate(${x} ${y})">
+              <rect width="468" height="142" rx="28" fill="rgba(255,255,255,.075)" stroke="rgba(255,255,255,.13)"/>
+              <circle cx="36" cy="36" r="7" fill="${accent}"/>
+              <text x="58" y="41" fill="rgba(255,255,255,.62)" font-size="18" font-weight="800" letter-spacing="1.3">${label.toUpperCase()}</text>
+              <text x="28" y="88" fill="#fff" font-size="34" font-weight="850">${rank}</text>
+              <text x="28" y="118" fill="rgba(255,255,255,.50)" font-size="17" font-weight="650">${escapeXml(meta)}</text>
+            </g>`;
+        }).join("");
+
+        return `<svg xmlns="http://www.w3.org/2000/svg" width="1140" height="1140" viewBox="0 0 1140 1140">
+          <defs>
+            <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#171321"/>
+              <stop offset=".56" stop-color="#2b2048"/>
+              <stop offset="1" stop-color="${overallAccent}"/>
+            </linearGradient>
+            <radialGradient id="glow" cx=".82" cy=".12" r=".56">
+              <stop offset="0" stop-color="${overallAccent}" stop-opacity=".55"/>
+              <stop offset="1" stop-color="${overallAccent}" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#000" flood-opacity=".28"/>
+            </filter>
+          </defs>
+
+          <rect width="1140" height="1140" rx="64" fill="url(#bg)"/>
+          <rect width="1140" height="1140" rx="64" fill="url(#glow)"/>
+
+          <g opacity=".08">
+            ${Array.from({length: 15}, (_, i) => `<path d="M0 ${70+i*72}H1140" stroke="#fff"/>`).join("")}
+            ${Array.from({length: 15}, (_, i) => `<path d="M${70+i*72} 0V1140" stroke="#fff"/>`).join("")}
+          </g>
+
+          <circle cx="1020" cy="1010" r="210" fill="none" stroke="rgba(255,255,255,.10)"/>
+          <circle cx="1020" cy="1010" r="270" fill="none" stroke="rgba(255,255,255,.05)"/>
+
+          <text x="72" y="88" fill="rgba(255,255,255,.54)" font-size="18" font-weight="800" letter-spacing="2.6">CLASTANIC · STRENGTH PROFILE</text>
+          <text x="72" y="176" fill="#fff" font-size="72" font-weight="900" letter-spacing="-3">${name}</text>
+          <text x="72" y="224" fill="rgba(255,255,255,.62)" font-size="24" font-weight="700">Overall Strength · ${escapeXml(overallLabel)}</text>
+
+          <g transform="translate(72 290)">
+            <rect width="440" height="82" rx="41" fill="rgba(255,255,255,.075)" stroke="rgba(255,255,255,.13)"/>
+            <circle cx="44" cy="41" r="9" fill="${archetype.accent}"/>
+            <text x="72" y="49" fill="#fff" font-size="23" font-weight="820">${escapeXml(archetype.name)}</text>
+          </g>
+
+          <g transform="translate(760 116)" filter="url(#shadow)">
+            <circle cx="120" cy="120" r="118" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.14)" stroke-width="2"/>
+            <circle cx="120" cy="120" r="96" fill="${overallAccent}" opacity=".18"/>
+            <text x="120" y="111" fill="rgba(255,255,255,.55)" font-size="20" text-anchor="middle" font-weight="800" letter-spacing="1.8">LEVEL</text>
+            <text x="120" y="151" fill="#fff" font-size="34" text-anchor="middle" font-weight="900">${escapeXml(overallLabel)}</text>
+          </g>
+
+          <text x="72" y="485" fill="rgba(255,255,255,.54)" font-size="18" font-weight="800" letter-spacing="2">ATHLETE IDENTITY</text>
+          <text x="72" y="540" fill="#fff" font-size="38" font-weight="860">${escapeXml(archetype.name)}</text>
+          <foreignObject x="72" y="565" width="770" height="76">
+            <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:rgba(255,255,255,.58);font-size:20px;line-height:1.45;">
+              ${escapeHtml(archetype.copy)}
+            </div>
+          </foreignObject>
+
+          ${cards}
+
+          <text x="72" y="1072" fill="rgba(255,255,255,.34)" font-size="16" font-weight="700">Generated locally by Clastanic</text>
+        </svg>`;
+      }
+
+      async function createStrengthCardBlob() {
+        const svg = strengthCardSvg();
+        const svgBlob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
+        const url = URL.createObjectURL(svgBlob);
+
+        try {
+          const image = await new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => resolve(img);
+            img.onerror = reject;
+            img.src = url;
+          });
+
+          const canvas = document.createElement("canvas");
+          canvas.width = 1140;
+          canvas.height = 1140;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(image, 0, 0, 1140, 1140);
+
+          return await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.95));
+        } finally {
+          URL.revokeObjectURL(url);
+        }
       }
 
 
@@ -4372,9 +4510,37 @@
 
         showShareCard() { showShareCard(); },
         async shareProfile() {
-          const text = `${state.name} · Clastanic Strength Profile · ${getOverallRank().isUnranked?'Offen':getOverallRank().name}`;
-          if (navigator.share) { try { await navigator.share({title:'Clastanic Strength Profile',text}); } catch (_) {} }
-          else { try { await navigator.clipboard.writeText(text); showToast('Profiltext kopiert.'); } catch (_) {} }
+          try {
+            const blob = await createStrengthCardBlob();
+            if (!blob) throw new Error("Strength Card konnte nicht erzeugt werden.");
+
+            const fileName = `Clastanic-Strength-Card-${sanitizeName(state.name).replace(/\s+/g,'-') || 'Athlet'}.png`;
+            const file = new File([blob], fileName, { type: "image/png" });
+
+            if (navigator.share && (!navigator.canShare || navigator.canShare({ files: [file] }))) {
+              await navigator.share({
+                title: "Clastanic Strength Card",
+                text: `${state.name} · ${getOverallRank().isUnranked ? 'Offen' : getOverallRank().name}`,
+                files: [file]
+              });
+              return;
+            }
+
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 1500);
+            showToast("Strength Card als Bild erstellt.");
+          } catch (error) {
+            if (error?.name !== "AbortError") {
+              console.error(error);
+              showToast("Strength Card konnte nicht geteilt werden.");
+            }
+          }
         },
 
         editName() { showNameEditModal(); },

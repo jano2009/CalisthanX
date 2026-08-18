@@ -2739,10 +2739,495 @@
     .progress-history-list { display:grid; gap:16px; }
     .progress-history-card { margin-top:0; }
 
+  
+    /* ===== Friends / Supabase – clean ===== */
+    .friends-card {
+      margin-top: 16px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: var(--card);
+      box-shadow: var(--shadow-card);
+    }
+
+    .friends-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .friends-head-copy h2 {
+      margin: 5px 0 0;
+      font-size: 25px;
+      font-weight: 830;
+      letter-spacing: -.04em;
+    }
+
+    .friends-head-copy p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.45;
+    }
+
+    .friends-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      flex: 0 0 auto;
+      padding: 7px 9px;
+      border-radius: 999px;
+      color: var(--success);
+      background: color-mix(in srgb, var(--success) 8%, var(--card));
+      font-size: 8px;
+      font-weight: 820;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    .friends-live::before {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--success);
+      content: "";
+    }
+
+    .friend-code-box {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) auto;
+      gap: 10px;
+      align-items: center;
+      margin-top: 18px;
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: var(--card-soft);
+    }
+
+    .friend-code-copy span {
+      display: block;
+      color: var(--muted);
+      font-size: 8px;
+      font-weight: 780;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .friend-code-copy strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 18px;
+      font-weight: 880;
+      letter-spacing: .12em;
+    }
+
+    .friend-small-button,
+    .friend-primary-button {
+      min-height: 40px;
+      padding: 0 13px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: var(--ink);
+      background: var(--card);
+      font-size: 9px;
+      font-weight: 820;
+      cursor: pointer;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+    }
+
+    .friend-small-button:hover,
+    .friend-primary-button:hover {
+      transform: translateY(-1px);
+    }
+
+    .friend-primary-button {
+      color: #fff;
+      border-color: var(--brand);
+      background: var(--brand);
+      box-shadow: 0 8px 18px rgba(114,87,247,.18);
+    }
+
+    .friend-search {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      margin-top: 9px;
+    }
+
+    .friend-search input {
+      min-width: 0;
+      height: 42px;
+      padding: 0 13px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      outline: 0;
+      color: var(--ink);
+      background: var(--card-soft);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .friends-section {
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .friends-section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 9px;
+    }
+
+    .friends-section-head strong {
+      font-size: 12px;
+      font-weight: 820;
+    }
+
+    .friends-count {
+      display: grid;
+      min-width: 24px;
+      height: 24px;
+      padding: 0 7px;
+      place-items: center;
+      border-radius: 999px;
+      color: var(--muted);
+      background: var(--card-soft);
+      font-size: 8px;
+      font-weight: 850;
+    }
+
+    .friends-list {
+      display: grid;
+      gap: 7px;
+    }
+
+    .friend-person {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 11px;
+      width: 100%;
+      padding: 9px 10px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      color: var(--ink);
+      background: var(--card-soft);
+      text-align: left;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+
+    button.friend-person {
+      cursor: pointer;
+    }
+
+    button.friend-person:hover {
+      border-color: var(--line-strong);
+      background: var(--card);
+      transform: translateY(-1px);
+    }
+
+    .friend-avatar {
+      display: grid;
+      width: 44px;
+      height: 44px;
+      place-items: center;
+      overflow: hidden;
+      border-radius: 14px;
+      color: #fff;
+      background: linear-gradient(145deg,#8b72ff,#4f35dc);
+      font-size: 13px;
+      font-weight: 860;
+    }
+
+    .friend-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .friend-person-copy {
+      min-width: 0;
+    }
+
+    .friend-person-copy strong {
+      display: block;
+      overflow: hidden;
+      font-size: 12px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .friend-person-copy span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 8px;
+    }
+
+    .friend-actions {
+      display: flex;
+      gap: 5px;
+    }
+
+    .friend-actions button {
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--ink);
+      background: var(--card);
+      font-size: 12px;
+      font-weight: 850;
+      cursor: pointer;
+    }
+
+    .friend-actions .accept {
+      color: #fff;
+      border-color: var(--success);
+      background: var(--success);
+    }
+
+    .friends-empty,
+    .friends-message {
+      padding: 14px;
+      border: 1px dashed var(--line);
+      border-radius: 14px;
+      color: var(--muted);
+      background: var(--card-soft);
+      font-size: 9px;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    .friends-message {
+      margin-top: 22px;
+      padding: 18px 19px;
+      border-style: solid;
+      border-color: color-mix(in srgb, var(--brand) 14%, var(--line));
+      border-radius: 18px;
+      background:
+        linear-gradient(135deg,
+          color-mix(in srgb, var(--brand) 5%, var(--card)),
+          var(--card-soft));
+      text-align: left;
+    }
+
+    .friends-setup-state {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .friends-setup-icon {
+      position: relative;
+      display: grid;
+      width: 42px;
+      height: 42px;
+      flex: 0 0 auto;
+      place-items: center;
+      border-radius: 14px;
+      color: var(--brand);
+      background: color-mix(in srgb, var(--brand) 9%, var(--card));
+    }
+
+    .friends-setup-icon::before,
+    .friends-setup-icon::after {
+      position: absolute;
+      width: 15px;
+      height: 4px;
+      border-radius: 999px;
+      background: currentColor;
+      content: "";
+      transform: rotate(-45deg);
+    }
+
+    .friends-setup-icon::before { translate: -3px -3px; }
+    .friends-setup-icon::after { translate: 3px 3px; opacity: .45; }
+
+    .friends-setup-copy strong {
+      display: block;
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 820;
+    }
+
+    .friends-setup-copy span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.45;
+    }
+
+    .friend-profile-panel {
+      width: min(780px, 100%);
+      padding: 16px;
+    }
+
+    .friend-profile-hero {
+      --friend-accent: var(--brand);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 126px;
+      align-items: center;
+      gap: 20px;
+      padding: 24px;
+      border-radius: 24px;
+      color: #fff;
+      background:
+        radial-gradient(circle at 84% 16%, color-mix(in srgb,var(--friend-accent) 42%,transparent), transparent 14rem),
+        linear-gradient(135deg,#171321,#2b2048 58%,var(--friend-accent));
+    }
+
+    .friend-profile-hero h2 {
+      margin: 7px 0 0;
+      font-size: 32px;
+      font-weight: 860;
+      letter-spacing: -.05em;
+    }
+
+    .friend-profile-hero p {
+      margin: 7px 0 0;
+      color: rgba(255,255,255,.62);
+      font-size: 10px;
+    }
+
+    .friend-profile-avatar-big {
+      display: grid;
+      width: 112px;
+      height: 112px;
+      place-items: center;
+      overflow: hidden;
+      justify-self: end;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 32px;
+      color: #171321;
+      background: #fff;
+      box-shadow: 0 20px 36px rgba(0,0,0,.22);
+      font-size: 30px;
+      font-weight: 900;
+    }
+
+    .friend-profile-avatar-big img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .friend-category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+      margin-top: 10px;
+    }
+
+    .friend-category {
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--card-soft);
+    }
+
+    .friend-category span {
+      display: block;
+      color: var(--muted);
+      font-size: 8px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .friend-category strong {
+      display: block;
+      margin-top: 5px;
+      font-size: 13px;
+    }
+
+    .friend-exercise-list {
+      display: grid;
+      gap: 5px;
+      max-height: 380px;
+      margin-top: 10px;
+      overflow: auto;
+    }
+
+    .friend-exercise {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 10px 11px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: var(--card);
+    }
+
+    .friend-exercise > div:last-child {
+      text-align: right;
+    }
+
+    .friend-exercise strong {
+      display: block;
+      font-size: 10px;
+    }
+
+    .friend-exercise span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 8px;
+    }
+
+    @media(max-width:560px) {
+      .friends-card {
+        padding: 20px;
+        border-radius: 23px;
+      }
+
+      .friends-head {
+        align-items: flex-start;
+      }
+
+      .friends-head-copy h2 {
+        font-size: 23px;
+      }
+
+      .friend-search {
+        grid-template-columns: 1fr;
+      }
+
+      .friend-profile-hero {
+        grid-template-columns: 1fr 76px;
+        padding: 18px;
+      }
+
+      .friend-profile-avatar-big {
+        width: 72px;
+        height: 72px;
+        border-radius: 22px;
+        font-size: 21px;
+      }
+
+      .friend-profile-hero h2 {
+        font-size: 27px;
+      }
+
+      .friend-category-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
   </style>
 </head>
 <body>
   <main id="app"></main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script>
     (() => {
@@ -2755,6 +3240,12 @@
       const PROFILE_IMAGE_KEY = "clastanic-athlete-profile-image-v1";
       const HISTORY_KEY = "clastanic-progress-history-v1";
       const THEME_KEY = "clastanic-theme-v1";
+
+      /* ============================================================
+         SUPABASE – HIER NUR DEINE 2 WERTE EINTRAGEN
+         ============================================================ */
+      const SUPABASE_URL = "https://qemaedzzezoabpxwuuqt.supabase.co";
+      const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_n3wQjB3XseXWRwG0gqGuvg_qeNi9qlp";
       const STORAGE_PREFIX = "calisthenics-standards";
       const LEGACY_STORAGE_KEYS = [
         "calisthenics-standards",
@@ -2980,6 +3471,7 @@
           if (Object.keys(state.values).length === 0) localStorage.removeItem(STORAGE_KEY);
           else localStorage.setItem(STORAGE_KEY, JSON.stringify(state.values));
         } catch (_) {}
+        queueSocialSync();
       }
 
       function sanitizeName(value) {
@@ -2997,6 +3489,7 @@
           if (clean) localStorage.setItem(PROFILE_KEY, clean);
           else localStorage.removeItem(PROFILE_KEY);
         } catch (_) {}
+        queueSocialSync();
         return clean;
       }
 
@@ -3012,6 +3505,7 @@
           if (state.profileImage) localStorage.setItem(PROFILE_IMAGE_KEY, state.profileImage);
           else localStorage.removeItem(PROFILE_IMAGE_KEY);
         } catch (_) {}
+        queueSocialSync();
       }
 
       function profileAvatarMarkup(sizeClass = "athlete-profile-avatar") {
@@ -3019,6 +3513,508 @@
           return `<div class="${sizeClass} has-image" role="button" tabindex="0" onclick="document.getElementById('profile-image-input')?.click()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('profile-image-input')?.click()}" aria-label="Profilbild ändern" title="Profilbild ändern"><img src="${state.profileImage}" alt="Profilbild"></div>`;
         }
         return `<div class="${sizeClass}" role="button" tabindex="0" onclick="document.getElementById('profile-image-input')?.click()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('profile-image-input')?.click()}" aria-label="Profilbild hinzufügen" title="Profilbild hinzufügen">${escapeHtml(profileInitials(state.name))}</div>`;
+      }
+
+
+      let supabaseClient = null;
+      let socialUser = null;
+      let socialSyncTimer = null;
+
+      function supabaseConfigured() {
+        return /^https:\/\/.+\.supabase\.co$/i.test(SUPABASE_URL) &&
+               SUPABASE_PUBLISHABLE_KEY.startsWith("sb_publishable_") &&
+               !SUPABASE_URL.includes("DEIN-PROJEKT") &&
+               !SUPABASE_PUBLISHABLE_KEY.includes("DEIN_KEY");
+      }
+
+      function getSupabase() {
+        if (!supabaseConfigured()) return null;
+        if (!supabaseClient) {
+          supabaseClient = window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY,
+            {
+              auth: {
+                persistSession: true,
+                autoRefreshToken: true,
+                detectSessionInUrl: false
+              }
+            }
+          );
+        }
+        return supabaseClient;
+      }
+
+      function randomFriendCode() {
+        const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+        const values = new Uint32Array(6);
+        crypto.getRandomValues(values);
+        return Array.from(values, value => chars[value % chars.length]).join("");
+      }
+
+      async function ensureSocialAuth() {
+        const sb = getSupabase();
+        if (!sb) return null;
+        if (socialUser) return socialUser;
+
+        const { data: sessionData } = await sb.auth.getSession();
+        if (sessionData?.session?.user) {
+          socialUser = sessionData.session.user;
+          return socialUser;
+        }
+
+        const { data, error } = await sb.auth.signInAnonymously();
+        if (error) throw error;
+        socialUser = data.user;
+        return socialUser;
+      }
+
+      async function ensureOnlineProfile() {
+        const sb = getSupabase();
+        const user = await ensureSocialAuth();
+        if (!sb || !user || !state.name) return null;
+
+        const { data: existing, error: readError } = await sb
+          .from("profiles")
+          .select("id,friend_code,display_name,avatar_data")
+          .eq("id", user.id)
+          .maybeSingle();
+
+        if (readError) throw readError;
+
+        if (!existing) {
+          let created = null;
+
+          for (let attempt = 0; attempt < 8 && !created; attempt += 1) {
+            const friendCode = randomFriendCode();
+
+            const { data, error } = await sb
+              .from("profiles")
+              .insert({
+                id: user.id,
+                friend_code: friendCode,
+                display_name: state.name,
+                avatar_data: state.profileImage || null
+              })
+              .select("id,friend_code,display_name,avatar_data")
+              .single();
+
+            if (!error) {
+              created = data;
+              break;
+            }
+
+            if (error.code !== "23505") throw error;
+          }
+
+          if (!created) throw new Error("Kein eindeutiger Freundescode konnte erzeugt werden.");
+        } else {
+          const { error } = await sb
+            .from("profiles")
+            .update({
+              display_name: state.name,
+              avatar_data: state.profileImage || null,
+              updated_at: new Date().toISOString()
+            })
+            .eq("id", user.id);
+
+          if (error) throw error;
+        }
+
+        const { error: statsError } = await sb
+          .from("stats")
+          .upsert({
+            user_id: user.id,
+            values_json: state.values,
+            updated_at: new Date().toISOString()
+          }, { onConflict: "user_id" });
+
+        if (statsError) throw statsError;
+
+        const { data: profile, error: profileError } = await sb
+          .from("profiles")
+          .select("id,friend_code,display_name,avatar_data")
+          .eq("id", user.id)
+          .single();
+
+        if (profileError) throw profileError;
+        return profile;
+      }
+
+      function queueSocialSync() {
+        if (!supabaseConfigured() || !state?.name) return;
+        clearTimeout(socialSyncTimer);
+        socialSyncTimer = setTimeout(() => {
+          ensureOnlineProfile().catch(error => console.error("Supabase Sync:", error));
+        }, 450);
+      }
+
+      function friendAvatarMarkup(profile, big = false) {
+        const cls = big ? "friend-profile-avatar-big" : "friend-avatar";
+        if (profile?.avatar_data) {
+          return `<span class="${cls}"><img src="${profile.avatar_data}" alt=""></span>`;
+        }
+        return `<span class="${cls}">${escapeHtml(profileInitials(profile?.display_name || "CL"))}</span>`;
+      }
+
+      function getRemoteOverallRank(values) {
+        const entered = ALL_EXERCISES.filter(exercise => Number(values?.[exercise.id] || 0) > 0);
+        if (!entered.length) return { ...UNRANKED };
+
+        const score = entered.reduce((sum, exercise) => {
+          const value = Number(values[exercise.id] || 0);
+          return sum + Math.max(0, getRankInfo(value, exercise.t, true).idx);
+        }, 0) / entered.length;
+
+        const idx = Math.min(RANKS.length - 1, Math.floor(score));
+        return { idx, ...RANKS[idx], isUnranked: false };
+      }
+
+      function getRemoteCategoryRank(values, categoryKey) {
+        const exercises = DATA[categoryKey].exercises;
+        const entered = exercises.filter(exercise => Number(values?.[exercise.id] || 0) > 0);
+        if (!entered.length) return "Offen";
+
+        const score = entered.reduce((sum, exercise) => {
+          const value = Number(values[exercise.id] || 0);
+          return sum + Math.max(0, getRankInfo(value, exercise.t, true).idx);
+        }, 0) / entered.length;
+
+        return RANKS[Math.min(RANKS.length - 1, Math.floor(score))].name;
+      }
+
+      async function loadFriendsData() {
+        const sb = getSupabase();
+        const user = await ensureSocialAuth();
+
+        const { data: requests, error: reqError } = await sb
+          .from("friendships")
+          .select(`
+            id,
+            requester,
+            addressee,
+            status,
+            requester_profile:profiles!friendships_requester_fkey(
+              id, friend_code, display_name, avatar_data
+            )
+          `)
+          .eq("addressee", user.id)
+          .eq("status", "pending")
+          .order("created_at", { ascending: false });
+
+        if (reqError) throw reqError;
+
+        const { data: friendshipRows, error: friendsError } = await sb
+          .from("friendships")
+          .select(`
+            id,
+            requester,
+            addressee,
+            status,
+            requester_profile:profiles!friendships_requester_fkey(
+              id, friend_code, display_name, avatar_data
+            ),
+            addressee_profile:profiles!friendships_addressee_fkey(
+              id, friend_code, display_name, avatar_data
+            )
+          `)
+          .eq("status", "accepted")
+          .or(`requester.eq.${user.id},addressee.eq.${user.id}`)
+          .order("created_at", { ascending: false });
+
+        if (friendsError) throw friendsError;
+
+        const friends = (friendshipRows || []).map(row => ({
+          friendshipId: row.id,
+          profile: row.requester === user.id ? row.addressee_profile : row.requester_profile
+        })).filter(item => item.profile);
+
+        return { requests: requests || [], friends };
+      }
+
+      async function renderFriendsSection() {
+        const host = document.getElementById("friends-host");
+        if (!host) return;
+
+        if (!supabaseConfigured()) {
+          host.innerHTML = `
+            <section class="friends-card">
+              <div class="hub-kicker">Freunde</div>
+              <div class="friends-head">
+                <div class="friends-head-copy">
+                  <h2>Dein Kreis.</h2>
+                  <p>Verbinde dich mit Freunden und vergleicht eure Strength Profiles.</p>
+                </div>
+              </div>
+              <div class="friends-message">
+                <div class="friends-setup-state">
+                  <span class="friends-setup-icon" aria-hidden="true"></span>
+                  <div class="friends-setup-copy">
+                    <strong>Freunde noch nicht aktiviert</strong>
+                    <span>Verbinde Supabase, damit Freundescodes und gemeinsame Stats verfügbar werden.</span>
+                  </div>
+                </div>
+              </div>
+            </section>`;
+          return;
+        }
+
+        host.innerHTML = `
+          <section class="friends-card">
+            <div class="friends-message">Freundesdaten werden geladen …</div>
+          </section>`;
+
+        try {
+          const profile = await ensureOnlineProfile();
+          const { requests, friends } = await loadFriendsData();
+
+          host.innerHTML = `
+            <section class="friends-card">
+              <div class="friends-head">
+                <div class="friends-head-copy">
+                  <div class="hub-kicker">Freunde</div>
+                  <h2>Dein Kreis.</h2>
+                  <p>Code teilen, verbinden, Stats ansehen.</p>
+                </div>
+                <span class="friends-live">Online</span>
+              </div>
+
+              <div class="friend-code-box">
+                <div class="friend-code-copy">
+                  <span>Dein Freundescode</span>
+                  <strong>${escapeHtml(profile.friend_code)}</strong>
+                </div>
+                <button class="friend-small-button" type="button" onclick="caliApp.copyFriendCode('${profile.friend_code}')">Kopieren</button>
+              </div>
+
+              <div class="friend-search">
+                <input id="friend-code-input" maxlength="6" placeholder="FREUNDESCODE" autocomplete="off">
+                <button class="friend-primary-button" type="button" onclick="caliApp.sendFriendRequest()">Freund hinzufügen</button>
+              </div>
+
+              ${requests.length ? `
+                <div class="friends-section">
+                  <div class="friends-section-head">
+                    <strong>Offene Anfragen</strong>
+                    <span class="friends-count">${requests.length}</span>
+                  </div>
+                  <div class="friends-list">
+                    ${requests.map(row => {
+                      const p = row.requester_profile;
+                      return `
+                        <div class="friend-person">
+                          ${friendAvatarMarkup(p)}
+                          <div class="friend-person-copy">
+                            <strong>${escapeHtml(p?.display_name || "Athlet")}</strong>
+                            <span>${escapeHtml(p?.friend_code || "")}</span>
+                          </div>
+                          <div class="friend-actions">
+                            <button class="accept" type="button" onclick="caliApp.answerFriendRequest('${row.id}', true)">✓</button>
+                            <button type="button" onclick="caliApp.answerFriendRequest('${row.id}', false)">×</button>
+                          </div>
+                        </div>`;
+                    }).join("")}
+                  </div>
+                </div>` : ""}
+
+              <div class="friends-section">
+                <div class="friends-section-head">
+                  <strong>Freunde</strong>
+                  <span class="friends-count">${friends.length}</span>
+                </div>
+
+                <div class="friends-list">
+                  ${friends.length ? friends.map(item => `
+                    <button class="friend-person" type="button" onclick="caliApp.openFriendProfile('${item.profile.id}')">
+                      ${friendAvatarMarkup(item.profile)}
+                      <span class="friend-person-copy">
+                        <strong>${escapeHtml(item.profile.display_name)}</strong>
+                        <span>Strength Profile</span>
+                      </span>
+                      <span style="color:var(--muted);font-size:22px">›</span>
+                    </button>`).join("") : `<div class="friends-empty">Noch keine Freunde verbunden.</div>`}
+                </div>
+              </div>
+            </section>`;
+        } catch (error) {
+          console.error("Friends:", error);
+          host.innerHTML = `
+            <section class="friends-card">
+              <div class="friends-message">Supabase ist verbunden, aber die Freundesdaten konnten nicht geladen werden.<br>${escapeHtml(error.message || "")}</div>
+            </section>`;
+        }
+      }
+
+      async function sendFriendRequestByCode() {
+        const input = document.getElementById("friend-code-input");
+        const code = String(input?.value || "").trim().toUpperCase();
+        if (code.length !== 6) {
+          showToast("Bitte einen 6-stelligen Freundescode eingeben.");
+          return;
+        }
+
+        const sb = getSupabase();
+        const user = await ensureSocialAuth();
+
+        const { data: target, error: targetError } = await sb
+          .from("profiles")
+          .select("id,friend_code,display_name,avatar_data")
+          .eq("friend_code", code)
+          .maybeSingle();
+
+        if (targetError) throw targetError;
+        if (!target) {
+          showToast("Freundescode nicht gefunden.");
+          return;
+        }
+        if (target.id === user.id) {
+          showToast("Das ist dein eigener Freundescode.");
+          return;
+        }
+
+        const { data: existing, error: existingError } = await sb
+          .from("friendships")
+          .select("id,status,requester,addressee")
+          .or(`and(requester.eq.${user.id},addressee.eq.${target.id}),and(requester.eq.${target.id},addressee.eq.${user.id})`);
+
+        if (existingError) throw existingError;
+
+        if (existing?.some(row => row.status === "accepted")) {
+          showToast(`${target.display_name} ist bereits dein Freund.`);
+          return;
+        }
+
+        if (existing?.some(row => row.status === "pending")) {
+          showToast("Zwischen euch gibt es bereits eine offene Anfrage.");
+          return;
+        }
+
+        const { error } = await sb
+          .from("friendships")
+          .insert({
+            requester: user.id,
+            addressee: target.id,
+            status: "pending"
+          });
+
+        if (error) throw error;
+        if (input) input.value = "";
+        showToast(`Anfrage an ${target.display_name} gesendet.`);
+        await renderFriendsSection();
+      }
+
+      async function answerFriendRequestOnline(friendshipId, accept) {
+        const sb = getSupabase();
+
+        if (accept) {
+          const { error } = await sb
+            .from("friendships")
+            .update({ status: "accepted" })
+            .eq("id", friendshipId);
+
+          if (error) throw error;
+          showToast("Freundschaft angenommen.");
+        } else {
+          const { error } = await sb
+            .from("friendships")
+            .delete()
+            .eq("id", friendshipId);
+
+          if (error) throw error;
+          showToast("Anfrage abgelehnt.");
+        }
+
+        await renderFriendsSection();
+      }
+
+      async function openOnlineFriendProfile(profileId) {
+        const sb = getSupabase();
+
+        const [{ data: profile, error: profileError }, { data: stats, error: statsError }] =
+          await Promise.all([
+            sb.from("profiles")
+              .select("id,friend_code,display_name,avatar_data")
+              .eq("id", profileId)
+              .single(),
+
+            sb.from("stats")
+              .select("values_json")
+              .eq("user_id", profileId)
+              .single()
+          ]);
+
+        if (profileError) throw profileError;
+        if (statsError) throw statsError;
+
+        const values = stats?.values_json || {};
+        const overall = getRemoteOverallRank(values);
+
+        const modal = document.createElement("div");
+        modal.className = "modal";
+        modal.id = "friend-profile-modal";
+        modal.onclick = event => {
+          if (event.target === modal) modal.remove();
+        };
+
+        modal.innerHTML = `
+          <section class="modal-panel friend-profile-panel">
+            <div class="friend-profile-hero" style="--friend-accent:${overall.isUnranked ? "#7257f7" : overall.accent}">
+              <div>
+                <div class="hub-kicker">Freundesprofil</div>
+                <h2>${escapeHtml(profile.display_name)}</h2>
+                <p>Overall Strength · ${escapeHtml(overall.isUnranked ? "Offen" : overall.name)}</p>
+              </div>
+              ${friendAvatarMarkup(profile, true)}
+            </div>
+
+            <div class="friend-category-grid">
+              ${CATEGORY_KEYS.map(key => `
+                <div class="friend-category">
+                  <span>${escapeHtml(DATA[key].label)}</span>
+                  <strong>${escapeHtml(getRemoteCategoryRank(values, key))}</strong>
+                </div>`).join("")}
+            </div>
+
+            <div class="friend-exercise-list">
+              ${ALL_EXERCISES.map(exercise => {
+                const value = Number(values?.[exercise.id] || 0);
+                const info = getRankInfo(value, exercise.t, value > 0);
+                return `
+                  <div class="friend-exercise">
+                    <div>
+                      <strong>${escapeHtml(exercise.name)}</strong>
+                      <span>${escapeHtml(DATA[exercise.category].label)}</span>
+                    </div>
+                    <div>
+                      <strong>${value > 0 ? escapeHtml(formatValue(value, exercise.type)) : "Offen"}</strong>
+                      <span>${escapeHtml(info.name)}</span>
+                    </div>
+                  </div>`;
+              }).join("")}
+            </div>
+
+            <div class="share-actions">
+              <button class="quiet-button" type="button" onclick="document.getElementById('friend-profile-modal')?.remove()">Schließen</button>
+              <button class="danger-button" type="button" onclick="caliApp.removeFriend('${profile.id}')">Freund entfernen</button>
+            </div>
+          </section>`;
+
+        document.body.appendChild(modal);
+      }
+
+      async function removeOnlineFriend(profileId) {
+        const sb = getSupabase();
+        const user = await ensureSocialAuth();
+
+        const { error } = await sb
+          .from("friendships")
+          .delete()
+          .or(`and(requester.eq.${user.id},addressee.eq.${profileId}),and(requester.eq.${profileId},addressee.eq.${user.id})`);
+
+        if (error) throw error;
+        document.getElementById("friend-profile-modal")?.remove();
+        showToast("Freund entfernt.");
+        await renderFriendsSection();
       }
 
       function profileInitials(name) {
@@ -3622,8 +4618,10 @@
             </div>
           </section>
           <div class="profile-page-grid">${renderProfileCard(overall,entered,completion)}</div>
+          <div id="friends-host"></div>
           ${renderBottomNav('profile')}
         </div>`;
+        renderFriendsSection();
         window.scrollTo({top:0,behavior:"auto"});
       }
 
@@ -4394,7 +5392,14 @@
           localStorage.removeItem(HISTORY_KEY);
         } catch (_) {}
 
-        // 3. Dialog schließen und die komplette Oberfläche aus leerem Zustand neu aufbauen.
+        // 3. Auch die anonyme Online-Identität zurücksetzen.
+        try {
+          const sb = getSupabase();
+          if (sb) sb.auth.signOut().catch(() => {});
+          socialUser = null;
+        } catch (_) {}
+
+        // 4. Dialog schließen und die komplette Oberfläche aus leerem Zustand neu aufbauen.
         closeResetModal();
         closeRankModal();
         renderWelcome();
@@ -4645,6 +5650,51 @@
             img.src = reader.result;
           };
           reader.readAsDataURL(file);
+        },
+
+        async copyFriendCode(code) {
+          try {
+            await navigator.clipboard.writeText(code);
+            showToast("Freundescode kopiert.");
+          } catch (_) {
+            showToast(`Dein Code: ${code}`);
+          }
+        },
+
+        async sendFriendRequest() {
+          try {
+            await sendFriendRequestByCode();
+          } catch (error) {
+            console.error(error);
+            showToast("Freundesanfrage konnte nicht gesendet werden.");
+          }
+        },
+
+        async answerFriendRequest(id, accept) {
+          try {
+            await answerFriendRequestOnline(id, accept);
+          } catch (error) {
+            console.error(error);
+            showToast("Anfrage konnte nicht verarbeitet werden.");
+          }
+        },
+
+        async openFriendProfile(id) {
+          try {
+            await openOnlineFriendProfile(id);
+          } catch (error) {
+            console.error(error);
+            showToast("Freundesprofil konnte nicht geladen werden.");
+          }
+        },
+
+        async removeFriend(id) {
+          try {
+            await removeOnlineFriend(id);
+          } catch (error) {
+            console.error(error);
+            showToast("Freund konnte nicht entfernt werden.");
+          }
         },
 
         editName() { showNameEditModal(); },

@@ -2668,7 +2668,12 @@
     .athlete-profile-label { display:inline-flex; align-items:center; gap:8px; padding:8px 11px; border:1px solid rgba(255,255,255,.15); border-radius:999px; color:rgba(255,255,255,.66); background:rgba(255,255,255,.07); font-size:9px; font-weight:820; letter-spacing:.12em; text-transform:uppercase; }
     .athlete-profile-label::before { width:7px; height:7px; border-radius:50%; background:var(--profile-accent); box-shadow:0 0 0 5px color-mix(in srgb,var(--profile-accent) 18%,transparent); content:""; }
     .athlete-profile-name-row { display:flex; align-items:center; flex-wrap:wrap; gap:12px; margin-top:24px; }
-    .athlete-profile-avatar { display:grid; width:72px; height:72px; flex:0 0 auto; place-items:center; border:1px solid rgba(255,255,255,.15); border-radius:24px; color:#171321; background:#fff; box-shadow:0 16px 34px rgba(0,0,0,.22); font-size:23px; font-weight:880; letter-spacing:-.04em; }
+    .athlete-profile-avatar { position:relative; display:grid; width:72px; height:72px; flex:0 0 auto; place-items:center; border:1px solid rgba(255,255,255,.15); border-radius:24px; color:#171321; background:#fff; box-shadow:0 16px 34px rgba(0,0,0,.22); font-size:23px; font-weight:880; letter-spacing:-.04em; cursor:pointer; overflow:hidden; }
+    .athlete-profile-avatar::after { position:absolute; inset:0; display:grid; place-items:center; border-radius:inherit; color:#fff; background:rgba(17,13,31,.0); font-size:9px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; content:"Ändern"; opacity:0; transition:opacity .2s ease, background .2s ease; }
+    .athlete-profile-avatar:hover::after { opacity:1; background:rgba(17,13,31,.34); }
+    .athlete-profile-avatar.has-image { overflow:hidden; padding:0; background:#fff; }
+    .athlete-profile-avatar.has-image img { width:100%; height:100%; display:block; object-fit:cover; object-position:center; }
+    .profile-image-input { display:none; }
     .athlete-profile-name { min-width:0; font-size:clamp(38px,5vw,58px); font-weight:860; letter-spacing:-.06em; line-height:.94; }
     .athlete-profile-edit { display:grid; width:38px; height:38px; place-items:center; border:1px solid rgba(255,255,255,.15); border-radius:50%; color:#fff; background:rgba(255,255,255,.08); cursor:pointer; transition:transform .18s ease,background .18s ease; }
     .athlete-profile-edit:hover { transform:translateY(-2px); background:rgba(255,255,255,.14); }
@@ -2747,6 +2752,7 @@
       // versehentlichen Testwerte aus älteren Dateien übernommen.
       const STORAGE_KEY = "calisthenics-standards-v3";
       const PROFILE_KEY = "clastanic-athlete-profile-v1";
+      const PROFILE_IMAGE_KEY = "clastanic-athlete-profile-image-v1";
       const HISTORY_KEY = "clastanic-progress-history-v1";
       const THEME_KEY = "clastanic-theme-v1";
       const STORAGE_PREFIX = "calisthenics-standards";
@@ -2906,6 +2912,7 @@
         activeExerciseId: null,
         values: loadValues(),
         name: loadProfileName(),
+        profileImage: loadProfileImage(),
         history: loadHistory(),
         historyEntryValue: null,
         historyPendingValue: null,
@@ -2991,6 +2998,27 @@
           else localStorage.removeItem(PROFILE_KEY);
         } catch (_) {}
         return clean;
+      }
+
+
+      function loadProfileImage() {
+        try { return localStorage.getItem(PROFILE_IMAGE_KEY) || ""; }
+        catch (_) { return ""; }
+      }
+
+      function saveProfileImage(dataUrl) {
+        state.profileImage = dataUrl || "";
+        try {
+          if (state.profileImage) localStorage.setItem(PROFILE_IMAGE_KEY, state.profileImage);
+          else localStorage.removeItem(PROFILE_IMAGE_KEY);
+        } catch (_) {}
+      }
+
+      function profileAvatarMarkup(sizeClass = "athlete-profile-avatar") {
+        if (state.profileImage) {
+          return `<div class="${sizeClass} has-image" role="button" tabindex="0" onclick="document.getElementById('profile-image-input')?.click()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('profile-image-input')?.click()}" aria-label="Profilbild ändern" title="Profilbild ändern"><img src="${state.profileImage}" alt="Profilbild"></div>`;
+        }
+        return `<div class="${sizeClass}" role="button" tabindex="0" onclick="document.getElementById('profile-image-input')?.click()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('profile-image-input')?.click()}" aria-label="Profilbild hinzufügen" title="Profilbild hinzufügen">${escapeHtml(profileInitials(state.name))}</div>`;
       }
 
       function profileInitials(name) {
@@ -3505,10 +3533,11 @@
             <div class="athlete-profile-copy">
               <div class="athlete-profile-label">Clastanic Athlete</div>
               <div class="athlete-profile-name-row">
-                <div class="athlete-profile-avatar">${escapeHtml(profileInitials(state.name))}</div>
+                ${profileAvatarMarkup()}
                 <div class="athlete-profile-name">${escapeHtml(state.name)}</div>
                 <button class="athlete-profile-edit" type="button" onclick="caliApp.editName()" aria-label="Namen bearbeiten" title="Namen bearbeiten"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20l4.2-1 9.9-9.9a2.2 2.2 0 0 0-3.1-3.1L5.1 15.9 4 20Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.8 7.2l3 3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
               </div>
+              <input id="profile-image-input" class="profile-image-input" type="file" accept="image/*" onchange="caliApp.changeProfileImage(event)">
               <div class="athlete-profile-rank">Overall Strength · ${escapeHtml(overallLabel)}</div>
               <div class="athlete-profile-archetype" style="--archetype:${archetype.accent}"><i></i>${escapeHtml(archetype.name)}</div>
               <p class="athlete-profile-signature">${escapeHtml(archetype.copy)}</p>
@@ -4349,6 +4378,7 @@
         state.activeExerciseId = null;
         state.activeCategory = CATEGORY_KEYS[0];
         state.name = "";
+        state.profileImage = "";
         state.history = {};
         state.historyEntryValue = null;
         state.historyPendingValue = null;
@@ -4358,7 +4388,11 @@
 
         // 2. Trainingswerte und persönliches Profil vollständig löschen.
         clearAllStoredValues();
-        try { localStorage.removeItem(PROFILE_KEY); localStorage.removeItem(HISTORY_KEY); } catch (_) {}
+        try {
+          localStorage.removeItem(PROFILE_KEY);
+          localStorage.removeItem(PROFILE_IMAGE_KEY);
+          localStorage.removeItem(HISTORY_KEY);
+        } catch (_) {}
 
         // 3. Dialog schließen und die komplette Oberfläche aus leerem Zustand neu aufbauen.
         closeResetModal();
@@ -4572,6 +4606,45 @@
             console.error("Strength Card Share Fehler:", error);
             showToast("Der Teilen-Dialog konnte nicht geöffnet werden.");
           }
+        },
+
+        async changeProfileImage(event) {
+          const file = event?.target?.files?.[0];
+          if (!file) return;
+          if (!file.type.startsWith("image/")) {
+            showToast("Bitte ein Bild auswählen.");
+            return;
+          }
+
+          const reader = new FileReader();
+          reader.onload = () => {
+            const img = new Image();
+            img.onload = () => {
+              const maxSize = 512;
+              const scale = Math.min(1, maxSize / Math.max(img.width, img.height));
+              const width = Math.max(1, Math.round(img.width * scale));
+              const height = Math.max(1, Math.round(img.height * scale));
+
+              const canvas = document.createElement("canvas");
+              canvas.width = width;
+              canvas.height = height;
+              const ctx = canvas.getContext("2d");
+              if (!ctx) {
+                showToast("Profilbild konnte nicht verarbeitet werden.");
+                return;
+              }
+
+              ctx.drawImage(img, 0, 0, width, height);
+              const dataUrl = canvas.toDataURL("image/jpeg", .88);
+              saveProfileImage(dataUrl);
+              preparedStrengthCardFile = null;
+              preparedStrengthCardPromise = null;
+              renderProfilePage();
+              showToast("Profilbild aktualisiert.");
+            };
+            img.src = reader.result;
+          };
+          reader.readAsDataURL(file);
         },
 
         editName() { showNameEditModal(); },

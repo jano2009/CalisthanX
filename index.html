@@ -2740,50 +2740,62 @@
     .progress-history-card { margin-top:0; }
 
   
-    /* ===== Friends / Supabase – clean ===== */
+    /* ===== Friends / Supabase – final ===== */
     .friends-card {
-      margin-top: 16px;
-      padding: 24px;
+      margin-top: 18px;
+      padding: 26px;
       border: 1px solid var(--line);
-      border-radius: 26px;
+      border-radius: 28px;
       background: var(--card);
       box-shadow: var(--shadow-card);
     }
 
     .friends-head {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
-      gap: 14px;
+      gap: 18px;
     }
 
     .friends-head-copy h2 {
-      margin: 5px 0 0;
-      font-size: 25px;
-      font-weight: 830;
-      letter-spacing: -.04em;
+      margin: 6px 0 0;
+      font-size: 27px;
+      font-weight: 840;
+      letter-spacing: -.045em;
     }
 
     .friends-head-copy p {
-      margin: 6px 0 0;
+      max-width: 520px;
+      margin: 7px 0 0;
       color: var(--muted);
       font-size: 10px;
-      line-height: 1.45;
+      line-height: 1.5;
     }
 
-    .friends-live {
-      display: inline-flex;
+    .friends-head-actions {
+      display: flex;
       align-items: center;
       gap: 7px;
       flex: 0 0 auto;
-      padding: 7px 9px;
+    }
+
+    .friends-live,
+    .friends-request-badge {
+      display: inline-flex;
+      min-height: 31px;
+      align-items: center;
+      gap: 7px;
+      padding: 0 10px;
       border-radius: 999px;
-      color: var(--success);
-      background: color-mix(in srgb, var(--success) 8%, var(--card));
       font-size: 8px;
-      font-weight: 820;
+      font-weight: 850;
       letter-spacing: .05em;
       text-transform: uppercase;
+    }
+
+    .friends-live {
+      color: var(--success);
+      background: color-mix(in srgb, var(--success) 8%, var(--card));
     }
 
     .friends-live::before {
@@ -2794,33 +2806,92 @@
       content: "";
     }
 
-    .friend-code-box {
+    .friends-request-badge {
+      color: var(--brand);
+      background: color-mix(in srgb, var(--brand) 9%, var(--card));
+    }
+
+    .friends-refresh {
       display: grid;
-      grid-template-columns: minmax(0,1fr) auto;
-      gap: 10px;
-      align-items: center;
-      margin-top: 18px;
-      padding: 13px 14px;
+      width: 34px;
+      height: 34px;
+      place-items: center;
       border: 1px solid var(--line);
-      border-radius: 17px;
+      border-radius: 11px;
+      color: var(--muted);
+      background: var(--card-soft);
+      cursor: pointer;
+      transition: color .18s ease, background .18s ease, transform .18s ease;
+    }
+
+    .friends-refresh:hover {
+      color: var(--ink);
+      background: var(--card);
+      transform: translateY(-1px);
+    }
+
+    .friends-refresh svg { width: 15px; height: 15px; }
+
+    .friend-connect-grid {
+      display: grid;
+      grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr);
+      gap: 10px;
+      margin-top: 21px;
+    }
+
+    .friend-code-box,
+    .friend-add-box {
+      min-width: 0;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
       background: var(--card-soft);
     }
 
-    .friend-code-copy span {
+    .friend-box-label {
       display: block;
       color: var(--muted);
       font-size: 8px;
-      font-weight: 780;
-      letter-spacing: .08em;
+      font-weight: 800;
+      letter-spacing: .09em;
       text-transform: uppercase;
     }
 
-    .friend-code-copy strong {
-      display: block;
-      margin-top: 4px;
-      font-size: 18px;
-      font-weight: 880;
-      letter-spacing: .12em;
+    .friend-code-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .friend-code-row strong {
+      min-width: 0;
+      flex: 1;
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: .14em;
+    }
+
+    .friend-search {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .friend-search input {
+      min-width: 0;
+      height: 42px;
+      padding: 0 13px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      outline: 0;
+      color: var(--ink);
+      background: var(--card);
+      font-size: 11px;
+      font-weight: 820;
+      letter-spacing: .10em;
+      text-transform: uppercase;
     }
 
     .friend-small-button,
@@ -2832,14 +2903,9 @@
       color: var(--ink);
       background: var(--card);
       font-size: 9px;
-      font-weight: 820;
+      font-weight: 830;
       cursor: pointer;
-      transition: transform .18s ease, background .18s ease, border-color .18s ease;
-    }
-
-    .friend-small-button:hover,
-    .friend-primary-button:hover {
-      transform: translateY(-1px);
+      transition: transform .18s ease, box-shadow .18s ease;
     }
 
     .friend-primary-button {
@@ -2849,68 +2915,63 @@
       box-shadow: 0 8px 18px rgba(114,87,247,.18);
     }
 
-    .friend-search {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 8px;
-      margin-top: 9px;
-    }
+    .friend-small-button:hover,
+    .friend-primary-button:hover { transform: translateY(-1px); }
 
-    .friend-search input {
-      min-width: 0;
-      height: 42px;
-      padding: 0 13px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      outline: 0;
-      color: var(--ink);
-      background: var(--card-soft);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: .09em;
-      text-transform: uppercase;
+    .friends-columns {
+      display: grid;
+      grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr);
+      gap: 12px;
+      margin-top: 14px;
     }
 
     .friends-section {
-      margin-top: 20px;
-      padding-top: 18px;
-      border-top: 1px solid var(--line);
+      min-width: 0;
+      padding: 17px;
+      border: 1px solid var(--line);
+      border-radius: 19px;
+      background: var(--card-soft);
     }
+
+    .friends-section.full-width { grid-column: 1 / -1; }
 
     .friends-section-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      margin-bottom: 9px;
+      margin-bottom: 10px;
     }
 
     .friends-section-head strong {
       font-size: 12px;
-      font-weight: 820;
+      font-weight: 840;
+    }
+
+    .friends-section-head span {
+      color: var(--muted);
+      font-size: 8px;
+      font-weight: 760;
     }
 
     .friends-count {
       display: grid;
-      min-width: 24px;
-      height: 24px;
+      min-width: 25px;
+      height: 25px;
       padding: 0 7px;
       place-items: center;
       border-radius: 999px;
       color: var(--muted);
-      background: var(--card-soft);
+      background: var(--card);
       font-size: 8px;
       font-weight: 850;
     }
 
-    .friends-list {
-      display: grid;
-      gap: 7px;
-    }
+    .friends-list { display: grid; gap: 7px; }
 
     .friend-person {
       display: grid;
-      grid-template-columns: 44px minmax(0, 1fr) auto;
+      grid-template-columns: 44px minmax(0,1fr) auto;
       align-items: center;
       gap: 11px;
       width: 100%;
@@ -2918,20 +2979,13 @@
       border: 1px solid var(--line);
       border-radius: 15px;
       color: var(--ink);
-      background: var(--card-soft);
-      text-align: left;
-      transition: transform .18s ease, border-color .18s ease, background .18s ease;
-    }
-
-    button.friend-person {
-      cursor: pointer;
-    }
-
-    button.friend-person:hover {
-      border-color: var(--line-strong);
       background: var(--card);
-      transform: translateY(-1px);
+      text-align: left;
+      transition: transform .18s ease, border-color .18s ease;
     }
+
+    button.friend-person { cursor: pointer; }
+    button.friend-person:hover { border-color: var(--line-strong); transform: translateY(-1px); }
 
     .friend-avatar {
       display: grid;
@@ -2943,161 +2997,62 @@
       color: #fff;
       background: linear-gradient(145deg,#8b72ff,#4f35dc);
       font-size: 13px;
-      font-weight: 860;
+      font-weight: 870;
     }
 
-    .friend-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    .friend-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .friend-person-copy { min-width: 0; }
+    .friend-person-copy strong { display: block; overflow: hidden; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+    .friend-person-copy span { display: block; margin-top: 3px; color: var(--muted); font-size: 8px; }
 
-    .friend-person-copy {
-      min-width: 0;
-    }
-
-    .friend-person-copy strong {
-      display: block;
-      overflow: hidden;
-      font-size: 12px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .friend-person-copy span {
-      display: block;
-      margin-top: 3px;
-      color: var(--muted);
-      font-size: 8px;
-    }
-
-    .friend-actions {
-      display: flex;
-      gap: 5px;
-    }
+    .friend-actions { display: flex; gap: 5px; }
 
     .friend-actions button {
-      width: 32px;
+      min-width: 32px;
       height: 32px;
-      padding: 0;
+      padding: 0 9px;
       border: 1px solid var(--line);
       border-radius: 10px;
       color: var(--ink);
-      background: var(--card);
-      font-size: 12px;
+      background: var(--card-soft);
+      font-size: 9px;
       font-weight: 850;
       cursor: pointer;
     }
 
-    .friend-actions .accept {
-      color: #fff;
-      border-color: var(--success);
-      background: var(--success);
-    }
+    .friend-actions .accept { color: #fff; border-color: var(--success); background: var(--success); }
+    .friend-status-pill { padding: 6px 8px; border-radius: 999px; color: var(--muted); background: var(--card-soft); font-size: 8px; font-weight: 800; }
 
     .friends-empty,
     .friends-message {
-      padding: 14px;
+      padding: 15px;
       border: 1px dashed var(--line);
       border-radius: 14px;
       color: var(--muted);
-      background: var(--card-soft);
+      background: var(--card);
       font-size: 9px;
-      line-height: 1.45;
+      line-height: 1.5;
       text-align: center;
     }
 
-    .friends-message {
-      margin-top: 22px;
-      padding: 18px 19px;
-      border-style: solid;
-      border-color: color-mix(in srgb, var(--brand) 14%, var(--line));
-      border-radius: 18px;
-      background:
-        linear-gradient(135deg,
-          color-mix(in srgb, var(--brand) 5%, var(--card)),
-          var(--card-soft));
-      text-align: left;
-    }
+    .friends-message { margin-top: 20px; border-style: solid; text-align: left; }
 
-    .friends-setup-state {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-    }
-
-    .friends-setup-icon {
-      position: relative;
-      display: grid;
-      width: 42px;
-      height: 42px;
-      flex: 0 0 auto;
-      place-items: center;
-      border-radius: 14px;
-      color: var(--brand);
-      background: color-mix(in srgb, var(--brand) 9%, var(--card));
-    }
-
-    .friends-setup-icon::before,
-    .friends-setup-icon::after {
-      position: absolute;
-      width: 15px;
-      height: 4px;
-      border-radius: 999px;
-      background: currentColor;
-      content: "";
-      transform: rotate(-45deg);
-    }
-
-    .friends-setup-icon::before { translate: -3px -3px; }
-    .friends-setup-icon::after { translate: 3px 3px; opacity: .45; }
-
-    .friends-setup-copy strong {
-      display: block;
-      color: var(--ink);
-      font-size: 11px;
-      font-weight: 820;
-    }
-
-    .friends-setup-copy span {
-      display: block;
-      margin-top: 4px;
-      color: var(--muted);
-      font-size: 9px;
-      line-height: 1.45;
-    }
-
-    .friend-profile-panel {
-      width: min(780px, 100%);
-      padding: 16px;
-    }
+    .friend-profile-panel { width: min(800px,100%); padding: 17px; }
 
     .friend-profile-hero {
       --friend-accent: var(--brand);
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 126px;
+      grid-template-columns: minmax(0,1fr) 126px;
       align-items: center;
       gap: 20px;
-      padding: 24px;
-      border-radius: 24px;
+      padding: 25px;
+      border-radius: 25px;
       color: #fff;
-      background:
-        radial-gradient(circle at 84% 16%, color-mix(in srgb,var(--friend-accent) 42%,transparent), transparent 14rem),
-        linear-gradient(135deg,#171321,#2b2048 58%,var(--friend-accent));
+      background: radial-gradient(circle at 84% 16%,color-mix(in srgb,var(--friend-accent) 42%,transparent),transparent 14rem),linear-gradient(135deg,#171321,#2b2048 58%,var(--friend-accent));
     }
 
-    .friend-profile-hero h2 {
-      margin: 7px 0 0;
-      font-size: 32px;
-      font-weight: 860;
-      letter-spacing: -.05em;
-    }
-
-    .friend-profile-hero p {
-      margin: 7px 0 0;
-      color: rgba(255,255,255,.62);
-      font-size: 10px;
-    }
+    .friend-profile-hero h2 { margin: 7px 0 0; font-size: 33px; font-weight: 870; letter-spacing: -.05em; }
+    .friend-profile-hero p { margin: 7px 0 0; color: rgba(255,255,255,.62); font-size: 10px; }
 
     .friend-profile-avatar-big {
       display: grid;
@@ -3115,112 +3070,32 @@
       font-weight: 900;
     }
 
-    .friend-profile-avatar-big img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    .friend-profile-avatar-big img { width: 100%; height: 100%; object-fit: cover; }
+    .friend-category-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 7px; margin-top: 10px; }
+    .friend-category { padding: 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--card-soft); }
+    .friend-category span { display: block; color: var(--muted); font-size: 8px; font-weight: 800; text-transform: uppercase; }
+    .friend-category strong { display: block; margin-top: 5px; font-size: 13px; }
+    .friend-exercise-list { display: grid; gap: 5px; max-height: 380px; margin-top: 10px; overflow: auto; }
+    .friend-exercise { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 10px 11px; border: 1px solid var(--line); border-radius: 13px; background: var(--card); }
+    .friend-exercise > div:last-child { text-align: right; }
+    .friend-exercise strong { display: block; font-size: 10px; }
+    .friend-exercise span { display: block; margin-top: 3px; color: var(--muted); font-size: 8px; }
 
-    .friend-category-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 7px;
-      margin-top: 10px;
-    }
-
-    .friend-category {
-      padding: 12px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: var(--card-soft);
-    }
-
-    .friend-category span {
-      display: block;
-      color: var(--muted);
-      font-size: 8px;
-      font-weight: 800;
-      text-transform: uppercase;
-    }
-
-    .friend-category strong {
-      display: block;
-      margin-top: 5px;
-      font-size: 13px;
-    }
-
-    .friend-exercise-list {
-      display: grid;
-      gap: 5px;
-      max-height: 380px;
-      margin-top: 10px;
-      overflow: auto;
-    }
-
-    .friend-exercise {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      padding: 10px 11px;
-      border: 1px solid var(--line);
-      border-radius: 13px;
-      background: var(--card);
-    }
-
-    .friend-exercise > div:last-child {
-      text-align: right;
-    }
-
-    .friend-exercise strong {
-      display: block;
-      font-size: 10px;
-    }
-
-    .friend-exercise span {
-      display: block;
-      margin-top: 3px;
-      color: var(--muted);
-      font-size: 8px;
+    @media(max-width:760px) {
+      .friend-connect-grid,
+      .friends-columns { grid-template-columns: 1fr; }
+      .friends-section.full-width { grid-column: auto; }
     }
 
     @media(max-width:560px) {
-      .friends-card {
-        padding: 20px;
-        border-radius: 23px;
-      }
-
-      .friends-head {
-        align-items: flex-start;
-      }
-
-      .friends-head-copy h2 {
-        font-size: 23px;
-      }
-
-      .friend-search {
-        grid-template-columns: 1fr;
-      }
-
-      .friend-profile-hero {
-        grid-template-columns: 1fr 76px;
-        padding: 18px;
-      }
-
-      .friend-profile-avatar-big {
-        width: 72px;
-        height: 72px;
-        border-radius: 22px;
-        font-size: 21px;
-      }
-
-      .friend-profile-hero h2 {
-        font-size: 27px;
-      }
-
-      .friend-category-grid {
-        grid-template-columns: 1fr 1fr;
-      }
+      .friends-card { padding: 20px; border-radius: 23px; }
+      .friends-head { display: block; }
+      .friends-head-actions { margin-top: 12px; }
+      .friend-search { grid-template-columns: 1fr; }
+      .friend-profile-hero { grid-template-columns: 1fr 76px; padding: 18px; }
+      .friend-profile-avatar-big { width: 72px; height: 72px; border-radius: 22px; font-size: 21px; }
+      .friend-profile-hero h2 { font-size: 27px; }
+      .friend-category-grid { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
@@ -3240,6 +3115,7 @@
       const PROFILE_IMAGE_KEY = "clastanic-athlete-profile-image-v1";
       const HISTORY_KEY = "clastanic-progress-history-v1";
       const THEME_KEY = "clastanic-theme-v1";
+      const SOCIAL_PROFILE_CACHE_KEY = "clastanic-social-profile-v3";
 
       /* ============================================================
          SUPABASE – HIER NUR DEINE 2 WERTE EINTRAGEN
@@ -3471,7 +3347,7 @@
           if (Object.keys(state.values).length === 0) localStorage.removeItem(STORAGE_KEY);
           else localStorage.setItem(STORAGE_KEY, JSON.stringify(state.values));
         } catch (_) {}
-        queueSocialSync();
+        queueSocialSync("stats");
       }
 
       function sanitizeName(value) {
@@ -3489,7 +3365,7 @@
           if (clean) localStorage.setItem(PROFILE_KEY, clean);
           else localStorage.removeItem(PROFILE_KEY);
         } catch (_) {}
-        queueSocialSync();
+        queueSocialSync("profile");
         return clean;
       }
 
@@ -3505,7 +3381,7 @@
           if (state.profileImage) localStorage.setItem(PROFILE_IMAGE_KEY, state.profileImage);
           else localStorage.removeItem(PROFILE_IMAGE_KEY);
         } catch (_) {}
-        queueSocialSync();
+        queueSocialSync("profile");
       }
 
       function profileAvatarMarkup(sizeClass = "athlete-profile-avatar") {
@@ -3518,11 +3394,32 @@
 
       let supabaseClient = null;
       let socialUser = null;
+      let socialProfile = null;
       let socialAuthPromise = null;
+      let socialProfilePromise = null;
       let socialSyncTimer = null;
-      let onlineProfilePromise = null;
-      let friendsRenderPromise = null;
-      let friendsRefreshTimer = null;
+      let socialSyncNeedsProfile = false;
+      let friendsRefreshPromise = null;
+      let friendsChannel = null;
+      let friendsFallbackTimer = null;
+
+      function loadSocialProfileCache() {
+        try {
+          const parsed = JSON.parse(localStorage.getItem(SOCIAL_PROFILE_CACHE_KEY) || "null");
+          return parsed && typeof parsed === "object" ? parsed : null;
+        } catch (_) {
+          return null;
+        }
+      }
+
+      function saveSocialProfileCache(userId, profile) {
+        try {
+          localStorage.setItem(SOCIAL_PROFILE_CACHE_KEY, JSON.stringify({
+            userId,
+            friendCode: profile?.friend_code || ""
+          }));
+        } catch (_) {}
+      }
 
       function supabaseConfigured() {
         return /^https:\/\/.+\.supabase\.co$/i.test(SUPABASE_URL) &&
@@ -3550,13 +3447,6 @@
         return supabaseClient;
       }
 
-      function randomFriendCode() {
-        const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-        const values = new Uint32Array(6);
-        crypto.getRandomValues(values);
-        return Array.from(values, value => chars[value % chars.length]).join("");
-      }
-
       async function ensureSocialAuth() {
         if (socialUser) return socialUser;
         if (socialAuthPromise) return socialAuthPromise;
@@ -3565,15 +3455,22 @@
           const sb = getSupabase();
           if (!sb) return null;
 
-          // Supabase persistiert Browser-Sessions in localStorage.
-          // Erst die bestehende Session laden; NUR wenn wirklich keine
-          // vorhanden ist, genau EINEN Anonymous User erzeugen.
+          const cache = loadSocialProfileCache();
           const { data: sessionData, error: sessionError } = await sb.auth.getSession();
           if (sessionError) throw sessionError;
 
           if (sessionData?.session?.user) {
-            socialUser = sessionData.session.user;
+            const { data: userData, error: userError } = await sb.auth.getUser();
+            if (userError) throw userError;
+            socialUser = userData.user;
             return socialUser;
+          }
+
+          // Falls dieses Gerät schon einmal ein Online-Profil hatte, darf die App
+          // NICHT still einen neuen Anonymous User anlegen. Sonst entsteht bei
+          // jedem Session-Problem ein neuer Freundescode und ein neuer DB-Eintrag.
+          if (cache?.userId) {
+            throw new Error("Deine gespeicherte Online-Sitzung fehlt. Es wurde bewusst kein neuer Freundescode erzeugt.");
           }
 
           const { data, error } = await sb.auth.signInAnonymously();
@@ -3590,97 +3487,68 @@
         }
       }
 
-      async function ensureOnlineProfile() {
-        // Es darf immer nur ein Profil-Sync gleichzeitig laufen.
-        if (onlineProfilePromise) return onlineProfilePromise;
+      async function ensureOnlineProfile(force = false) {
+        if (socialProfile && !force) return socialProfile;
+        if (socialProfilePromise) return socialProfilePromise;
 
-        onlineProfilePromise = (async () => {
+        socialProfilePromise = (async () => {
           const sb = getSupabase();
           const user = await ensureSocialAuth();
           if (!sb || !user || !state.name) return null;
 
-          // Vorhandenes Profil laden, damit der bestehende Freundescode
-          // auf keinen Fall unnötig geändert wird.
-          const { data: existing, error: readError } = await sb
-            .from("profiles")
-            .select("id,friend_code,display_name,avatar_data")
-            .eq("id", user.id)
-            .maybeSingle();
+          // Diese RPC erzeugt den Freundescode serverseitig GENAU EINMAL.
+          // Bei späteren Aufrufen werden nur Name/Avatar aktualisiert.
+          const { data, error } = await sb.rpc("ensure_clastanic_profile", {
+            p_display_name: state.name,
+            p_avatar_data: state.profileImage || null
+          });
 
-          if (readError) throw readError;
+          if (error) throw error;
 
-          let friendCode = existing?.friend_code || null;
-
-          // Nur für einen wirklich neuen User einen Code erzeugen.
-          if (!friendCode) {
-            for (let attempt = 0; attempt < 8; attempt += 1) {
-              const candidate = randomFriendCode();
-
-              const { data: codeOwner, error: codeError } = await sb
-                .from("profiles")
-                .select("id")
-                .eq("friend_code", candidate)
-                .maybeSingle();
-
-              if (codeError) throw codeError;
-
-              if (!codeOwner) {
-                friendCode = candidate;
-                break;
-              }
-            }
-
-            if (!friendCode) {
-              throw new Error("Kein eindeutiger Freundescode konnte erzeugt werden.");
-            }
+          const profile = Array.isArray(data) ? data[0] : data;
+          if (!profile?.id || !profile?.friend_code) {
+            throw new Error("Das Online-Profil konnte nicht vollständig geladen werden.");
           }
 
-          // WICHTIG:
-          // Nicht mehr INSERT, sondern UPSERT über die Auth-User-ID.
-          // Existiert dieselbe ID bereits, wird das Profil aktualisiert.
-          // Dadurch kann profiles_pkey nicht mehr durch einen zweiten Sync
-          // derselben User-ID ausgelöst werden.
-          const { data: profile, error: profileError } = await sb
-            .from("profiles")
-            .upsert({
-              id: user.id,
-              friend_code: friendCode,
-              display_name: state.name,
-              avatar_data: state.profileImage || null,
-              updated_at: new Date().toISOString()
-            }, { onConflict: "id" })
-            .select("id,friend_code,display_name,avatar_data")
-            .single();
-
-          if (profileError) throw profileError;
-
-          // Trainingswerte ebenfalls per User-ID spiegeln.
-          const { error: statsError } = await sb
-            .from("stats")
-            .upsert({
-              user_id: user.id,
-              values_json: state.values,
-              updated_at: new Date().toISOString()
-            }, { onConflict: "user_id" });
-
-          if (statsError) throw statsError;
-
+          socialProfile = profile;
+          saveSocialProfileCache(user.id, profile);
           return profile;
         })();
 
         try {
-          return await onlineProfilePromise;
+          return await socialProfilePromise;
         } finally {
-          onlineProfilePromise = null;
+          socialProfilePromise = null;
         }
       }
 
-      function queueSocialSync() {
+      async function syncOnlineStats() {
+        const sb = getSupabase();
+        await ensureSocialAuth();
+
+        const { error } = await sb.rpc("sync_clastanic_stats", {
+          p_values: state.values
+        });
+
+        if (error) throw error;
+      }
+
+      function queueSocialSync(kind = "stats") {
         if (!supabaseConfigured() || !state?.name) return;
+        if (kind === "profile") socialSyncNeedsProfile = true;
+
         clearTimeout(socialSyncTimer);
-        socialSyncTimer = setTimeout(() => {
-          ensureOnlineProfile().catch(error => console.error("Supabase Sync:", error));
-        }, 450);
+        socialSyncTimer = setTimeout(async () => {
+          const updateProfile = socialSyncNeedsProfile;
+          socialSyncNeedsProfile = false;
+
+          try {
+            await ensureOnlineProfile(updateProfile || !socialProfile);
+            await syncOnlineStats();
+          } catch (error) {
+            console.error("Supabase Sync:", error);
+          }
+        }, 650);
       }
 
       function friendAvatarMarkup(profile, big = false) {
@@ -3717,320 +3585,296 @@
         return RANKS[Math.min(RANKS.length - 1, Math.floor(score))].name;
       }
 
-      async function loadFriendsData() {
-        const sb = getSupabase();
-        const user = await ensureSocialAuth();
-
-        // 1) Freundschaften nur aus friendships laden.
-        // requester/addressee referenzieren auth.users – NICHT public.profiles.
-        // Deshalb dürfen wir hier keine automatische PostgREST-Beziehung
-        // friendships -> profiles verwenden.
-        const { data: requestRows, error: reqError } = await sb
-          .from("friendships")
-          .select("id,requester,addressee,status,created_at")
-          .eq("addressee", user.id)
-          .eq("status", "pending")
-          .order("created_at", { ascending: false });
-
-        if (reqError) throw reqError;
-
-        const { data: friendshipRows, error: friendsError } = await sb
-          .from("friendships")
-          .select("id,requester,addressee,status,created_at")
-          .eq("status", "accepted")
-          .or(`requester.eq.${user.id},addressee.eq.${user.id}`)
-          .order("created_at", { ascending: false });
-
-        if (friendsError) throw friendsError;
-
-        // 2) Alle dafür benötigten User-IDs sammeln.
-        const profileIds = new Set();
-
-        (requestRows || []).forEach(row => {
-          if (row.requester) profileIds.add(row.requester);
-        });
-
-        (friendshipRows || []).forEach(row => {
-          const otherId = row.requester === user.id ? row.addressee : row.requester;
-          if (otherId) profileIds.add(otherId);
-        });
-
-        // 3) Profile in EINER separaten Abfrage laden.
-        let profileMap = new Map();
-
-        if (profileIds.size) {
-          const ids = Array.from(profileIds);
-
-          const { data: profiles, error: profilesError } = await sb
-            .from("profiles")
-            .select("id,friend_code,display_name,avatar_data")
-            .in("id", ids);
-
-          if (profilesError) throw profilesError;
-          profileMap = new Map((profiles || []).map(profile => [profile.id, profile]));
-        }
-
-        // 4) Requests/Freunde wieder mit ihren Profilen zusammensetzen.
-        const requests = (requestRows || []).map(row => ({
-          ...row,
-          requester_profile: profileMap.get(row.requester) || null
-        }));
-
-        const friends = (friendshipRows || []).map(row => {
-          const otherId = row.requester === user.id ? row.addressee : row.requester;
-          return {
-            friendshipId: row.id,
-            profile: profileMap.get(otherId) || null
-          };
-        }).filter(item => item.profile);
-
-        return { requests, friends };
+      function normalizeDashboard(data) {
+        const value = data && typeof data === "object" ? data : {};
+        return {
+          incoming: Array.isArray(value.incoming) ? value.incoming : [],
+          outgoing: Array.isArray(value.outgoing) ? value.outgoing : [],
+          friends: Array.isArray(value.friends) ? value.friends : []
+        };
       }
 
-      async function renderFriendsSection() {
-        if (friendsRenderPromise) return friendsRenderPromise;
-
-        friendsRenderPromise = (async () => {
+      function renderFriendsMarkup(profile, dashboard) {
         const host = document.getElementById("friends-host");
         if (!host) return;
 
-        if (!supabaseConfigured()) {
-          host.innerHTML = `
-            <section class="friends-card">
-              <div class="hub-kicker">Freunde</div>
-              <div class="friends-head">
-                <div class="friends-head-copy">
-                  <h2>Dein Kreis.</h2>
-                  <p>Verbinde dich mit Freunden und vergleicht eure Strength Profiles.</p>
-                </div>
-              </div>
-              <div class="friends-message">
-                <div class="friends-setup-state">
-                  <span class="friends-setup-icon" aria-hidden="true"></span>
-                  <div class="friends-setup-copy">
-                    <strong>Freunde noch nicht aktiviert</strong>
-                    <span>Verbinde Supabase, damit Freundescodes und gemeinsame Stats verfügbar werden.</span>
-                  </div>
-                </div>
-              </div>
-            </section>`;
-          return;
-        }
+        const incoming = dashboard.incoming;
+        const outgoing = dashboard.outgoing;
+        const friends = dashboard.friends;
 
         host.innerHTML = `
           <section class="friends-card">
-            <div class="friends-message">Freundesdaten werden geladen …</div>
-          </section>`;
-
-        try {
-          const profile = await ensureOnlineProfile();
-          const { requests, friends } = await loadFriendsData();
-
-          host.innerHTML = `
-            <section class="friends-card">
-              <div class="friends-head">
-                <div class="friends-head-copy">
-                  <div class="hub-kicker">Freunde</div>
-                  <h2>Dein Kreis.</h2>
-                  <p>Code teilen, verbinden, Stats ansehen.</p>
-                </div>
+            <div class="friends-head">
+              <div class="friends-head-copy">
+                <div class="hub-kicker">Freunde</div>
+                <h2>Dein Kreis.</h2>
+                <p>Freundescodes verbinden eure Profile. Anfragen erscheinen direkt hier im Profil.</p>
+              </div>
+              <div class="friends-head-actions">
+                ${incoming.length ? `<span class="friends-request-badge">${incoming.length} Anfrage${incoming.length === 1 ? "" : "n"}</span>` : ""}
                 <span class="friends-live">Online</span>
+                <button class="friends-refresh" type="button" onclick="caliApp.refreshFriends()" aria-label="Freunde aktualisieren" title="Aktualisieren">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M5.2 8.2A7.5 7.5 0 1 1 4.7 15" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M4.5 4.8v4.4h4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
               </div>
+            </div>
 
+            <div class="friend-connect-grid">
               <div class="friend-code-box">
-                <div class="friend-code-copy">
-                  <span>Dein Freundescode</span>
+                <span class="friend-box-label">Dein fester Freundescode</span>
+                <div class="friend-code-row">
                   <strong>${escapeHtml(profile.friend_code)}</strong>
+                  <button class="friend-small-button" type="button" onclick="caliApp.copyFriendCode('${profile.friend_code}')">Kopieren</button>
                 </div>
-                <button class="friend-small-button" type="button" onclick="caliApp.copyFriendCode('${profile.friend_code}')">Kopieren</button>
               </div>
 
-              <div class="friend-search">
-                <input id="friend-code-input" maxlength="6" placeholder="FREUNDESCODE" autocomplete="off">
-                <button class="friend-primary-button" type="button" onclick="caliApp.sendFriendRequest()">Freund hinzufügen</button>
+              <div class="friend-add-box">
+                <span class="friend-box-label">Freund hinzufügen</span>
+                <div class="friend-search">
+                  <input id="friend-code-input" maxlength="6" placeholder="FREUNDESCODE" autocomplete="off" inputmode="text">
+                  <button class="friend-primary-button" type="button" onclick="caliApp.sendFriendRequest()">Anfrage senden</button>
+                </div>
               </div>
+            </div>
 
-              ${requests.length ? `
-                <div class="friends-section">
+            <div class="friends-columns">
+              <section class="friends-section">
+                <div class="friends-section-head">
+                  <div><strong>Freundesanfragen</strong><span>Hier nimmst du neue Freunde an oder lehnst sie ab.</span></div>
+                  <span class="friends-count">${incoming.length}</span>
+                </div>
+                <div class="friends-list">
+                  ${incoming.length ? incoming.map(item => {
+                    const p = item.profile || {};
+                    return `
+                      <div class="friend-person">
+                        ${friendAvatarMarkup(p)}
+                        <div class="friend-person-copy">
+                          <strong>${escapeHtml(p.display_name || "Athlet")}</strong>
+                          <span>Code ${escapeHtml(p.friend_code || "")}</span>
+                        </div>
+                        <div class="friend-actions">
+                          <button class="accept" type="button" onclick="caliApp.answerFriendRequest('${item.friendship_id}', true)" aria-label="Annehmen">Annehmen</button>
+                          <button type="button" onclick="caliApp.answerFriendRequest('${item.friendship_id}', false)" aria-label="Ablehnen">Ablehnen</button>
+                        </div>
+                      </div>`;
+                  }).join("") : `<div class="friends-empty">Keine offenen Freundesanfragen.</div>`}
+                </div>
+              </section>
+
+              <section class="friends-section">
+                <div class="friends-section-head">
+                  <div><strong>Freunde</strong><span>Angenommene Profile und ihre aktuellen Stats.</span></div>
+                  <span class="friends-count">${friends.length}</span>
+                </div>
+                <div class="friends-list">
+                  ${friends.length ? friends.map(item => {
+                    const p = item.profile || {};
+                    return `
+                      <button class="friend-person" type="button" onclick="caliApp.openFriendProfile('${p.id}')">
+                        ${friendAvatarMarkup(p)}
+                        <span class="friend-person-copy">
+                          <strong>${escapeHtml(p.display_name || "Athlet")}</strong>
+                          <span>Strength Profile ansehen</span>
+                        </span>
+                        <span style="color:var(--muted);font-size:22px">›</span>
+                      </button>`;
+                  }).join("") : `<div class="friends-empty">Noch keine Freunde verbunden.</div>`}
+                </div>
+              </section>
+
+              ${outgoing.length ? `
+                <section class="friends-section full-width">
                   <div class="friends-section-head">
-                    <strong>Offene Anfragen</strong>
-                    <span class="friends-count">${requests.length}</span>
+                    <div><strong>Gesendete Anfragen</strong><span>Diese Personen müssen deine Anfrage noch annehmen.</span></div>
+                    <span class="friends-count">${outgoing.length}</span>
                   </div>
                   <div class="friends-list">
-                    ${requests.map(row => {
-                      const p = row.requester_profile;
+                    ${outgoing.map(item => {
+                      const p = item.profile || {};
                       return `
                         <div class="friend-person">
                           ${friendAvatarMarkup(p)}
                           <div class="friend-person-copy">
-                            <strong>${escapeHtml(p?.display_name || "Athlet")}</strong>
-                            <span>${escapeHtml(p?.friend_code || "")}</span>
+                            <strong>${escapeHtml(p.display_name || "Athlet")}</strong>
+                            <span>Code ${escapeHtml(p.friend_code || "")}</span>
                           </div>
                           <div class="friend-actions">
-                            <button class="accept" type="button" onclick="caliApp.answerFriendRequest('${row.id}', true)">✓</button>
-                            <button type="button" onclick="caliApp.answerFriendRequest('${row.id}', false)">×</button>
+                            <span class="friend-status-pill">Ausstehend</span>
+                            <button type="button" onclick="caliApp.cancelFriendRequest('${p.id}')">Zurückziehen</button>
                           </div>
                         </div>`;
                     }).join("")}
                   </div>
-                </div>` : ""}
+                </section>` : ""}
+            </div>
+          </section>`;
+      }
 
-              <div class="friends-section">
-                <div class="friends-section-head">
-                  <strong>Freunde</strong>
-                  <span class="friends-count">${friends.length}</span>
-                </div>
+      function renderFriendsError(error) {
+        const host = document.getElementById("friends-host");
+        if (!host) return;
+        host.innerHTML = `
+          <section class="friends-card">
+            <div class="friends-head-copy">
+              <div class="hub-kicker">Freunde</div>
+              <h2>Dein Kreis.</h2>
+            </div>
+            <div class="friends-message">${escapeHtml(error?.message || "Freundesdaten konnten nicht geladen werden.")}</div>
+          </section>`;
+      }
 
-                <div class="friends-list">
-                  ${friends.length ? friends.map(item => `
-                    <button class="friend-person" type="button" onclick="caliApp.openFriendProfile('${item.profile.id}')">
-                      ${friendAvatarMarkup(item.profile)}
-                      <span class="friend-person-copy">
-                        <strong>${escapeHtml(item.profile.display_name)}</strong>
-                        <span>Strength Profile</span>
-                      </span>
-                      <span style="color:var(--muted);font-size:22px">›</span>
-                    </button>`).join("") : `<div class="friends-empty">Noch keine Freunde verbunden.</div>`}
-                </div>
-              </div>
-            </section>`;
-        } catch (error) {
-          console.error("Friends:", error);
-          host.innerHTML = `
-            <section class="friends-card">
-              <div class="friends-message">Supabase ist verbunden, aber die Freundesdaten konnten nicht geladen werden.<br>${escapeHtml(error.message || "")}</div>
-            </section>`;
-        }
-      
+      async function refreshFriendsDashboard(showLoading = false) {
+        if (friendsRefreshPromise) return friendsRefreshPromise;
+
+        friendsRefreshPromise = (async () => {
+          const host = document.getElementById("friends-host");
+          if (!host) return;
+
+          if (!supabaseConfigured()) {
+            throw new Error("Supabase ist noch nicht vollständig konfiguriert.");
+          }
+
+          if (showLoading) {
+            host.innerHTML = `<section class="friends-card"><div class="friends-message">Freundesprofil wird geladen …</div></section>`;
+          }
+
+          const profile = socialProfile || await ensureOnlineProfile();
+          const sb = getSupabase();
+          const { data, error } = await sb.rpc("get_clastanic_friend_dashboard");
+          if (error) throw error;
+
+          renderFriendsMarkup(profile, normalizeDashboard(data));
         })();
 
         try {
-          return await friendsRenderPromise;
+          return await friendsRefreshPromise;
         } finally {
-          friendsRenderPromise = null;
+          friendsRefreshPromise = null;
         }
       }
 
-      function startFriendsAutoRefresh() {
-        if (friendsRefreshTimer) return;
+      async function subscribeFriendsRealtime() {
+        if (friendsChannel) return;
 
-        friendsRefreshTimer = setInterval(() => {
+        const sb = getSupabase();
+        const user = await ensureSocialAuth();
+        if (!sb || !user) return;
+
+        friendsChannel = sb
+          .channel(`clastanic-friendships-${user.id}`)
+          .on(
+            "postgres_changes",
+            { event: "*", schema: "public", table: "friendships" },
+            () => {
+              if (document.getElementById("friends-host")) {
+                refreshFriendsDashboard(false).catch(error => console.error("Realtime Friends:", error));
+              }
+            }
+          )
+          .subscribe(status => {
+            if (status === "CHANNEL_ERROR" || status === "TIMED_OUT") {
+              console.warn("Friends Realtime:", status);
+            }
+          });
+      }
+
+      function startFriendsFallbackRefresh() {
+        if (friendsFallbackTimer) return;
+
+        friendsFallbackTimer = setInterval(() => {
           if (document.visibilityState !== "visible") return;
           if (!document.getElementById("friends-host")) return;
-          renderFriendsSection().catch(error => console.error("Friends refresh:", error));
-        }, 12000);
+          refreshFriendsDashboard(false).catch(error => console.error("Friends fallback:", error));
+        }, 60000);
+      }
+
+      async function initializeFriendsSystem() {
+        try {
+          await ensureOnlineProfile();
+          await syncOnlineStats();
+          await refreshFriendsDashboard(true);
+          await subscribeFriendsRealtime();
+          startFriendsFallbackRefresh();
+        } catch (error) {
+          console.error("Friends init:", error);
+          renderFriendsError(error);
+        }
       }
 
       document.addEventListener("visibilitychange", () => {
         if (document.visibilityState === "visible" && document.getElementById("friends-host")) {
-          renderFriendsSection().catch(error => console.error("Friends visibility refresh:", error));
+          refreshFriendsDashboard(false).catch(error => console.error("Friends visibility:", error));
         }
       });
-
 
       async function sendFriendRequestByCode() {
         const input = document.getElementById("friend-code-input");
         const code = String(input?.value || "").trim().toUpperCase();
+
         if (code.length !== 6) {
           showToast("Bitte einen 6-stelligen Freundescode eingeben.");
           return;
         }
 
         const sb = getSupabase();
-        const user = await ensureSocialAuth();
+        await ensureSocialAuth();
 
-        const { data: lookupRows, error: targetError } = await sb
-          .rpc("find_profile_by_friend_code", { lookup_code: code });
-
-        if (targetError) throw targetError;
-
-        const target = Array.isArray(lookupRows) ? lookupRows[0] : null;
-        if (!target) {
-          showToast("Freundescode nicht gefunden.");
-          return;
-        }
-        if (target.id === user.id) {
-          showToast("Das ist dein eigener Freundescode.");
-          return;
-        }
-
-        const { data: existing, error: existingError } = await sb
-          .from("friendships")
-          .select("id,status,requester,addressee")
-          .or(`and(requester.eq.${user.id},addressee.eq.${target.id}),and(requester.eq.${target.id},addressee.eq.${user.id})`);
-
-        if (existingError) throw existingError;
-
-        if (existing?.some(row => row.status === "accepted")) {
-          showToast(`${target.display_name} ist bereits dein Freund.`);
-          return;
-        }
-
-        if (existing?.some(row => row.status === "pending")) {
-          showToast("Zwischen euch gibt es bereits eine offene Anfrage.");
-          return;
-        }
-
-        const { error } = await sb
-          .from("friendships")
-          .insert({
-            requester: user.id,
-            addressee: target.id,
-            status: "pending"
-          });
+        const { data, error } = await sb.rpc("send_clastanic_friend_request", {
+          p_friend_code: code
+        });
 
         if (error) throw error;
+
+        const result = Array.isArray(data) ? data[0] : data;
         if (input) input.value = "";
-        showToast(`Anfrage an ${target.display_name} gesendet.`);
-        await renderFriendsSection();
+        showToast(result?.target_name ? `Anfrage an ${result.target_name} gesendet.` : "Freundesanfrage gesendet.");
+        await refreshFriendsDashboard(false);
       }
 
       async function answerFriendRequestOnline(friendshipId, accept) {
         const sb = getSupabase();
+        await ensureSocialAuth();
 
-        if (accept) {
-          const { error } = await sb
-            .from("friendships")
-            .update({ status: "accepted" })
-            .eq("id", friendshipId);
+        const { error } = await sb.rpc("respond_clastanic_friend_request", {
+          p_friendship_id: friendshipId,
+          p_accept: Boolean(accept)
+        });
 
-          if (error) throw error;
-          showToast("Freundschaft angenommen.");
-        } else {
-          const { error } = await sb
-            .from("friendships")
-            .delete()
-            .eq("id", friendshipId);
+        if (error) throw error;
+        showToast(accept ? "Freundschaft angenommen." : "Anfrage abgelehnt.");
+        await refreshFriendsDashboard(false);
+      }
 
-          if (error) throw error;
-          showToast("Anfrage abgelehnt.");
-        }
+      async function removeOnlineFriend(profileId) {
+        const sb = getSupabase();
+        await ensureSocialAuth();
 
-        await renderFriendsSection();
+        const { error } = await sb.rpc("remove_clastanic_friend", {
+          p_profile_id: profileId
+        });
+
+        if (error) throw error;
+        document.getElementById("friend-profile-modal")?.remove();
+        showToast("Verbindung entfernt.");
+        await refreshFriendsDashboard(false);
       }
 
       async function openOnlineFriendProfile(profileId) {
         const sb = getSupabase();
+        await ensureSocialAuth();
 
-        const [{ data: profile, error: profileError }, { data: stats, error: statsError }] =
-          await Promise.all([
-            sb.from("profiles")
-              .select("id,friend_code,display_name,avatar_data")
-              .eq("id", profileId)
-              .single(),
+        const { data, error } = await sb.rpc("get_clastanic_friend_profile", {
+          p_profile_id: profileId
+        });
 
-            sb.from("stats")
-              .select("values_json")
-              .eq("user_id", profileId)
-              .single()
-          ]);
+        if (error) throw error;
 
-        if (profileError) throw profileError;
-        if (statsError) throw statsError;
+        const profile = data?.profile || null;
+        const values = data?.values || {};
+        if (!profile) throw new Error("Freundesprofil wurde nicht gefunden.");
 
-        const values = stats?.values_json || {};
         const overall = getRemoteOverallRank(values);
-
         const modal = document.createElement("div");
         modal.className = "modal";
         modal.id = "friend-profile-modal";
@@ -4082,21 +3926,6 @@
           </section>`;
 
         document.body.appendChild(modal);
-      }
-
-      async function removeOnlineFriend(profileId) {
-        const sb = getSupabase();
-        const user = await ensureSocialAuth();
-
-        const { error } = await sb
-          .from("friendships")
-          .delete()
-          .or(`and(requester.eq.${user.id},addressee.eq.${profileId}),and(requester.eq.${profileId},addressee.eq.${user.id})`);
-
-        if (error) throw error;
-        document.getElementById("friend-profile-modal")?.remove();
-        showToast("Freund entfernt.");
-        await renderFriendsSection();
       }
 
       function profileInitials(name) {
@@ -4703,8 +4532,7 @@
           <div id="friends-host"></div>
           ${renderBottomNav('profile')}
         </div>`;
-        renderFriendsSection();
-        startFriendsAutoRefresh();
+        initializeFriendsSystem();
         window.scrollTo({top:0,behavior:"auto"});
       }
 
@@ -5741,19 +5569,27 @@
           }
         },
 
+        async refreshFriends() {
+          try {
+            await refreshFriendsDashboard(true);
+          } catch (error) {
+            console.error("Freunde aktualisieren:", error);
+            renderFriendsError(error);
+          }
+        },
+
         async sendFriendRequest() {
           try {
             await sendFriendRequestByCode();
           } catch (error) {
             console.error("Freundesanfrage:", error);
-            const msg = String(error?.message || "");
-            if (msg.includes("FRIEND_RATE_LIMIT")) {
-              showToast("Zu viele Anfragen. Versuch es später erneut.");
-            } else if (msg.includes("FRIEND_PENDING_LIMIT")) {
-              showToast("Du hast bereits zu viele offene Anfragen.");
-            } else {
-              showToast(msg || "Freundesanfrage konnte nicht gesendet werden.");
-            }
+            const message = String(error?.message || "");
+            if (message.includes("FRIEND_RATE_LIMIT")) showToast("Zu viele Anfragen. Versuch es später erneut.");
+            else if (message.includes("FRIEND_PENDING_LIMIT")) showToast("Du hast bereits zu viele offene Anfragen.");
+            else if (message.includes("FRIEND_CODE_NOT_FOUND")) showToast("Freundescode nicht gefunden.");
+            else if (message.includes("ALREADY_FRIENDS")) showToast("Ihr seid bereits befreundet.");
+            else if (message.includes("REQUEST_ALREADY_PENDING")) showToast("Zwischen euch ist bereits eine Anfrage offen.");
+            else showToast(message || "Freundesanfrage konnte nicht gesendet werden.");
           }
         },
 
@@ -5763,6 +5599,15 @@
           } catch (error) {
             console.error("Anfrage:", error);
             showToast(error?.message || "Anfrage konnte nicht verarbeitet werden.");
+          }
+        },
+
+        async cancelFriendRequest(profileId) {
+          try {
+            await removeOnlineFriend(profileId);
+          } catch (error) {
+            console.error("Anfrage zurückziehen:", error);
+            showToast(error?.message || "Anfrage konnte nicht zurückgezogen werden.");
           }
         },
 

@@ -2897,6 +2897,9 @@
         </button>`;
       }
 
+      let preparedStrengthCardFile = null;
+      let preparedStrengthCardPromise = null;
+
       const state = {
         activeView: "home",
         activeCategory: CATEGORY_KEYS[0],
@@ -3206,6 +3209,23 @@
           <div class="share-export-note">Beim Teilen wird diese Strength Card als gestaltetes PNG erzeugt – nicht nur als Text.</div>
         </section>`;
         document.body.appendChild(modal);
+
+        // Die Datei schon jetzt vorbereiten. Dadurch bleibt der spätere Klick auf
+        // "Card teilen" eine direkte User-Aktion und navigator.share() kann den
+        // nativen Teilen-Dialog zuverlässig öffnen.
+        preparedStrengthCardFile = null;
+        preparedStrengthCardPromise = createStrengthCardBlob()
+          .then(blob => {
+            const safeName = sanitizeName(state.name).replace(/\s+/g, "-") || "Athlet";
+            const fileName = `Clastanic-Strength-Card-${safeName}.png`;
+            preparedStrengthCardFile = new File([blob], fileName, { type: "image/png" });
+            return preparedStrengthCardFile;
+          })
+          .catch(error => {
+            console.error("Strength Card Vorbereitung:", error);
+            preparedStrengthCardFile = null;
+            return null;
+          });
       }
 
       function escapeXml(value) {
@@ -3288,11 +3308,10 @@
 
           <text x="72" y="485" fill="rgba(255,255,255,.54)" font-size="18" font-weight="800" letter-spacing="2">ATHLETE IDENTITY</text>
           <text x="72" y="540" fill="#fff" font-size="38" font-weight="860">${escapeXml(archetype.name)}</text>
-          <foreignObject x="72" y="565" width="770" height="76">
-            <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:rgba(255,255,255,.58);font-size:20px;line-height:1.45;">
-              ${escapeHtml(archetype.copy)}
-            </div>
-          </foreignObject>
+          <text x="72" y="585" fill="rgba(255,255,255,.58)" font-size="20" font-weight="600">
+            <tspan x="72" dy="0">${escapeXml(archetype.copy.slice(0, 66))}</tspan>
+            <tspan x="72" dy="30">${escapeXml(archetype.copy.slice(66, 132))}</tspan>
+          </text>
 
           ${cards}
 
@@ -3302,27 +3321,32 @@
 
       async function createStrengthCardBlob() {
         const svg = strengthCardSvg();
-        const svgBlob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
-        const url = URL.createObjectURL(svgBlob);
+        const encoded = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
 
-        try {
-          const image = await new Promise((resolve, reject) => {
-            const img = new Image();
-            img.onload = () => resolve(img);
-            img.onerror = reject;
-            img.src = url;
-          });
+        const image = await new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = () => resolve(img);
+          img.onerror = () => reject(new Error("SVG konnte nicht geladen werden."));
+          img.src = encoded;
+        });
 
-          const canvas = document.createElement("canvas");
-          canvas.width = 1140;
-          canvas.height = 1140;
-          const ctx = canvas.getContext("2d");
-          ctx.drawImage(image, 0, 0, 1140, 1140);
+        const canvas = document.createElement("canvas");
+        canvas.width = 1140;
+        canvas.height = 1140;
 
-          return await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.95));
-        } finally {
-          URL.revokeObjectURL(url);
-        }
+        const ctx = canvas.getContext("2d");
+        if (!ctx) throw new Error("Canvas wird nicht unterstützt.");
+
+        ctx.drawImage(image, 0, 0, 1140, 1140);
+
+        const blob = await new Promise((resolve, reject) => {
+          canvas.toBlob(result => {
+            if (result) resolve(result);
+            else reject(new Error("PNG konnte nicht erzeugt werden."));
+          }, "image/png");
+        });
+
+        return blob;
       }
 
 
@@ -4329,6 +4353,8 @@
         state.historyEntryValue = null;
         state.historyPendingValue = null;
         state.pendingRankUp = null;
+        preparedStrengthCardFile = null;
+        preparedStrengthCardPromise = null;
 
         // 2. Trainingswerte und persönliches Profil vollständig löschen.
         clearAllStoredValues();
@@ -4511,35 +4537,40 @@
         showShareCard() { showShareCard(); },
         async shareProfile() {
           try {
-            const blob = await createStrengthCardBlob();
-            if (!blob) throw new Error("Strength Card konnte nicht erzeugt werden.");
+            // Idealfall: Die Card wurde beim Öffnen des Modals bereits fertig erzeugt.
+            // navigator.share() wird dann direkt aus dem Button-Klick heraus aufgerufen.
+            let file = preparedStrengthCardFile;
 
-            const fileName = `Clastanic-Strength-Card-${sanitizeName(state.name).replace(/\s+/g,'-') || 'Athlet'}.png`;
-            const file = new File([blob], fileName, { type: "image/png" });
+            // Falls die Vorbereitung extrem knapp noch läuft, warten wir kurz auf sie.
+            if (!file && preparedStrengthCardPromise) {
+              file = await preparedStrengthCardPromise;
+            }
 
-            if (navigator.share && (!navigator.canShare || navigator.canShare({ files: [file] }))) {
-              await navigator.share({
-                title: "Clastanic Strength Card",
-                text: `${state.name} · ${getOverallRank().isUnranked ? 'Offen' : getOverallRank().name}`,
-                files: [file]
-              });
+            if (!file) {
+              showToast("Strength Card wird noch vorbereitet.");
               return;
             }
 
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = fileName;
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-            setTimeout(() => URL.revokeObjectURL(url), 1500);
-            showToast("Strength Card als Bild erstellt.");
-          } catch (error) {
-            if (error?.name !== "AbortError") {
-              console.error(error);
-              showToast("Strength Card konnte nicht geteilt werden.");
+            if (!navigator.share) {
+              showToast("Der native Teilen-Dialog wird auf diesem Gerät nicht unterstützt.");
+              return;
             }
+
+            if (typeof navigator.canShare === "function" && !navigator.canShare({ files: [file] })) {
+              showToast("Dieses Gerät kann die Strength Card nicht als Datei teilen.");
+              return;
+            }
+
+            await navigator.share({
+              title: "Clastanic Strength Card",
+              files: [file]
+            });
+          } catch (error) {
+            // Abbrechen im nativen Teilen-Menü ist kein Fehler.
+            if (error?.name === "AbortError") return;
+
+            console.error("Strength Card Share Fehler:", error);
+            showToast("Der Teilen-Dialog konnte nicht geöffnet werden.");
           }
         },
 

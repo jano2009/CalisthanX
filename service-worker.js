@@ -1,4 +1,4 @@
-const CACHE_NAME = "clastanic-v1";
+const CACHE_NAME = "CalisthanX-v1";
 
 self.addEventListener("install", event => {
   self.skipWaiting();

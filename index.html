@@ -8,7 +8,7 @@
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%238b72ff'/%3E%3Cstop offset='1' stop-color='%235b3fe7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='20' fill='url(%23g)'/%3E%3Cg transform='rotate(-45 32 32)' fill='white'%3E%3Crect x='13' y='22' width='28' height='7' rx='4'/%3E%3Crect x='23' y='35' width='28' height='7' rx='4' opacity='.58'/%3E%3C/g%3E%3C/svg%3E">
-  <title>Clastanic – Calisthenics Standards</title>
+  <title>CalisthanX – Calisthenics Standards</title>
   <style>
 
     :root {
@@ -1908,7 +1908,7 @@
 
 
 
-    /* ===== Clastanic Performance Hub ===== */
+    /* ===== CalisthanX Performance Hub ===== */
     .performance-hub { margin-top: 22px; display: grid; grid-template-columns: 1.08fr .92fr; gap: 16px; }
     .hub-card { border: 1px solid var(--line); border-radius: 28px; background: var(--card); box-shadow: var(--shadow-card); overflow: hidden; }
     .next-goal-card { grid-column: 1 / -1; position: relative; min-height: 220px; padding: 28px 34px; color: #fff; background: linear-gradient(135deg,#171321,#2b2048 58%,#7257f7); }
@@ -3152,7 +3152,7 @@
 
 
     /* =========================================================
-       CLASTANIC 4.0 · PR VAULT · APEX SCORE · MASTERY
+       CALISTHANX 4.0 · PR VAULT · APEX SCORE · MASTERY
        ========================================================= */
 
     /* ---------- Apex Score: kompakt in Road to Apex integriert ---------- */
@@ -5268,6 +5268,332 @@
     }
 
   
+
+
+    /* =========================================================
+       ACCOUNT · E-MAIL OTP · CLOUD SYNC
+       ========================================================= */
+    .account-card {
+      position: relative;
+      margin-top: 18px;
+      padding: 28px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: var(--card);
+      box-shadow: var(--shadow-card);
+    }
+
+    .account-card::after {
+      position: absolute;
+      width: 210px;
+      height: 210px;
+      top: -135px;
+      right: -115px;
+      border: 1px solid color-mix(in srgb, var(--brand) 16%, transparent);
+      border-radius: 50%;
+      box-shadow: 0 0 0 34px color-mix(in srgb, var(--brand) 4%, transparent);
+      content: "";
+      pointer-events: none;
+    }
+
+    .account-head,
+    .account-body,
+    .account-user-row,
+    .account-actions {
+      position: relative;
+      z-index: 1;
+    }
+
+    .account-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .account-head h2 {
+      margin: 6px 0 0;
+      font-size: 28px;
+      font-weight: 850;
+      letter-spacing: -.05em;
+    }
+
+    .account-head p {
+      max-width: 620px;
+      margin: 9px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .account-pill {
+      display: inline-flex;
+      min-height: 31px;
+      flex: 0 0 auto;
+      align-items: center;
+      gap: 7px;
+      padding: 0 11px;
+      border-radius: 999px;
+      color: var(--brand);
+      background: color-mix(in srgb, var(--brand) 9%, var(--card));
+      font-size: 8px;
+      font-weight: 850;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .account-pill::before {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 12%, transparent);
+      content: "";
+    }
+
+    .account-pill.verified { color: var(--success); }
+    .account-pill.pending { color: #d18a22; }
+
+    .account-body { margin-top: 22px; }
+
+    .account-form {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 9px;
+      max-width: 680px;
+    }
+
+    .account-code-form {
+      grid-template-columns: minmax(0, 180px) auto;
+    }
+
+    .account-input {
+      min-width: 0;
+      height: 50px;
+      padding: 0 15px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      outline: 0;
+      color: var(--ink);
+      background: var(--card-soft);
+      font-size: 13px;
+      font-weight: 720;
+      transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    .account-input:focus {
+      border-color: color-mix(in srgb, var(--brand) 60%, var(--line));
+      background: var(--card);
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand) 10%, transparent);
+    }
+
+    .account-code-input {
+      letter-spacing: .22em;
+      text-align: center;
+      font-size: 17px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .account-primary,
+    .account-secondary,
+    .account-danger {
+      min-height: 46px;
+      padding: 0 17px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      font-size: 10px;
+      font-weight: 830;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    .account-primary {
+      color: #fff;
+      border-color: var(--brand);
+      background: var(--brand);
+      box-shadow: 0 9px 20px color-mix(in srgb, var(--brand) 24%, transparent);
+    }
+
+    .account-secondary {
+      color: var(--ink);
+      background: var(--card-soft);
+    }
+
+    .account-danger {
+      color: var(--danger);
+      background: color-mix(in srgb, var(--danger) 7%, var(--card));
+    }
+
+    .account-primary:hover,
+    .account-secondary:hover,
+    .account-danger:hover { transform: translateY(-1px); }
+
+    .account-primary:disabled,
+    .account-secondary:disabled,
+    .account-danger:disabled {
+      opacity: .55;
+      cursor: wait;
+      transform: none;
+    }
+
+    .account-note {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.55;
+    }
+
+    .account-legacy-switch {
+      display: grid;
+      gap: 5px;
+      margin-top: 13px;
+      padding-top: 13px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 8px;
+      line-height: 1.5;
+    }
+
+    .account-legacy-switch .account-link-button {
+      width: fit-content;
+      padding: 0;
+      text-align: left;
+    }
+
+    .account-email-line {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 13px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .account-email-line strong {
+      color: var(--ink);
+      font-size: 12px;
+    }
+
+    .account-link-button {
+      padding: 0;
+      border: 0;
+      color: var(--brand);
+      background: transparent;
+      font-size: 9px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .account-user-row {
+      display: grid;
+      grid-template-columns: 50px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 13px;
+      margin-top: 22px;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--card-soft);
+    }
+
+    .account-user-icon {
+      display: grid;
+      width: 50px;
+      height: 50px;
+      place-items: center;
+      border-radius: 16px;
+      color: #fff;
+      background: linear-gradient(145deg, var(--brand), #8b72ff);
+      box-shadow: 0 10px 22px color-mix(in srgb, var(--brand) 24%, transparent);
+      font-size: 17px;
+      font-weight: 880;
+    }
+
+    .account-user-copy { min-width: 0; }
+    .account-user-copy strong {
+      display: block;
+      overflow: hidden;
+      font-size: 13px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .account-user-copy span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 9px;
+    }
+
+    .account-sync-state {
+      flex: 0 0 auto;
+      padding: 8px 10px;
+      border-radius: 999px;
+      color: var(--muted);
+      background: var(--card);
+      font-size: 8px;
+      font-weight: 820;
+      white-space: nowrap;
+    }
+    .account-sync-state.synced { color: var(--success); }
+    .account-sync-state.error { color: var(--danger); }
+
+    .account-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .friends-account-gate {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .friends-account-gate h2 {
+      margin: 6px 0 0;
+      font-size: 25px;
+      font-weight: 840;
+      letter-spacing: -.045em;
+    }
+
+    .friends-account-gate p {
+      max-width: 620px;
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.55;
+    }
+
+    html[data-theme="dark"] .account-card,
+    html[data-theme="dark"] .account-user-row {
+      border-color: var(--line);
+      background: var(--card);
+    }
+
+    html[data-theme="dark"] .account-input,
+    html[data-theme="dark"] .account-secondary {
+      color: var(--ink);
+      border-color: var(--line);
+      background: var(--card-soft);
+    }
+
+    @media (max-width: 620px) {
+      .account-card { padding: 22px; border-radius: 24px; }
+      .account-head { display: block; }
+      .account-pill { margin-top: 13px; }
+      .account-form,
+      .account-code-form { grid-template-columns: 1fr; max-width: none; }
+      .account-user-row { grid-template-columns: 45px minmax(0, 1fr); }
+      .account-user-icon { width: 45px; height: 45px; border-radius: 14px; }
+      .account-sync-state { grid-column: 1 / -1; justify-self: start; }
+      .account-actions { display: grid; grid-template-columns: 1fr; }
+      .friends-account-gate { grid-template-columns: 1fr; }
+    }
+
   </style>
 </head>
 <body>
@@ -5279,26 +5605,30 @@
     (() => {
       "use strict";
 
-      // Eigener Speicherbereich dieser bereinigten Version. Dadurch werden keine
-      // versehentlichen Testwerte aus älteren Dateien übernommen.
-      const STORAGE_KEY = "calisthenics-standards-v3";
-      const PROFILE_KEY = "clastanic-athlete-profile-v1";
-      const PROFILE_IMAGE_KEY = "clastanic-athlete-profile-image-v1";
-      const HISTORY_KEY = "clastanic-progress-history-v1";
-      const THEME_KEY = "clastanic-theme-v1";
-      const SOCIAL_PROFILE_CACHE_KEY = "clastanic-social-profile-v3";
-
       /* ============================================================
-         SUPABASE – HIER NUR DEINE 2 WERTE EINTRAGEN
+         SUPABASE / ACCOUNT
          ============================================================ */
       const SUPABASE_URL = "https://qemaedzzezoabpxwuuqt.supabase.co";
       const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_n3wQjB3XseXWRwG0gqGuvg_qeNi9qlp";
-      const STORAGE_PREFIX = "calisthenics-standards";
-      const LEGACY_STORAGE_KEYS = [
+      const SUPABASE_AUTH_STORAGE_KEY = "calisthanx-auth-v1";
+      const LEGACY_SUPABASE_AUTH_STORAGE_KEYS = [
+        "clastanic-auth-v1",
+        "sb-qemaedzzezoabpxwuuqt-auth-token"
+      ];
+
+      // Nur zur einmaligen Entfernung alter App-Daten. Der Supabase-Login selbst
+      // bleibt als Session-Token gespeichert, damit der Account angemeldet bleibt.
+      const LEGACY_APP_STORAGE_KEYS = new Set([
         "calisthenics-standards",
         "calisthenics-standards-v1",
-        "calisthenics-standards-v2"
-      ];
+        "calisthenics-standards-v2",
+        "calisthenics-standards-v3",
+        "clastanic-athlete-profile-v1",
+        "clastanic-athlete-profile-image-v1",
+        "clastanic-progress-history-v1",
+        "clastanic-theme-v1",
+        "clastanic-social-profile-v3"
+      ]);
 
       const RANKS = [
         { name: "Start",       title: "Der Anfang zählt.",           description: "Trage deinen ersten sauberen Leistungswert ein.", accent: "#818991", deep: "#1b2025" },
@@ -5407,23 +5737,14 @@
 
 
       function loadTheme() {
-        try {
-          const saved = localStorage.getItem(THEME_KEY);
-          if (saved === "dark" || saved === "light") return saved;
-        } catch (_) {}
-
-        // Clastanic startet bewusst immer im Light Mode.
-        // Dark Mode wird nur verwendet, wenn der Nutzer ihn selbst aktiviert hat.
+        // Keine App-Einstellungen werden im Browser gespeichert.
         return "light";
       }
 
-      function applyTheme(theme, persist = false) {
+      function applyTheme(theme) {
         const next = theme === "dark" ? "dark" : "light";
         document.documentElement.setAttribute("data-theme", next);
         document.querySelector('meta[name="theme-color"]')?.setAttribute("content", next === "dark" ? "#11131a" : "#7257f7");
-        if (persist) {
-          try { localStorage.setItem(THEME_KEY, next); } catch (_) {}
-        }
         document.querySelectorAll(".theme-toggle").forEach(button => {
           const isDark = next === "dark";
           button.setAttribute("aria-pressed", String(isDark));
@@ -5450,152 +5771,261 @@
         activeView: "home",
         activeCategory: CATEGORY_KEYS[0],
         activeExerciseId: null,
-        values: loadValues(),
-        name: loadProfileName(),
-        profileImage: loadProfileImage(),
-        history: loadHistory(),
+        values: {},
+        name: "",
+        profileImage: "",
+        history: {},
         historyEntryValue: null,
         historyPendingValue: null,
         momentBaselineValue: 0,
         momentBaselineHasValue: false,
         stepMomentTimer: null,
-        pendingRankUp: null
+        pendingRankUp: null,
+        otpEmail: "",
+        otpSent: false,
+        otpFlow: "signin",
+        accountBusy: false,
+        syncState: "guest",
+        lastSyncedAt: null
       };
 
-      function isAppStorageKey(key) {
-        return typeof key === "string" && (
-          key === STORAGE_KEY ||
-          LEGACY_STORAGE_KEYS.includes(key) ||
-          key.startsWith(`${STORAGE_PREFIX}-`)
-        );
+      const memoryAuthStorage = (() => {
+        const values = new Map();
+        return {
+          getItem(key) { return values.has(key) ? values.get(key) : null; },
+          setItem(key, value) { values.set(key, String(value)); },
+          removeItem(key) { values.delete(key); }
+        };
+      })();
+
+      function readableBrowserStorage(storageName) {
+        try {
+          const storage = window[storageName];
+          const testKey = "__calisthanx_storage_test__";
+          storage.setItem(testKey, "1");
+          storage.removeItem(testKey);
+          return storage;
+        } catch (_) {
+          return null;
+        }
       }
 
-      function clearStorageArea(storage, includeCurrent = true) {
+      function migrateLegacySupabaseSession(storage) {
+        if (!storage) return;
         try {
-          for (let index = storage.length - 1; index >= 0; index -= 1) {
-            const key = storage.key(index);
-            if (!isAppStorageKey(key)) continue;
-            if (!includeCurrent && key === STORAGE_KEY) continue;
-            storage.removeItem(key);
+          if (storage.getItem(SUPABASE_AUTH_STORAGE_KEY)) return;
+          for (const legacyKey of LEGACY_SUPABASE_AUTH_STORAGE_KEYS) {
+            const raw = storage.getItem(legacyKey);
+            if (!raw) continue;
+            storage.setItem(SUPABASE_AUTH_STORAGE_KEY, raw);
+            storage.removeItem(legacyKey);
+            break;
           }
         } catch (_) {}
       }
 
-      function clearLegacyStorage() {
-        // Frühere Versionen dürfen den Startzustand dieser Datei nicht beeinflussen.
-        clearStorageArea(localStorage, false);
-        clearStorageArea(sessionStorage, false);
+      function getAuthStorage() {
+        const browserStorage = readableBrowserStorage("localStorage");
+        if (browserStorage) {
+          migrateLegacySupabaseSession(browserStorage);
+          return browserStorage;
+        }
+        return memoryAuthStorage;
       }
 
-      function clearAllStoredValues() {
-        clearStorageArea(localStorage, true);
-        clearStorageArea(sessionStorage, true);
+      function readLegacyBrowserState() {
+        const storage = readableBrowserStorage("localStorage");
+        if (!storage) return { name: "", profileImage: "", values: {}, history: {} };
+
+        const readJsonObject = keys => {
+          for (const key of keys) {
+            try {
+              const raw = storage.getItem(key);
+              if (!raw) continue;
+              const parsed = JSON.parse(raw);
+              if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) return parsed;
+            } catch (_) {}
+          }
+          return {};
+        };
+
+        let name = "";
+        let profileImage = "";
+        try { name = sanitizeName(storage.getItem("clastanic-athlete-profile-v1") || ""); } catch (_) {}
+        try { profileImage = storage.getItem("clastanic-athlete-profile-image-v1") || ""; } catch (_) {}
+
+        return {
+          name,
+          profileImage,
+          values: sanitizeValues(readJsonObject([
+            "calisthenics-standards-v3",
+            "calisthenics-standards-v2",
+            "calisthenics-standards-v1",
+            "calisthenics-standards"
+          ])),
+          history: sanitizeHistory(readJsonObject(["clastanic-progress-history-v1"]))
+        };
+      }
+
+      function hasMeaningfulGuestState(snapshot) {
+        return Boolean(
+          snapshot?.name ||
+          snapshot?.profileImage ||
+          Object.keys(snapshot?.values || {}).length ||
+          Object.keys(snapshot?.history || {}).length
+        );
+      }
+
+      function applyGuestState(snapshot) {
+        if (!snapshot) return;
+        state.name = sanitizeName(snapshot.name || state.name);
+        state.profileImage = snapshot.profileImage || state.profileImage || "";
+        state.values = mergeValues(state.values, snapshot.values);
+        state.history = mergeHistory(state.history, snapshot.history);
+      }
+
+      function clearLegacyAppStorage() {
+        [readableBrowserStorage("localStorage"), readableBrowserStorage("sessionStorage")]
+          .filter(Boolean)
+          .forEach(storage => {
+            try {
+              for (let index = storage.length - 1; index >= 0; index -= 1) {
+                const key = storage.key(index);
+                if (!key) continue;
+                const isLegacy = LEGACY_APP_STORAGE_KEYS.has(key) ||
+                  key.startsWith("calisthenics-standards-") ||
+                  key.startsWith("clastanic-athlete-profile-") ||
+                  key.startsWith("clastanic-progress-history-") ||
+                  key.startsWith("clastanic-social-profile-") ||
+                  key.startsWith("clastanic-theme-");
+                if (isLegacy) storage.removeItem(key);
+              }
+            } catch (_) {}
+          });
       }
 
       function sanitizeValues(candidate) {
         const clean = {};
         if (!candidate || typeof candidate !== "object" || Array.isArray(candidate)) return clean;
-
         const validIds = new Set(ALL_EXERCISES.map(exercise => exercise.id));
         Object.entries(candidate).forEach(([id, rawValue]) => {
           if (!validIds.has(id)) return;
-          const value = Math.max(0, Math.round(Number(rawValue) || 0));
-          clean[id] = value;
+          clean[id] = Math.max(0, Math.round(Number(rawValue) || 0));
         });
         return clean;
-      }
-
-      function loadValues() {
-        clearLegacyStorage();
-        try {
-          const raw = localStorage.getItem(STORAGE_KEY);
-          if (!raw) return {};
-          return sanitizeValues(JSON.parse(raw));
-        } catch (_) {
-          try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
-          return {};
-        }
-      }
-
-      function saveValues() {
-        state.values = sanitizeValues(state.values);
-        try {
-          if (Object.keys(state.values).length === 0) localStorage.removeItem(STORAGE_KEY);
-          else localStorage.setItem(STORAGE_KEY, JSON.stringify(state.values));
-        } catch (_) {}
-        queueSocialSync("stats");
       }
 
       function sanitizeName(value) {
         return String(value || "").replace(/\s+/g, " ").trim().slice(0, 28);
       }
 
-      function loadProfileName() {
-        try { return sanitizeName(localStorage.getItem(PROFILE_KEY) || ""); } catch (_) { return ""; }
+      function sanitizeHistory(candidate) {
+        const clean = {};
+        if (!candidate || typeof candidate !== "object" || Array.isArray(candidate)) return clean;
+        const validIds = new Set(ALL_EXERCISES.map(exercise => exercise.id));
+
+        Object.entries(candidate).forEach(([id, entries]) => {
+          if (!validIds.has(id) || !Array.isArray(entries)) return;
+          const normalized = entries
+            .map(entry => ({
+              value: Math.max(0, Math.round(Number(entry?.value) || 0)),
+              at: Math.max(1, Math.round(Number(entry?.at) || Date.now()))
+            }))
+            .filter(entry => entry.value > 0)
+            .sort((a, b) => a.at - b.at);
+
+          const seen = new Set();
+          clean[id] = normalized.filter(entry => {
+            const key = `${entry.value}:${entry.at}`;
+            if (seen.has(key)) return false;
+            seen.add(key);
+            return true;
+          }).slice(-12);
+        });
+        return clean;
+      }
+
+      function mergeValues(remoteValues, guestValues) {
+        const remote = sanitizeValues(remoteValues);
+        const guest = sanitizeValues(guestValues);
+        const merged = { ...remote };
+        Object.entries(guest).forEach(([id, value]) => {
+          if (!Object.prototype.hasOwnProperty.call(merged, id)) merged[id] = value;
+          else merged[id] = Math.max(Number(merged[id]) || 0, value);
+        });
+        return merged;
+      }
+
+      function mergeHistory(remoteHistory, guestHistory) {
+        const remote = sanitizeHistory(remoteHistory);
+        const guest = sanitizeHistory(guestHistory);
+        const result = {};
+        const ids = new Set([...Object.keys(remote), ...Object.keys(guest)]);
+        ids.forEach(id => {
+          const seen = new Set();
+          result[id] = [...(remote[id] || []), ...(guest[id] || [])]
+            .sort((a, b) => a.at - b.at)
+            .filter(entry => {
+              const key = `${entry.value}:${entry.at}`;
+              if (seen.has(key)) return false;
+              seen.add(key);
+              return true;
+            })
+            .slice(-12);
+        });
+        return result;
+      }
+
+      function captureCurrentState() {
+        return {
+          name: sanitizeName(state.name),
+          profileImage: state.profileImage || "",
+          values: sanitizeValues(state.values),
+          history: sanitizeHistory(state.history)
+        };
+      }
+
+      function saveValues() {
+        state.values = sanitizeValues(state.values);
+        queueAccountSync();
       }
 
       function saveProfileName(name) {
         const clean = sanitizeName(name);
         state.name = clean;
-        try {
-          if (clean) localStorage.setItem(PROFILE_KEY, clean);
-          else localStorage.removeItem(PROFILE_KEY);
-        } catch (_) {}
-        queueSocialSync("profile");
+        queueAccountSync();
         return clean;
-      }
-
-
-      function loadProfileImage() {
-        try { return localStorage.getItem(PROFILE_IMAGE_KEY) || ""; }
-        catch (_) { return ""; }
       }
 
       function saveProfileImage(dataUrl) {
         state.profileImage = dataUrl || "";
-        try {
-          if (state.profileImage) localStorage.setItem(PROFILE_IMAGE_KEY, state.profileImage);
-          else localStorage.removeItem(PROFILE_IMAGE_KEY);
-        } catch (_) {}
-        queueSocialSync("profile");
+        queueAccountSync();
+      }
+
+      function saveHistory() {
+        state.history = sanitizeHistory(state.history);
+        queueAccountSync();
       }
 
       function profileAvatarMarkup(sizeClass = "athlete-profile-avatar") {
         if (state.profileImage) {
-          return `<div class="${sizeClass} has-image" role="button" tabindex="0" onclick="document.getElementById('profile-image-input')?.click()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('profile-image-input')?.click()}" aria-label="Profilbild ändern" title="Profilbild ändern"><img src="${state.profileImage}" alt="Profilbild"></div>`;
+          return `<div class="${sizeClass} has-image" role="button" tabindex="0" onclick="document.getElementById('profile-image-input')?.click()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('profile-image-input')?.click()}" aria-label="Profilbild ändern" title="Profilbild ändern"><img src="${escapeHtml(state.profileImage)}" alt="Profilbild"></div>`;
         }
         return `<div class="${sizeClass}" role="button" tabindex="0" onclick="document.getElementById('profile-image-input')?.click()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('profile-image-input')?.click()}" aria-label="Profilbild hinzufügen" title="Profilbild hinzufügen">${escapeHtml(profileInitials(state.name))}</div>`;
       }
 
-
       let supabaseClient = null;
       let socialUser = null;
+      let legacyAnonymousUser = null;
       let socialProfile = null;
-      let socialAuthPromise = null;
       let socialProfilePromise = null;
       let socialSyncTimer = null;
-      let socialSyncNeedsProfile = false;
+      let socialSyncPromise = Promise.resolve();
       let friendsRefreshPromise = null;
       let friendsChannel = null;
       let friendsFallbackTimer = null;
-
-      function loadSocialProfileCache() {
-        try {
-          const parsed = JSON.parse(localStorage.getItem(SOCIAL_PROFILE_CACHE_KEY) || "null");
-          return parsed && typeof parsed === "object" ? parsed : null;
-        } catch (_) {
-          return null;
-        }
-      }
-
-      function saveSocialProfileCache(userId, profile) {
-        try {
-          localStorage.setItem(SOCIAL_PROFILE_CACHE_KEY, JSON.stringify({
-            userId,
-            friendCode: profile?.friend_code || ""
-          }));
-        } catch (_) {}
-      }
+      let authSubscription = null;
+      let suppressNextSignedOutReset = false;
 
       function supabaseConfigured() {
         return /^https:\/\/.+\.supabase\.co$/i.test(SUPABASE_URL) &&
@@ -5605,14 +6035,17 @@
       }
 
       function getSupabase() {
-        if (!supabaseConfigured()) return null;
+        if (!supabaseConfigured() || !window.supabase) return null;
         if (!supabaseClient) {
           supabaseClient = window.supabase.createClient(
             SUPABASE_URL,
             SUPABASE_PUBLISHABLE_KEY,
             {
               auth: {
-                storage: window.localStorage,
+                // Ausschließlich die Supabase-Session wird lokal gehalten. Namen,
+                // Bilder, Werte und Verlauf liegen nicht im Browser-Speicher.
+                storage: getAuthStorage(),
+                storageKey: SUPABASE_AUTH_STORAGE_KEY,
                 persistSession: true,
                 autoRefreshToken: true,
                 detectSessionInUrl: false
@@ -5623,44 +6056,140 @@
         return supabaseClient;
       }
 
+      function isVerifiedEmailUser(user) {
+        return Boolean(
+          user?.id &&
+          user?.email &&
+          (user.email_confirmed_at || user.confirmed_at) &&
+          user.is_anonymous !== true
+        );
+      }
+
+      function hasVerifiedAccount() {
+        return isVerifiedEmailUser(socialUser);
+      }
+
       async function ensureSocialAuth() {
-        if (socialUser) return socialUser;
-        if (socialAuthPromise) return socialAuthPromise;
+        if (hasVerifiedAccount()) return socialUser;
+        const sb = getSupabase();
+        if (!sb) throw new Error("SUPABASE_NOT_CONFIGURED");
+        const { data, error } = await sb.auth.getUser();
+        if (error) throw error;
+        if (!isVerifiedEmailUser(data?.user)) throw new Error("EMAIL_ACCOUNT_REQUIRED");
+        socialUser = data.user;
+        legacyAnonymousUser = null;
+        return socialUser;
+      }
 
-        socialAuthPromise = (async () => {
-          const sb = getSupabase();
-          if (!sb) return null;
+      function normalizeAccountSnapshot(data) {
+        const value = data && typeof data === "object" ? data : {};
+        return {
+          profile: value.profile && typeof value.profile === "object" ? value.profile : null,
+          values: sanitizeValues(value.values),
+          history: sanitizeHistory(value.history),
+          email: String(value.email || socialUser?.email || "")
+        };
+      }
 
-          const cache = loadSocialProfileCache();
-          const { data: sessionData, error: sessionError } = await sb.auth.getSession();
-          if (sessionError) throw sessionError;
+      async function fetchAccountSnapshot() {
+        const sb = getSupabase();
+        await ensureSocialAuth();
+        const { data, error } = await sb.rpc("get_clastanic_account_snapshot");
+        if (error) throw error;
+        return normalizeAccountSnapshot(data);
+      }
 
-          if (sessionData?.session?.user) {
-            const { data: userData, error: userError } = await sb.auth.getUser();
-            if (userError) throw userError;
-            socialUser = userData.user;
-            return socialUser;
-          }
+      function applyAccountSnapshot(snapshot, guestState = null) {
+        const normalized = normalizeAccountSnapshot(snapshot);
+        const profile = normalized.profile;
 
-          // Falls dieses Gerät schon einmal ein Online-Profil hatte, darf die App
-          // NICHT still einen neuen Anonymous User anlegen. Sonst entsteht bei
-          // jedem Session-Problem ein neuer Freundescode und ein neuer DB-Eintrag.
-          if (cache?.userId) {
-            throw new Error("Deine gespeicherte Online-Sitzung fehlt. Es wurde bewusst kein neuer Freundescode erzeugt.");
-          }
+        state.name = sanitizeName(profile?.display_name || guestState?.name || "");
+        state.profileImage = profile?.avatar_data || guestState?.profileImage || "";
+        state.values = guestState
+          ? mergeValues(normalized.values, guestState.values)
+          : sanitizeValues(normalized.values);
+        state.history = guestState
+          ? mergeHistory(normalized.history, guestState.history)
+          : sanitizeHistory(normalized.history);
+        socialProfile = profile;
+        state.syncState = "synced";
+        state.lastSyncedAt = Date.now();
+      }
 
-          const { data, error } = await sb.auth.signInAnonymously();
-          if (error) throw error;
+      async function loadLegacyAnonymousSnapshot(user) {
+        const sb = getSupabase();
+        if (!sb || !user?.id) return;
+        const [profileResult, statsResult] = await Promise.all([
+          sb.from("profiles")
+            .select("id, friend_code, display_name, avatar_data")
+            .eq("id", user.id)
+            .maybeSingle(),
+          sb.from("stats")
+            .select("values_json, history_json")
+            .eq("user_id", user.id)
+            .maybeSingle()
+        ]);
 
-          socialUser = data.user;
-          return socialUser;
-        })();
+        if (profileResult.error) throw profileResult.error;
+        if (statsResult.error) throw statsResult.error;
 
-        try {
-          return await socialAuthPromise;
-        } finally {
-          socialAuthPromise = null;
+        socialProfile = profileResult.data || null;
+        state.name = sanitizeName(profileResult.data?.display_name || "");
+        state.profileImage = profileResult.data?.avatar_data || "";
+        state.values = sanitizeValues(statsResult.data?.values_json);
+        state.history = sanitizeHistory(statsResult.data?.history_json);
+        state.syncState = "guest";
+      }
+
+      async function syncAccountState() {
+        if (!hasVerifiedAccount() || !state.name) return null;
+        const sb = getSupabase();
+        const snapshot = captureCurrentState();
+        state.syncState = "syncing";
+        refreshAccountSurface();
+
+        const { data, error } = await sb.rpc("save_clastanic_account_state", {
+          p_display_name: snapshot.name,
+          p_avatar_data: snapshot.profileImage || null,
+          p_values: snapshot.values,
+          p_history: snapshot.history
+        });
+
+        if (error) {
+          state.syncState = "error";
+          refreshAccountSurface();
+          throw error;
         }
+
+        const normalized = normalizeAccountSnapshot(data);
+        socialProfile = normalized.profile || socialProfile;
+        state.syncState = "synced";
+        state.lastSyncedAt = Date.now();
+        refreshAccountSurface();
+        return normalized;
+      }
+
+      function runAccountSync() {
+        socialSyncPromise = socialSyncPromise
+          .catch(() => null)
+          .then(() => syncAccountState());
+        return socialSyncPromise;
+      }
+
+      function queueAccountSync(delay = 550) {
+        if (!hasVerifiedAccount() || !state.name) return;
+        state.syncState = "pending";
+        refreshAccountSurface();
+        clearTimeout(socialSyncTimer);
+        socialSyncTimer = window.setTimeout(() => {
+          runAccountSync().catch(error => console.error("Supabase Account Sync:", error));
+        }, delay);
+      }
+
+      async function flushAccountSync() {
+        if (!hasVerifiedAccount() || !state.name) return null;
+        clearTimeout(socialSyncTimer);
+        return runAccountSync();
       }
 
       async function ensureOnlineProfile(force = false) {
@@ -5668,27 +6197,13 @@
         if (socialProfilePromise) return socialProfilePromise;
 
         socialProfilePromise = (async () => {
-          const sb = getSupabase();
-          const user = await ensureSocialAuth();
-          if (!sb || !user || !state.name) return null;
-
-          // Diese RPC erzeugt den Freundescode serverseitig GENAU EINMAL.
-          // Bei späteren Aufrufen werden nur Name/Avatar aktualisiert.
-          const { data, error } = await sb.rpc("ensure_clastanic_profile", {
-            p_display_name: state.name,
-            p_avatar_data: state.profileImage || null
-          });
-
-          if (error) throw error;
-
-          const profile = Array.isArray(data) ? data[0] : data;
-          if (!profile?.id || !profile?.friend_code) {
-            throw new Error("Das Online-Profil konnte nicht vollständig geladen werden.");
+          const snapshot = await fetchAccountSnapshot();
+          if (snapshot.profile && !force) {
+            socialProfile = snapshot.profile;
+            return socialProfile;
           }
-
-          socialProfile = profile;
-          saveSocialProfileCache(user.id, profile);
-          return profile;
+          await runAccountSync();
+          return socialProfile;
         })();
 
         try {
@@ -5699,38 +6214,345 @@
       }
 
       async function syncOnlineStats() {
-        const sb = getSupabase();
-        await ensureSocialAuth();
-
-        const { error } = await sb.rpc("sync_clastanic_stats", {
-          p_values: state.values
-        });
-
-        if (error) throw error;
+        return runAccountSync();
       }
 
-      function queueSocialSync(kind = "stats") {
-        if (!supabaseConfigured() || !state?.name) return;
-        if (kind === "profile") socialSyncNeedsProfile = true;
+      function queueSocialSync() {
+        queueAccountSync();
+      }
 
+      function normalizeEmail(value) {
+        return String(value || "").trim().toLowerCase().slice(0, 254);
+      }
+
+      async function requestEmailOtp(email) {
+        const sb = getSupabase();
+        if (!sb) throw new Error("SUPABASE_NOT_CONFIGURED");
+        const cleanEmail = normalizeEmail(email);
+        if (!/^\S+@\S+\.\S+$/.test(cleanEmail)) throw new Error("INVALID_EMAIL");
+
+        if (legacyAnonymousUser?.is_anonymous === true) {
+          // Bestehende anonyme Testkonten behalten dadurch ihre User-ID,
+          // ihren Freundescode und ihre Freundschaften.
+          const { error } = await sb.auth.updateUser({ email: cleanEmail });
+          if (error) throw error;
+          state.otpFlow = "upgrade";
+        } else {
+          const { error } = await sb.auth.signInWithOtp({
+            email: cleanEmail,
+            options: {
+              shouldCreateUser: true,
+              data: { display_name: sanitizeName(state.name) }
+            }
+          });
+          if (error) throw error;
+          state.otpFlow = "signin";
+        }
+
+        state.otpEmail = cleanEmail;
+        state.otpSent = true;
+      }
+
+      async function confirmEmailOtp(token) {
+        const sb = getSupabase();
+        if (!sb) throw new Error("SUPABASE_NOT_CONFIGURED");
+        const cleanToken = String(token || "").replace(/\D/g, "").slice(0, 10);
+        if (cleanToken.length < 6) throw new Error("INVALID_OTP");
+
+        const guestState = captureCurrentState();
+        const type = state.otpFlow === "upgrade" ? "email_change" : "email";
+        const { data, error } = await sb.auth.verifyOtp({
+          email: state.otpEmail,
+          token: cleanToken,
+          type
+        });
+        if (error) throw error;
+
+        const verifiedUser = data?.user || data?.session?.user;
+        if (!isVerifiedEmailUser(verifiedUser)) {
+          const userResult = await sb.auth.getUser();
+          if (userResult.error) throw userResult.error;
+          if (!isVerifiedEmailUser(userResult.data?.user)) throw new Error("EMAIL_VERIFICATION_REQUIRED");
+          socialUser = userResult.data.user;
+        } else {
+          socialUser = verifiedUser;
+        }
+
+        legacyAnonymousUser = null;
+        const snapshot = await fetchAccountSnapshot();
+        applyAccountSnapshot(snapshot, guestState);
+        await runAccountSync();
+        state.otpSent = false;
+        state.otpEmail = "";
+        state.otpFlow = "signin";
+        return socialUser;
+      }
+
+      function stopFriendsRealtime() {
+        clearInterval(friendsFallbackTimer);
+        friendsFallbackTimer = null;
+        if (friendsChannel && supabaseClient) {
+          supabaseClient.removeChannel(friendsChannel).catch(() => null);
+        }
+        friendsChannel = null;
+      }
+
+      function resetInMemoryState({ keepProfile = false } = {}) {
+        state.values = {};
+        state.history = {};
+        state.activeExerciseId = null;
+        state.activeCategory = CATEGORY_KEYS[0];
+        state.historyEntryValue = null;
+        state.historyPendingValue = null;
+        state.momentBaselineValue = 0;
+        state.momentBaselineHasValue = false;
+        state.pendingRankUp = null;
+        clearTimeout(state.stepMomentTimer);
         clearTimeout(socialSyncTimer);
-        socialSyncTimer = setTimeout(async () => {
-          const updateProfile = socialSyncNeedsProfile;
-          socialSyncNeedsProfile = false;
+        preparedStrengthCardFile = null;
+        preparedStrengthCardPromise = null;
+        if (!keepProfile) {
+          state.name = "";
+          state.profileImage = "";
+          socialProfile = null;
+        }
+      }
 
-          try {
-            await ensureOnlineProfile(updateProfile || !socialProfile);
-            await syncOnlineStats();
-          } catch (error) {
-            console.error("Supabase Sync:", error);
+      async function useExistingAccountInsteadOfLegacyAnonymous() {
+        if (!legacyAnonymousUser || state.accountBusy) return;
+        const sb = getSupabase();
+        if (!sb) throw new Error("SUPABASE_NOT_CONFIGURED");
+        const guestState = captureCurrentState();
+
+        state.accountBusy = true;
+        refreshAccountSurface();
+        try {
+          // Nur die lokale anonyme Sitzung lösen. Werte/Verlauf bleiben im RAM
+          // und werden nach dem Login in den bestehenden Account gemerged.
+          suppressNextSignedOutReset = true;
+          const { error } = await sb.auth.signOut({ scope: "local" });
+          if (error) throw error;
+          window.setTimeout(() => { suppressNextSignedOutReset = false; }, 1500);
+
+          socialUser = null;
+          legacyAnonymousUser = null;
+          socialProfile = null;
+          state.otpSent = false;
+          state.otpEmail = "";
+          state.otpFlow = "signin";
+          state.syncState = "guest";
+          applyGuestState(guestState);
+          showToast("Du kannst dich jetzt mit deiner bestehenden Account-E-Mail anmelden.");
+        } catch (error) {
+          suppressNextSignedOutReset = false;
+          throw error;
+        } finally {
+          state.accountBusy = false;
+          refreshAccountSurface();
+        }
+      }
+
+      async function signOutAccount() {
+        const sb = getSupabase();
+        try { await flushAccountSync(); } catch (error) { console.error("Sync vor Abmeldung:", error); }
+        stopFriendsRealtime();
+        if (sb) {
+          const { error } = await sb.auth.signOut({ scope: "local" });
+          if (error) throw error;
+        }
+        socialUser = null;
+        legacyAnonymousUser = null;
+        socialProfile = null;
+        state.syncState = "guest";
+        state.otpSent = false;
+        state.otpEmail = "";
+        state.accountBusy = false;
+        resetInMemoryState();
+        renderWelcome();
+      }
+
+      function formatSyncTime(timestamp) {
+        if (!timestamp) return "Noch nicht synchronisiert";
+        try {
+          return `Synchronisiert · ${new Intl.DateTimeFormat("de-DE", { hour: "2-digit", minute: "2-digit" }).format(new Date(timestamp))}`;
+        } catch (_) {
+          return "Synchronisiert";
+        }
+      }
+
+      function renderAccountCard() {
+        if (hasVerifiedAccount()) {
+          const stateLabel = state.syncState === "error"
+            ? "Sync-Fehler"
+            : state.syncState === "syncing" || state.syncState === "pending"
+              ? "Wird gespeichert …"
+              : formatSyncTime(state.lastSyncedAt);
+          const stateClass = state.syncState === "error" ? "error" : state.syncState === "synced" ? "synced" : "";
+          return `<section class="account-card">
+            <div class="account-head">
+              <div>
+                <div class="hub-kicker">Account & Cloud-Sicherung</div>
+                <h2>Dein Profil ist gesichert.</h2>
+                <p>Bestwerte, PR-Verlauf, Profil und Freundschaften gehören jetzt zu deinem verifizierten Account und können auf anderen Geräten wieder geladen werden.</p>
+              </div>
+              <span class="account-pill verified">E-Mail verifiziert</span>
+            </div>
+            <div class="account-user-row">
+              <span class="account-user-icon">${escapeHtml(profileInitials(state.name))}</span>
+              <span class="account-user-copy">
+                <strong>${escapeHtml(socialUser.email || "")}</strong>
+                <span>Passwortloser Zugang per E-Mail-Code</span>
+              </span>
+              <span class="account-sync-state ${stateClass}">${escapeHtml(stateLabel)}</span>
+            </div>
+            <div class="account-actions">
+              <button class="account-secondary" type="button" onclick="caliApp.syncAccountNow()" ${state.accountBusy ? "disabled" : ""}>Jetzt synchronisieren</button>
+              <button class="account-danger" type="button" onclick="caliApp.signOutAccount()" ${state.accountBusy ? "disabled" : ""}>Abmelden</button>
+            </div>
+          </section>`;
+        }
+
+        if (state.otpSent) {
+          return `<section class="account-card">
+            <div class="account-head">
+              <div>
+                <div class="hub-kicker">E-Mail bestätigen</div>
+                <h2>Code eingeben.</h2>
+                <p>Wir haben einen einmaligen Code gesendet. Erst nach erfolgreicher Bestätigung werden dein Profil, deine Werte und dein Verlauf dem Account zugeordnet.</p>
+              </div>
+              <span class="account-pill pending">Bestätigung offen</span>
+            </div>
+            <div class="account-body">
+              <div class="account-email-line">Code gesendet an <strong>${escapeHtml(state.otpEmail)}</strong><button class="account-link-button" type="button" onclick="caliApp.cancelAccountCode()">E-Mail ändern</button></div>
+              <form class="account-form account-code-form" onsubmit="caliApp.verifyAccountCode(event)">
+                <input id="account-code" class="account-input account-code-input" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="10" pattern="[0-9 ]{6,10}" placeholder="000000" aria-label="Bestätigungscode" autofocus>
+                <button class="account-primary" type="submit" ${state.accountBusy ? "disabled" : ""}>${state.accountBusy ? "Prüfe …" : "Account aktivieren"}</button>
+              </form>
+              <div class="account-note">Keinen Code erhalten? Nach der Supabase-Sperrfrist kannst du ihn erneut senden. <button class="account-link-button" type="button" onclick="caliApp.resendAccountCode()" ${state.accountBusy ? "disabled" : ""}>Code erneut senden</button></div>
+            </div>
+          </section>`;
+        }
+
+        const legacyCopy = legacyAnonymousUser
+          ? "Ein bestehendes anonymes Testprofil wurde erkannt. Mit der Bestätigung wird es in einen dauerhaften E-Mail-Account umgewandelt; Freundescode und vorhandene Online-Daten bleiben dabei erhalten."
+          : "Du kannst CalisthanX ohne Registrierung testen. Im Gastmodus existieren deine Eingaben jedoch nur in dieser geöffneten Sitzung. Sichere sie mit einem einmaligen E-Mail-Code.";
+
+        return `<section class="account-card">
+          <div class="account-head">
+            <div>
+              <div class="hub-kicker">Kostenloser Account</div>
+              <h2>Strength Profile sichern.</h2>
+              <p>${escapeHtml(legacyCopy)}</p>
+            </div>
+            <span class="account-pill">Gastmodus</span>
+          </div>
+          <div class="account-body">
+            <form class="account-form" onsubmit="caliApp.sendAccountCode(event)">
+              <input id="account-email" class="account-input" type="email" maxlength="254" autocomplete="email" placeholder="deine@email.de" aria-label="E-Mail-Adresse">
+              <button class="account-primary" type="submit" ${state.accountBusy ? "disabled" : ""}>${state.accountBusy ? "Wird gesendet …" : "Code senden"}</button>
+            </form>
+            <div class="account-note">Kein Passwort. Nach der Bestätigung werden deine aktuellen Gastdaten automatisch übernommen. Freunde sind ausschließlich mit verifiziertem Account verfügbar.</div>
+            ${legacyAnonymousUser ? `<div class="account-legacy-switch"><button class="account-link-button" type="button" onclick="caliApp.useExistingAccount()" ${state.accountBusy ? "disabled" : ""}>E-Mail gehört schon zu einem bestehenden Account?</button><span>Dann wird nur die alte anonyme Sitzung verlassen. Deine aktuellen Werte bleiben bis zum Login im RAM und werden danach zusammengeführt; der alte anonyme Freundescode wird nicht auf den anderen Account übertragen.</span></div>` : ""}
+          </div>
+        </section>`;
+      }
+
+      function renderFriendsAccountGate() {
+        const host = document.getElementById("friends-host");
+        if (!host) return;
+        host.innerHTML = `<section class="friends-card friends-account-gate">
+          <div>
+            <div class="hub-kicker">Freunde</div>
+            <h2>Nur mit gesichertem Account.</h2>
+            <p>Freundescodes, Anfragen und Freundesprofile werden erst freigeschaltet, nachdem deine E-Mail bestätigt wurde. So entstehen keine anonymen Freundesprofile mehr.</p>
+          </div>
+          <button class="account-primary" type="button" onclick="document.getElementById('account-host')?.scrollIntoView({behavior:'smooth',block:'center'})">Account sichern</button>
+        </section>`;
+      }
+
+      function refreshAccountSurface() {
+        const host = document.getElementById("account-host");
+        if (host) host.innerHTML = renderAccountCard();
+      }
+
+      function renderBootScreen() {
+        document.getElementById("app").innerHTML = `<section class="welcome-shell"><div class="welcome-card"><div class="welcome-mark" aria-hidden="true"></div><div class="welcome-kicker">CalisthanX wird geladen</div><h1 class="welcome-title">Dein Profil.<br><span>Einen Moment.</span></h1><p class="welcome-copy">Eine vorhandene Supabase-Sitzung und deine Cloud-Daten werden geprüft.</p></div></section>`;
+      }
+
+      async function bootstrapApp() {
+        // Alte Browserdaten werden genau einmal gelesen, danach endgültig entfernt.
+        // Sie leben anschließend nur noch im RAM, bis der Nutzer seinen Account bestätigt.
+        const legacyBrowserState = readLegacyBrowserState();
+        clearLegacyAppStorage();
+
+        const sb = getSupabase();
+        if (!sb) {
+          applyGuestState(legacyBrowserState);
+          renderHome();
+          return;
+        }
+
+        try {
+          const { data: sessionData, error: sessionError } = await sb.auth.getSession();
+          if (sessionError) throw sessionError;
+
+          if (sessionData?.session) {
+            const { data: userData, error: userError } = await sb.auth.getUser();
+            if (userError) throw userError;
+            const user = userData?.user;
+
+            if (isVerifiedEmailUser(user)) {
+              socialUser = user;
+              const snapshot = await fetchAccountSnapshot();
+              applyAccountSnapshot(snapshot, hasMeaningfulGuestState(legacyBrowserState) ? legacyBrowserState : null);
+              if (hasMeaningfulGuestState(legacyBrowserState) && state.name) {
+                await runAccountSync();
+              }
+            } else if (user?.is_anonymous === true) {
+              legacyAnonymousUser = user;
+              await loadLegacyAnonymousSnapshot(user);
+              applyGuestState(legacyBrowserState);
+            } else {
+              applyGuestState(legacyBrowserState);
+            }
+          } else {
+            applyGuestState(legacyBrowserState);
           }
-        }, 650);
+        } catch (error) {
+          console.error("Account-Start:", error);
+          try { await sb.auth.signOut({ scope: "local" }); } catch (_) {}
+          socialUser = null;
+          legacyAnonymousUser = null;
+          socialProfile = null;
+          resetInMemoryState();
+          applyGuestState(legacyBrowserState);
+        }
+
+        renderHome();
+
+        const authChange = sb.auth.onAuthStateChange((event, session) => {
+          if (event !== "SIGNED_OUT") return;
+          if (suppressNextSignedOutReset) {
+            suppressNextSignedOutReset = false;
+            return;
+          }
+          window.setTimeout(() => {
+            socialUser = null;
+            legacyAnonymousUser = null;
+            socialProfile = null;
+            state.syncState = "guest";
+            stopFriendsRealtime();
+            resetInMemoryState();
+            renderWelcome();
+          }, 0);
+        });
+        authSubscription = authChange?.data?.subscription || null;
       }
 
       function friendAvatarMarkup(profile, big = false) {
         const cls = big ? "friend-profile-avatar-big" : "friend-avatar";
         if (profile?.avatar_data) {
-          return `<span class="${cls}"><img src="${profile.avatar_data}" alt=""></span>`;
+          return `<span class="${cls}"><img src="${escapeHtml(profile.avatar_data)}" alt=""></span>`;
         }
         return `<span class="${cls}">${escapeHtml(profileInitials(profile?.display_name || "CL"))}</span>`;
       }
@@ -5938,7 +6760,7 @@
         if (!sb || !user) return;
 
         friendsChannel = sb
-          .channel(`clastanic-friendships-${user.id}`)
+          .channel(`calisthanx-friendships-${user.id}`)
           .on(
             "postgres_changes",
             { event: "*", schema: "public", table: "friendships" },
@@ -5966,9 +6788,13 @@
       }
 
       async function initializeFriendsSystem() {
+        if (!hasVerifiedAccount()) {
+          renderFriendsAccountGate();
+          return;
+        }
+
         try {
           await ensureOnlineProfile();
-          await syncOnlineStats();
           await refreshFriendsDashboard(true);
           await subscribeFriendsRealtime();
           startFriendsFallbackRefresh();
@@ -5979,8 +6805,18 @@
       }
 
       document.addEventListener("visibilitychange", () => {
-        if (document.visibilityState === "visible" && document.getElementById("friends-host")) {
+        if (hasVerifiedAccount() && document.visibilityState === "hidden") {
+          // Letzte Änderungen beim Wechsel in den Hintergrund bestmöglich senden.
+          flushAccountSync().catch(error => console.error("Account background sync:", error));
+        }
+        if (hasVerifiedAccount() && document.visibilityState === "visible" && document.getElementById("friends-host")) {
           refreshFriendsDashboard(false).catch(error => console.error("Friends visibility:", error));
+        }
+      });
+
+      window.addEventListener("pagehide", () => {
+        if (hasVerifiedAccount()) {
+          flushAccountSync().catch(() => null);
         }
       });
 
@@ -6382,7 +7218,7 @@
 
           <div class="pr-command-insight">
             <div class="pr-command-value-row">
-              <strong class="pr-command-insight-main">${latest ? latestValue : "–"}</strong>
+              <strong class="pr-command-insight-main">${latest ? latestValue : " "}</strong>
               <span class="pr-command-insight-unit">${latest ? escapeHtml(latestUnit) : "Noch kein PR"}</span>
             </div>
             ${latest ? `
@@ -6393,18 +7229,6 @@
         </section>`;
       }
 
-
-      function loadHistory() {
-        try {
-          const raw = localStorage.getItem(HISTORY_KEY);
-          const parsed = raw ? JSON.parse(raw) : {};
-          return parsed && typeof parsed === "object" ? parsed : {};
-        } catch (_) { return {}; }
-      }
-
-      function saveHistory() {
-        try { localStorage.setItem(HISTORY_KEY, JSON.stringify(state.history || {})); } catch (_) {}
-      }
 
       function recordHistory(exercise, value, oldValue) {
         if (!exercise || value <= 0 || value === oldValue) return false;
@@ -6553,7 +7377,7 @@
 
         modal.innerHTML=`<section class="modal-panel share-panel">
           <div class="share-card">
-            <div class="hub-kicker">Clastanic Strength Profile</div>
+            <div class="hub-kicker">CalisthanX Strength Profile</div>
             <div class="share-name">${escapeHtml(state.name)}</div>
             <div class="share-rank">Overall Strength · ${escapeHtml(overall.isUnranked?'Offen':overall.name)} · Apex Score ${apexScore.score} · ${escapeHtml(archetype.name)}</div>
             <div class="share-grid">
@@ -6579,7 +7403,7 @@
         preparedStrengthCardPromise = createStrengthCardBlob()
           .then(blob => {
             const safeName = sanitizeName(state.name).replace(/\s+/g, "-") || "Athlet";
-            const fileName = `Clastanic-Strength-Card-${safeName}.png`;
+            const fileName = `CalisthanX-Strength-Card-${safeName}.png`;
             preparedStrengthCardFile = new File([blob], fileName, { type: "image/png" });
             return preparedStrengthCardFile;
           })
@@ -6652,7 +7476,7 @@
           <circle cx="1020" cy="1010" r="210" fill="none" stroke="rgba(255,255,255,.10)"/>
           <circle cx="1020" cy="1010" r="270" fill="none" stroke="rgba(255,255,255,.05)"/>
 
-          <text x="72" y="88" fill="rgba(255,255,255,.54)" font-size="18" font-weight="800" letter-spacing="2.6">CLASTANIC · STRENGTH PROFILE</text>
+          <text x="72" y="88" fill="rgba(255,255,255,.54)" font-size="18" font-weight="800" letter-spacing="2.6">CALISTHANX · STRENGTH PROFILE</text>
           <text x="72" y="176" fill="#fff" font-size="72" font-weight="900" letter-spacing="-3">${name}</text>
           <text x="72" y="224" fill="rgba(255,255,255,.62)" font-size="24" font-weight="700">Overall Strength · ${escapeXml(overallLabel)} · Apex Score ${apexScore.score}</text>
 
@@ -6678,7 +7502,7 @@
 
           ${cards}
 
-          <text x="72" y="1072" fill="rgba(255,255,255,.34)" font-size="16" font-weight="700">Generated locally by Clastanic</text>
+          <text x="72" y="1072" fill="rgba(255,255,255,.34)" font-size="16" font-weight="700">Generated locally by CalisthanX</text>
         </svg>`;
       }
 
@@ -6824,7 +7648,6 @@
             <div class="apex-score-copy">
               <div class="hub-kicker">Apex Score · Global Mastery</div>
               <h2>Ein Score für dein gesamtes System.</h2>
-              <p>Der Apex Score verbindet gemeisterte Rangstufen, Profilvollständigkeit und Balance in einer kompakten Zahl. ${escapeHtml(nextCopy)}</p>
               <div class="apex-score-metrics">
                 <div class="apex-score-metric"><strong>${r.mastery}%</strong><span>Rang-Mastery</span></div>
                 <div class="apex-score-metric"><strong>${r.balance || "–"}${r.balance ? "%" : ""}</strong><span>Balance</span></div>
@@ -6908,7 +7731,7 @@
         return `<div class="athlete-profile-shell">
           <section class="athlete-profile-hero" style="--profile-accent:${overallAccent}">
             <div class="athlete-profile-copy">
-              <div class="athlete-profile-label">Clastanic Athlete</div>
+              <div class="athlete-profile-label">CalisthanX Athlete</div>
               <div class="athlete-profile-name-row">
                 ${profileAvatarMarkup()}
                 <div class="athlete-profile-name">${escapeHtml(state.name)}</div>
@@ -6935,7 +7758,7 @@
             <section class="profile-identity-card">
               <div class="hub-kicker">Profilstatus</div>
               <h2>Deine Athlete Card</h2>
-              <p>Persönlich, lokal gespeichert und jederzeit teilbar.</p>
+              <p>${hasVerifiedAccount() ? "Mit deinem verifizierten Account in Supabase gesichert und auf weiteren Geräten abrufbar." : "Gastmodus: nur in dieser geöffneten Sitzung verfügbar. Sichere dein Profil weiter unten per E-Mail-Code."}</p>
               <div class="profile-mini-facts">
                 <div class="profile-mini-fact"><strong>${apexScore.score}</strong><span>Apex Score</span></div>
                 <div class="profile-mini-fact"><strong>${completion}%</strong><span>Profil ausgefüllt</span></div>
@@ -6993,6 +7816,7 @@
             </div>
           </section>
           <div class="profile-page-grid">${renderProfileCard(overall,entered,completion)}</div>
+          <div id="account-host">${renderAccountCard()}</div>
           <div id="friends-host"></div>
           ${renderBottomNav('profile')}
         </div>`;
@@ -7267,10 +8091,10 @@
 
       function brandMarkup() {
         return `
-          <a class="brand" href="#" onclick="caliApp.goHome(); return false;" aria-label="Clastanic Startseite">
+          <a class="brand" href="#" onclick="caliApp.goHome(); return false;" aria-label="CalisthanX Startseite">
             <span class="brand-mark" aria-hidden="true"></span>
             <span class="brand-copy">
-              <span class="brand-name">CALISTHENICS</span>
+              <span class="brand-name">CALISTHANX</span>
               <span class="brand-sub">Strength standards</span>
             </span>
           </a>`;
@@ -7284,7 +8108,7 @@
               <div class="welcome-mark" aria-hidden="true"></div>
               <div class="welcome-kicker">Dein persönliches Strength Profile</div>
               <h1 class="welcome-title">Wie dürfen wir<br><span>dich nennen?</span></h1>
-              <p class="welcome-copy">Dein Name macht dein Strength Profile persönlich. Er bleibt nur lokal auf diesem Gerät gespeichert und wird beim kompletten Reset wieder gelöscht.</p>
+              <p class="welcome-copy">Starte direkt ohne Registrierung. Solange du Gast bist, bleiben Name, Werte und Verlauf nur in dieser geöffneten Sitzung. Im Profil kannst du alles später mit einem E-Mail-Code sichern.</p>
               <form class="welcome-form" onsubmit="caliApp.completeProfile(event)">
                 <input id="welcome-name" class="welcome-input" type="text" maxlength="28" autocomplete="name" placeholder="Dein Name" aria-label="Dein Name" autofocus>
                 <button class="welcome-button" type="submit">Loslegen →</button>
@@ -7374,7 +8198,7 @@
               </div>
             </section>
 
-            <div class="footer-note">Deine Werte werden ausschließlich lokal in diesem Browser gespeichert.</div>
+            <div class="footer-note">${hasVerifiedAccount() ? "Deine Werte werden deinem verifizierten Supabase-Account zugeordnet." : "Gastmodus: Beim Neuladen werden die aktuellen Eingaben verworfen. Im Profil kannst du sie per E-Mail-Code sichern."}</div>
             ${renderBottomNav("home")}
           </div>`;
 
@@ -7482,7 +8306,20 @@
         clearTimeout(state.stepMomentTimer);
         const value = getExerciseValue(active.id);
         const baseline = Math.max(0, Number(state.momentBaselineValue) || 0);
+        const entryValue = Math.max(0, Number(state.historyEntryValue) || 0);
+
+        // Jeden bewusst abgeschlossenen Wert in den Verlauf übernehmen – auch
+        // wenn er unter dem bisherigen PR liegt. Dopamin-Momente gibt es
+        // weiterhin ausschließlich für echte Verbesserungen.
+        if (value > 0 && value !== entryValue) {
+          recordHistory(active, value, entryValue);
+          state.historyEntryValue = value;
+        }
+
         if (value <= baseline || value <= 0) {
+          if (hasVerifiedAccount()) {
+            flushAccountSync().catch(error => console.error("Account final sync:", error));
+          }
           return;
         }
 
@@ -7491,10 +8328,13 @@
         const moment = { from: baseline, to: value, delta: value-baseline, oldInfo, newInfo };
         state.momentBaselineValue = value;
         state.momentBaselineHasValue = true;
-        recordHistory(active,value,baseline);
 
         if (newInfo.idx > oldInfo.idx) showRankUpMoment(active,newInfo,value,moment);
         else showPersonalRecordMoment(active,moment);
+
+        if (hasVerifiedAccount()) {
+          flushAccountSync().catch(error => console.error("Account final sync:", error));
+        }
       }
 
       function schedulePerformanceMoment(exercise, delay = 620) {
@@ -7580,7 +8420,7 @@
                              oninput="caliApp.setValue(this.value, 'number')">
                       <span id="range-max">${sliderMax}</span>
                     </div>
-                    <div class="autosave-note">Änderungen werden automatisch gespeichert.</div>
+                    <div class="autosave-note">${hasVerifiedAccount() ? "Änderungen werden automatisch mit deinem Account synchronisiert." : "Gastmodus: Änderungen bleiben nur bis zum Neuladen dieser Seite."}</div>
                     <div class="record-status-row"><span>Personal Record Vault</span><strong id="detail-known-pr">PR · ${escapeHtml(formatValue(getKnownPersonalBest(exercise),exercise.type))}</strong></div>
                   </div>
                 </section>
@@ -7842,8 +8682,10 @@
               <div class="reset-symbol" aria-hidden="true">
                 ${resetIcon()}
               </div>
-              <h2 id="reset-modal-title">Alles zurücksetzen?</h2>
-              <p>Alle Bestwerte, Ränge, PR-Verläufe und dein persönlicher Name werden gelöscht. Danach startet Clastanic wieder mit dem persönlichen Einstieg.</p>
+              <h2 id="reset-modal-title">${hasVerifiedAccount() ? "Trainingsdaten zurücksetzen?" : "Gastdaten löschen?"}</h2>
+              <p>${hasVerifiedAccount()
+                ? "Alle Bestwerte und PR-Verläufe werden aus deinem Supabase-Account gelöscht. E-Mail, Anzeigename, Freundescode und Freundschaften bleiben erhalten."
+                : "Alle Bestwerte, PR-Verläufe, dein Name und dein Profilbild werden aus dieser Sitzung entfernt. Danach startet CalisthanX wieder mit dem persönlichen Einstieg."}</p>
             </div>
             <div class="reset-actions">
               <button class="quiet-button" type="button" onclick="caliApp.closeReset()">Abbrechen</button>
@@ -7875,36 +8717,30 @@
         }, 2200);
       }
 
-      function performFullReset() {
-        // 1. Laufenden Zustand leeren.
-        state.values = {};
-        state.activeExerciseId = null;
-        state.activeCategory = CATEGORY_KEYS[0];
-        state.name = "";
-        state.profileImage = "";
-        state.history = {};
-        state.historyEntryValue = null;
-        state.historyPendingValue = null;
-        state.momentBaselineValue = 0;
-        state.momentBaselineHasValue = false;
-        state.pendingRankUp = null;
-        clearTimeout(state.stepMomentTimer);
-        preparedStrengthCardFile = null;
-        preparedStrengthCardPromise = null;
+      async function performFullReset() {
+        if (hasVerifiedAccount()) {
+          const sb = getSupabase();
+          state.accountBusy = true;
+          try {
+            const { error } = await sb.rpc("reset_clastanic_training_data");
+            if (error) throw error;
+            resetInMemoryState({ keepProfile: true });
+            state.syncState = "synced";
+            state.lastSyncedAt = Date.now();
+            closeResetModal();
+            closeRankModal();
+            renderHome();
+            showToast("Trainingsdaten im Account wurden gelöscht.");
+          } catch (error) {
+            console.error("Cloud-Reset:", error);
+            showToast("Die Trainingsdaten konnten nicht gelöscht werden.");
+          } finally {
+            state.accountBusy = false;
+          }
+          return;
+        }
 
-        // 2. Trainingswerte und persönliches Profil vollständig löschen.
-        clearAllStoredValues();
-        try {
-          localStorage.removeItem(PROFILE_KEY);
-          localStorage.removeItem(PROFILE_IMAGE_KEY);
-          localStorage.removeItem(HISTORY_KEY);
-        } catch (_) {}
-
-        // Die Online-Identität bleibt absichtlich bestehen.
-        // Freundescode und Freundschaften gehören zum Profil und dürfen
-        // durch das Zurücksetzen lokaler Trainingsdaten nicht wechseln.
-
-        // Dialog schließen und die komplette Oberfläche aus leerem Zustand neu aufbauen.
+        resetInMemoryState();
         closeResetModal();
         closeRankModal();
         renderWelcome();
@@ -7936,6 +8772,117 @@
             return;
           }
           renderHome();
+        },
+
+
+        async useExistingAccount() {
+          try {
+            await useExistingAccountInsteadOfLegacyAnonymous();
+          } catch (error) {
+            console.error("Anonyme Sitzung lösen:", error);
+            showToast("Die anonyme Sitzung konnte nicht gelöst werden.");
+          }
+        },
+
+        async sendAccountCode(event) {
+          event?.preventDefault();
+          if (state.accountBusy) return;
+          const input = document.getElementById("account-email");
+          const email = input?.value || "";
+          state.accountBusy = true;
+          refreshAccountSurface();
+          try {
+            await requestEmailOtp(email);
+            refreshAccountSurface();
+            requestAnimationFrame(() => document.getElementById("account-code")?.focus());
+            showToast("Bestätigungscode wurde gesendet.");
+          } catch (error) {
+            console.error("OTP senden:", error);
+            const message = String(error?.message || "");
+            if (message.includes("INVALID_EMAIL")) showToast("Bitte eine gültige E-Mail-Adresse eingeben.");
+            else if (message.toLowerCase().includes("rate") || message.toLowerCase().includes("seconds")) showToast("Bitte kurz warten, bevor du einen neuen Code anforderst.");
+            else if (message.toLowerCase().includes("already") || message.toLowerCase().includes("registered")) showToast("Diese E-Mail gehört bereits zu einem Account. Melde dich mit dieser E-Mail als bestehender Nutzer an.");
+            else showToast(message || "Der Code konnte nicht gesendet werden.");
+          } finally {
+            state.accountBusy = false;
+            refreshAccountSurface();
+          }
+        },
+
+        async verifyAccountCode(event) {
+          event?.preventDefault();
+          if (state.accountBusy) return;
+          const input = document.getElementById("account-code");
+          state.accountBusy = true;
+          refreshAccountSurface();
+          try {
+            await confirmEmailOtp(input?.value || "");
+            renderProfilePage();
+            showToast("Account aktiviert. Deine Daten sind jetzt gesichert.");
+          } catch (error) {
+            console.error("OTP prüfen:", error);
+            const message = String(error?.message || "");
+            if (message.includes("INVALID_OTP") || message.toLowerCase().includes("token") || message.toLowerCase().includes("expired")) showToast("Der Code ist falsch oder abgelaufen.");
+            else showToast(message || "Der Account konnte nicht bestätigt werden.");
+          } finally {
+            state.accountBusy = false;
+            refreshAccountSurface();
+          }
+        },
+
+        async resendAccountCode() {
+          if (state.accountBusy || !state.otpEmail) return;
+          state.accountBusy = true;
+          refreshAccountSurface();
+          try {
+            await requestEmailOtp(state.otpEmail);
+            showToast("Ein neuer Code wurde gesendet.");
+          } catch (error) {
+            console.error("OTP erneut senden:", error);
+            showToast("Der Code kann noch nicht erneut gesendet werden.");
+          } finally {
+            state.accountBusy = false;
+            refreshAccountSurface();
+          }
+        },
+
+        cancelAccountCode() {
+          if (state.accountBusy) return;
+          state.otpSent = false;
+          state.otpEmail = "";
+          state.otpFlow = legacyAnonymousUser ? "upgrade" : "signin";
+          refreshAccountSurface();
+        },
+
+        async syncAccountNow() {
+          if (!hasVerifiedAccount() || state.accountBusy) return;
+          state.accountBusy = true;
+          refreshAccountSurface();
+          try {
+            await flushAccountSync();
+            showToast("Account ist vollständig synchronisiert.");
+          } catch (error) {
+            console.error("Manueller Sync:", error);
+            showToast("Die Synchronisierung ist fehlgeschlagen.");
+          } finally {
+            state.accountBusy = false;
+            refreshAccountSurface();
+          }
+        },
+
+        async signOutAccount() {
+          if (state.accountBusy) return;
+          state.accountBusy = true;
+          refreshAccountSurface();
+          try {
+            await signOutAccount();
+            showToast("Du wurdest abgemeldet.");
+          } catch (error) {
+            console.error("Abmelden:", error);
+            state.accountBusy = false;
+            refreshAccountSurface();
+            showToast("Abmelden ist fehlgeschlagen.");
+          }
         },
 
         setCategory(key) {
@@ -8041,7 +8988,7 @@
         closeRanks() { closeRankModal(); },
         toggleTheme() {
           const current = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
-          applyTheme(current === "dark" ? "light" : "dark", true);
+          applyTheme(current === "dark" ? "light" : "dark");
         },
 
         showShareCard() { showShareCard(); },
@@ -8072,7 +9019,7 @@
             }
 
             await navigator.share({
-              title: "Clastanic Strength Card",
+              title: "CalisthanX Strength Card",
               files: [file]
             });
           } catch (error) {
@@ -8210,7 +9157,7 @@
 
         requestReset() { showResetModal(); },
         closeReset() { closeResetModal(); },
-        confirmReset() { performFullReset(); },
+        async confirmReset() { await performFullReset(); },
 
         // Abwärtskompatibel für eventuell noch offene alte Ansichten.
         resetAll() { showResetModal(); }
@@ -8218,8 +9165,9 @@
 
       window.addEventListener("resize", () => updateTabSlider(false));
 
-      applyTheme(loadTheme(), false);
-      renderHome();
+      applyTheme(loadTheme());
+      renderBootScreen();
+      bootstrapApp();
     })();
   </script>
 

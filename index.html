@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#7257f7">
   <meta name="color-scheme" content="light dark">
   <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="apple-touch-icon" href="./icon-192.png">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%238b72ff'/%3E%3Cstop offset='1' stop-color='%235b3fe7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='20' fill='url(%23g)'/%3E%3Cg transform='rotate(-45 32 32)' fill='white'%3E%3Crect x='13' y='22' width='28' height='7' rx='4'/%3E%3Crect x='23' y='35' width='28' height='7' rx='4' opacity='.58'/%3E%3C/g%3E%3C/svg%3E">
   <title>CalisthanX – Calisthenics Standards</title>
   <style>
@@ -762,129 +762,55 @@
       text-align: center;
     }
 
-    /* Rank badge – 13 eigenständige, aufeinander aufbauende Abzeichen */
+    /* =========================================================
+       PNG-Rangabzeichen – einheitlich in allen App-Bereichen
+       ========================================================= */
     .rank-badge {
       display: block;
-      overflow: visible;
-      isolation: isolate;
-      filter: drop-shadow(0 9px 16px rgba(24, 18, 48, .18));
-    }
-
-    .rank-badge .rank-progress-bg {
-      fill: none;
-      stroke: #e5e2ea;
-      stroke-width: 4;
-    }
-
-    .rank-badge .rank-progress {
-      fill: none;
-      stroke: var(--rank-accent);
-      stroke-width: 4;
-      stroke-linecap: round;
-      transform: rotate(-90deg);
-      transform-origin: 64px 64px;
-      transition: stroke-dashoffset .45s var(--ease), stroke .25s ease;
-    }
-
-    .rank-badge .rank-tick {
-      stroke: rgba(34, 29, 49, .16);
-      stroke-width: 1.8;
-      stroke-linecap: round;
-    }
-
-    .rank-badge .rank-shell {
-      stroke: rgba(255,255,255,.28);
-      stroke-width: 1.35;
-      stroke-linejoin: round;
-    }
-
-    .rank-badge .rank-shell-edge {
-      fill: none;
-      stroke: var(--rank-accent);
-      stroke-width: 1.7;
-      stroke-linejoin: round;
-      opacity: .9;
-    }
-
-    .rank-badge .rank-shell-glow {
-      fill: none;
-      stroke: rgba(255,255,255,.16);
-      stroke-width: 1;
-      stroke-linejoin: round;
-    }
-
-    .rank-badge .rank-facet {
-      fill: rgba(255,255,255,.055);
+      max-width: 100%;
+      height: auto;
+      aspect-ratio: 1;
+      object-fit: contain;
+      object-position: center;
+      user-select: none;
+      -webkit-user-drag: none;
       pointer-events: none;
+      filter: drop-shadow(0 10px 18px rgba(24, 18, 48, .20));
+      transform: translateZ(0);
+      transform-origin: center;
+      transition:
+        transform .28s var(--ease),
+        filter .28s ease,
+        opacity .22s ease;
     }
 
-    .rank-badge .rank-core {
-      fill: rgba(255,255,255,.045);
-      stroke: rgba(255,255,255,.10);
-      stroke-width: 1;
+    /* Ohne erfasste Werte wird Start nur als dezente Vorschau gezeigt. */
+    .rank-badge.is-unranked {
+      opacity: .38;
+      filter:
+        grayscale(1)
+        saturate(.22)
+        drop-shadow(0 7px 13px rgba(24, 18, 48, .12));
     }
 
-    .rank-badge .rank-emblem-wrap {
-      transform-origin: 64px 58px;
-      transition: transform .28s var(--ease);
+    /* In den Übungskarten bleibt das Abzeichen kompakt und ruhig. */
+    .card-badge .rank-badge {
+      width: 56px;
+      height: 56px;
     }
 
-    .rank-badge .rank-emblem {
-      fill: none;
-      stroke: #fff;
-      stroke-width: 4.2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+    .exercise-card:hover .card-badge .rank-badge:not(.is-unranked) {
+      transform: translateY(-1px) scale(1.045);
     }
 
-    .rank-badge .rank-emblem-soft {
-      fill: none;
-      stroke: var(--rank-accent);
-      stroke-width: 2.7;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .rank-badge .rank-emblem-fine {
-      fill: none;
-      stroke: rgba(255,255,255,.62);
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .rank-badge .rank-emblem-fill { fill: #fff; }
-    .rank-badge .rank-emblem-accent { fill: var(--rank-accent); }
-
-    .rank-badge .rank-level-plate {
-      fill: rgba(7, 7, 13, .30);
-      stroke: rgba(255,255,255,.08);
-      stroke-width: 1;
-    }
-
-    .rank-badge .rank-number {
-      fill: rgba(255,255,255,.66);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 7px;
-      font-weight: 850;
-      letter-spacing: 1.25px;
-      text-anchor: middle;
-    }
-
-    /* In den kleinen Übungskarten bleibt das Abzeichen bewusst ruhiger. */
-    .card-badge .rank-level-plate,
-    .card-badge .rank-number {
-      display: none;
-    }
-
-    .rank-grid-item:hover .rank-emblem-wrap {
-      transform: translateY(-1.5px) scale(1.035);
+    .rank-grid-item:hover .rank-badge:not(.is-unranked) {
+      transform: translateY(-2px) scale(1.045);
     }
 
     .rank-grid-item.active .rank-badge {
       filter:
-        drop-shadow(0 9px 16px rgba(24, 18, 48, .16))
-        drop-shadow(0 0 12px color-mix(in srgb, var(--item-accent) 28%, transparent));
+        drop-shadow(0 11px 18px rgba(24, 18, 48, .18))
+        drop-shadow(0 0 15px color-mix(in srgb, var(--item-accent) 30%, transparent));
     }
 
     /* Detail page */
@@ -2436,8 +2362,6 @@
       box-shadow: inset 0 0 0 1px var(--line);
     }
 
-    html[data-theme="dark"] .rank-badge .rank-progress-bg { stroke: #30343e; }
-    html[data-theme="dark"] .rank-badge .rank-tick { stroke: rgba(255,255,255,.12); }
 
     html[data-theme="dark"] .rank-grid-item.reached:not(.active) {
       background: color-mix(in srgb, var(--item-accent) 8%, var(--card));
@@ -3707,7 +3631,9 @@
       background: rgba(255,255,255,.05);
       font-size: 9px;
       font-weight: 900;
+      padding-top: 8px;
     }
+
     .mastery-stage.done .mastery-stage-symbol,
     .mastery-stage.current .mastery-stage-symbol {
       border-color: var(--stage-accent);
@@ -6605,7 +6531,7 @@
             <div class="friends-head">
               <div class="friends-head-copy">
                 <div class="hub-kicker">Freunde</div>
-                <h2>Gemeinsam stärker</h2>
+                <h2>Gemeinsam stärker.</h2>
                 <p>Freundescodes verbinden eure Profile. Anfragen erscheinen direkt hier im Profil.</p>
               </div>
               <div class="friends-head-actions">
@@ -7724,6 +7650,7 @@
         const categories = CATEGORY_KEYS.map(key => ({ key, info: getCategoryRank(key) }));
         const strongest = categories.filter(x => !x.info.isUnranked).sort((a,b) => b.info.score-a.info.score)[0];
         const archetype = getAthleteArchetype();
+        const data = getBalanceData();
         const overallAccent = overall.isUnranked ? "#7257f7" : overall.accent;
         const overallLabel = overall.isUnranked ? "Noch ohne Rang" : overall.name;
         const strongestLabel = strongest ? DATA[strongest.key].label : "Noch offen";
@@ -7762,7 +7689,7 @@
               <div class="profile-mini-facts">
                 <div class="profile-mini-fact"><strong>${apexScore.score}</strong><span>Apex Score</span></div>
                 <div class="profile-mini-fact"><strong>${completion}%</strong><span>Profil ausgefüllt</span></div>
-                <div class="profile-mini-fact"><strong>${entered}</strong><span>Leistungen hinterlegt</span></div>
+                <div class="profile-mini-fact"><strong>${data.ready ? data.score + '%' : '–'}</strong><span>Balance Score</span></div>
                 <div class="profile-mini-fact"><strong>${escapeHtml(strongestLabel)}</strong><span>Signature Area</span></div>
               </div>
             </section>
@@ -7812,7 +7739,7 @@
           <section class="tab-page-head">
             <div>
               <div class="hub-kicker">Athletenprofil</div>
-              <h1>Profil</h1>
+              <h1>Profil.</h1>
             </div>
           </section>
           <div class="profile-page-grid">${renderProfileCard(overall,entered,completion)}</div>
@@ -7882,191 +7809,56 @@
         return type === "time" ? formatTime(safe) : `${safe} Wdh.`;
       }
 
-      let rankBadgeUid = 0;
+      /* Dateinamen der 13 neuen PNG-Rangabzeichen.
+         Alle Dateien liegen wie die Übungsbilder direkt neben dieser HTML-Datei. */
+      const RANK_IMAGE_FILES = [
+        "Start.png",
+        "Basis1.png",
+        "Basis2.png",
+        "Kontrolle1.png",
+        "Kontrolle2.png",
+        "Kraft1.png",
+        "Kraft2.png",
+        "Athlet1.png",
+        "Athlet2.png",
+        "Elite1.png",
+        "Elite2.png",
+        "Meister.png",
+        "Apex.png"
+      ];
 
-      function rankShell(index, faceId, glowId) {
-        const tier = index <= 2 ? "foundation" : index <= 6 ? "power" : index <= 10 ? "athlete" : "royal";
-
-        const shells = {
-          foundation: {
-            path: "M64 15L96 33V74L64 106L32 74V33Z",
-            inner: "M64 21L90 36V71L64 98L38 71V36Z",
-            facet: "M64 15V106L32 74V33Z"
-          },
-          power: {
-            path: "M64 13C76 21 89 24 102 25V60C102 82 87 99 64 109C41 99 26 82 26 60V25C39 24 52 21 64 13Z",
-            inner: "M64 20C75 27 86 29 95 30V59C95 77 83 91 64 101C45 91 33 77 33 59V30C42 29 53 27 64 20Z",
-            facet: "M64 13V109C41 99 26 82 26 60V25C39 24 52 21 64 13Z"
-          },
-          athlete: {
-            path: "M64 12L79 21L101 25L105 56C105 82 88 101 64 111C40 101 23 82 23 56L27 25L49 21Z",
-            inner: "M64 20L77 28L94 31L97 57C97 76 84 92 64 102C44 92 31 76 31 57L34 31L51 28Z",
-            facet: "M64 12V111C40 101 23 82 23 56L27 25L49 21Z"
-          },
-          royal: {
-            path: "M64 10L76 21L88 16L99 31L104 60C104 85 87 102 64 112C41 102 24 85 24 60L29 31L40 16L52 21Z",
-            inner: "M64 19L75 29L86 25L92 36L96 60C96 79 83 93 64 103C45 93 32 79 32 60L36 36L42 25L53 29Z",
-            facet: "M64 10V112C41 102 24 85 24 60L29 31L40 16L52 21Z"
-          }
-        };
-
-        const shell = shells[tier];
-        return `
-          <path class="rank-shell" d="${shell.path}" fill="url(#${faceId})"/>
-          <path class="rank-facet" d="${shell.facet}"/>
-          <path class="rank-shell-edge" d="${shell.path}"/>
-          <path class="rank-shell-glow" d="${shell.inner}" stroke="url(#${glowId})"/>
-          <ellipse class="rank-core" cx="64" cy="58" rx="28" ry="27"/>`;
-      }
-
-      function rankArtwork(index) {
-        const artworks = [
-          /* 00 · Start – der erste Funke */
-          `<g class="rank-emblem-wrap">
-             <circle class="rank-emblem-soft" cx="64" cy="57" r="15"/>
-             <circle class="rank-emblem-fill" cx="64" cy="57" r="4.6"/>
-             <path class="rank-emblem-fine" d="M64 35V41M64 73V79M42 57H48M80 57H86"/>
-           </g>`,
-
-          /* 01 · Basis I – ein sauberer Aufstieg */
-          `<g class="rank-emblem-wrap">
-             <path class="rank-emblem" d="M47 66L64 50L81 66"/>
-             <path class="rank-emblem-soft" d="M52 74H76"/>
-           </g>`,
-
-          /* 02 · Basis II – doppelte Stabilität */
-          `<g class="rank-emblem-wrap">
-             <path class="rank-emblem" d="M47 59L64 45L81 59M47 72L64 58L81 72"/>
-           </g>`,
-
-          /* 03 · Kontrolle I – Fokus und Mitte */
-          `<g class="rank-emblem-wrap">
-             <circle class="rank-emblem" cx="64" cy="57" r="16"/>
-             <path class="rank-emblem-fine" d="M64 35V41M64 73V79M42 57H48M80 57H86"/>
-             <path class="rank-emblem-soft" d="M64 47L71 57L64 67L57 57Z"/>
-           </g>`,
-
-          /* 04 · Kontrolle II – präziser Kompass */
-          `<g class="rank-emblem-wrap">
-             <circle class="rank-emblem-soft" cx="64" cy="57" r="19"/>
-             <circle class="rank-emblem-fine" cx="64" cy="57" r="10"/>
-             <path class="rank-emblem" d="M64 39L68 53L82 57L68 61L64 75L60 61L46 57L60 53Z"/>
-             <circle class="rank-emblem-accent" cx="64" cy="57" r="3.2"/>
-           </g>`,
-
-          /* 05 · Kraft I – massiver Diamant */
-          `<g class="rank-emblem-wrap">
-             <path class="rank-emblem" d="M64 39L84 57L64 80L44 57Z"/>
-             <path class="rank-emblem-soft" d="M44 57H84M64 39V80"/>
-           </g>`,
-
-          /* 06 · Kraft II – Energie im Diamanten */
-          `<g class="rank-emblem-wrap">
-             <path class="rank-emblem-soft" d="M64 38L85 57L64 81L43 57Z"/>
-             <path class="rank-emblem" d="M61 42H76L67 55H79L51 80L59 62H49Z"/>
-           </g>`,
-
-          /* 07 · Athlet I – erste Flügel */
-          `<g class="rank-emblem-wrap">
-             <path class="rank-emblem" d="M60 54L64 46L68 54L64 69Z"/>
-             <path class="rank-emblem" d="M58 57C51 56 46 52 42 46C42 57 48 65 57 69M70 57C77 56 82 52 86 46C86 57 80 65 71 69"/>
-             <path class="rank-emblem-soft" d="M52 76H76"/>
-           </g>`,
-
-          /* 08 · Athlet II – volle Spannweite */
-          `<g class="rank-emblem-wrap">
-             <path class="rank-emblem-fill" d="M64 43L72 56L64 69L56 56Z"/>
-             <path class="rank-emblem" d="M56 54C50 54 44 50 39 44C40 57 47 67 58 72M72 54C78 54 84 50 89 44C88 57 81 67 70 72"/>
-             <path class="rank-emblem-soft" d="M43 58C47 63 51 66 56 68M85 58C81 63 77 66 72 68M50 77H78"/>
-           </g>`,
-
-          /* 09 · Elite I – klarer Stern */
-          `<g class="rank-emblem-wrap">
-             <path class="rank-emblem" d="M64 38L70 51L85 53L74 63L78 79L64 72L50 79L54 63L43 53L58 51Z"/>
-             <circle class="rank-emblem-accent" cx="64" cy="59" r="3.6"/>
-           </g>`,
-
-          /* 10 · Elite II – Stern mit Halo */
-          `<g class="rank-emblem-wrap">
-             <circle class="rank-emblem-soft" cx="64" cy="58" r="21"/>
-             <path class="rank-emblem-fine" d="M64 31V37M64 79V85M37 58H43M85 58H91"/>
-             <path class="rank-emblem" d="M64 41L69 52L81 54L72 62L75 75L64 69L53 75L56 62L47 54L59 52Z"/>
-             <circle class="rank-emblem-fill" cx="64" cy="59" r="3.2"/>
-           </g>`,
-
-          /* 11 · Meister – reduzierte Krone */
-          `<g class="rank-emblem-wrap">
-             <path class="rank-emblem" d="M43 72L48 48L60 61L70 43L80 61L88 48L84 72Z"/>
-             <path class="rank-emblem" d="M47 78H84"/>
-             <circle class="rank-emblem-accent" cx="70" cy="43" r="3.2"/>
-           </g>`,
-
-          /* 12 · Apex – Gipfel und Polarstern */
-          `<g class="rank-emblem-wrap">
-             <path class="rank-emblem" d="M40 76L56 51L64 61L73 44L89 76Z"/>
-             <path class="rank-emblem-soft" d="M56 51L64 61L73 44M48 76H81"/>
-             <path class="rank-emblem-fill" d="M64 30L67 37L74 40L67 43L64 50L61 43L54 40L61 37Z"/>
-           </g>`
-        ];
-
-        return artworks[index] || artworks[0];
-      }
-
-      function unrankedArtwork() {
-        return `<g class="rank-emblem-wrap">
-          <circle class="rank-emblem-soft" cx="64" cy="57" r="16"/>
-          <path class="rank-emblem" d="M53 57H75"/>
-          <circle class="rank-emblem-accent" cx="64" cy="57" r="3"/>
-        </g>`;
+      function rankImageFile(rankInfo) {
+        if (rankInfo?.isUnranked) return RANK_IMAGE_FILES[0];
+        const safeIndex = clamp(Number(rankInfo?.idx) || 0, 0, RANK_IMAGE_FILES.length - 1);
+        return RANK_IMAGE_FILES[safeIndex];
       }
 
       function rankBadge(rankInfo, size = 112, progressOverride = null) {
-        const progress = progressOverride === null ? rankInfo.progress : progressOverride;
-        const radius = 56;
-        const circumference = 2 * Math.PI * radius;
-        const dashOffset = circumference * (1 - clamp(progress, 0, 100) / 100);
-        const safeIndex = rankInfo.isUnranked ? 0 : clamp(Number(rankInfo.idx) || 0, 0, 12);
-        const uid = `rank-${rankInfo.isUnranked ? "open" : safeIndex}-${++rankBadgeUid}`;
-        const faceId = `${uid}-face`;
-        const glowId = `${uid}-glow`;
-        const shineId = `${uid}-shine`;
-        const ticks = Array.from({ length: 12 }, (_, tickIndex) => {
-          const angle = tickIndex * 30;
-          return `<line class="rank-tick" x1="64" y1="3.5" x2="64" y2="7.5" transform="rotate(${angle} 64 64)"/>`;
-        }).join("");
-        const artwork = rankInfo.isUnranked ? unrankedArtwork() : rankArtwork(safeIndex);
-        const levelText = rankInfo.isUnranked ? "OFFEN" : `LEVEL ${String(safeIndex).padStart(2, "0")}`;
+        const isUnranked = Boolean(rankInfo?.isUnranked);
+        const safeIndex = isUnranked
+          ? 0
+          : clamp(Number(rankInfo?.idx) || 0, 0, RANK_IMAGE_FILES.length - 1);
+        const fileName = rankImageFile(rankInfo);
+        const rankName = isUnranked ? "Noch ohne Rang" : (rankInfo?.name || RANKS[safeIndex]?.name || "Rang");
+        const progress = progressOverride === null
+          ? Number(rankInfo?.progress || 0)
+          : Number(progressOverride || 0);
+        const safeProgress = Math.round(clamp(progress, 0, 100));
+        const unrankedClass = isUnranked ? " is-unranked" : "";
+        const accent = rankInfo?.accent || RANKS[safeIndex]?.accent || "#818991";
+        const deep = rankInfo?.deep || RANKS[safeIndex]?.deep || "#1b2025";
 
-        return `
-          <svg class="rank-badge" width="${size}" height="${size}" viewBox="0 0 128 128" aria-hidden="true"
-               style="--rank-accent:${rankInfo.accent};--rank-deep:${rankInfo.deep}">
-            <defs>
-              <linearGradient id="${faceId}" x1="34" y1="20" x2="94" y2="108" gradientUnits="userSpaceOnUse">
-                <stop offset="0" stop-color="${rankInfo.accent}" stop-opacity=".96"/>
-                <stop offset=".42" stop-color="${rankInfo.deep}"/>
-                <stop offset="1" stop-color="#090910"/>
-              </linearGradient>
-              <linearGradient id="${glowId}" x1="42" y1="25" x2="86" y2="102" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#fff" stop-opacity=".34"/>
-                <stop offset=".5" stop-color="#fff" stop-opacity=".08"/>
-                <stop offset="1" stop-color="${rankInfo.accent}" stop-opacity=".42"/>
-              </linearGradient>
-              <linearGradient id="${shineId}" x1="38" y1="23" x2="86" y2="84" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#fff" stop-opacity=".22"/>
-                <stop offset="1" stop-color="#fff" stop-opacity="0"/>
-              </linearGradient>
-            </defs>
-            <circle class="rank-progress-bg" cx="64" cy="64" r="${radius}"/>
-            <circle class="rank-progress" cx="64" cy="64" r="${radius}"
-                    stroke-dasharray="${circumference.toFixed(2)}"
-                    stroke-dashoffset="${dashOffset.toFixed(2)}"/>
-            <g>${ticks}</g>
-            ${rankShell(safeIndex, faceId, glowId)}
-            <path d="M42 27C50 23 57 20 64 16V61C54 57 47 47 42 27Z" fill="url(#${shineId})" opacity=".8"/>
-            ${artwork}
-            <rect class="rank-level-plate" x="43" y="89" width="42" height="14" rx="7"/>
-            <text class="rank-number" x="64" y="98.5">${levelText}</text>
-          </svg>`;
+        return `<img class="rank-badge${unrankedClass}"
+          src="${escapeHtml(fileName)}"
+          alt="${escapeHtml(`${rankName} Rangabzeichen`)}"
+          width="${size}"
+          height="${size}"
+          decoding="async"
+          draggable="false"
+          data-rank-index="${safeIndex}"
+          data-progress="${safeProgress}"
+          style="--rank-accent:${escapeHtml(accent)};--rank-deep:${escapeHtml(deep)}"
+          onerror="this.onerror=null;this.src='Start.png';this.classList.add('is-unranked')">`;
       }
 
       function exerciseImage(exercise) {
@@ -8303,34 +8095,49 @@
       function finalizePerformanceMoment(exercise = null) {
         const active = exercise || ALL_EXERCISES.find(item => item.id === state.activeExerciseId);
         if (!active) return;
+
         clearTimeout(state.stepMomentTimer);
+
         const value = getExerciseValue(active.id);
         const baseline = Math.max(0, Number(state.momentBaselineValue) || 0);
+        const baselineHadValue = Boolean(state.momentBaselineHasValue);
         const entryValue = Math.max(0, Number(state.historyEntryValue) || 0);
 
-        // Jeden bewusst abgeschlossenen Wert in den Verlauf übernehmen – auch
-        // wenn er unter dem bisherigen PR liegt. Dopamin-Momente gibt es
-        // weiterhin ausschließlich für echte Verbesserungen.
+        // Den bisherigen echten PR VOR dem neuen Verlaufseintrag festhalten.
+        // So löst ein erneuter Rangaufstieg unterhalb des alten PRs keinen
+        // falschen "New Personal Record"-Moment aus.
+        const historyBestBefore = historyForExercise(active, false)
+          .reduce((max, entry) => Math.max(max, Math.max(0, Number(entry.value) || 0)), 0);
+        const personalBestBefore = Math.max(historyBestBefore, entryValue);
+
+        // Jeden bewusst abgeschlossenen Wert in den Verlauf übernehmen –
+        // auch Rückschritte. So bleibt die Entwicklung vollständig sichtbar.
         if (value > 0 && value !== entryValue) {
           recordHistory(active, value, entryValue);
           state.historyEntryValue = value;
         }
 
-        if (value <= baseline || value <= 0) {
-          if (hasVerifiedAccount()) {
-            flushAccountSync().catch(error => console.error("Account final sync:", error));
-          }
-          return;
-        }
-
-        const oldInfo = getRankInfo(baseline, active.t, state.momentBaselineHasValue || baseline > 0);
+        const oldInfo = getRankInfo(baseline, active.t, baselineHadValue || baseline > 0);
         const newInfo = getRankInfo(value, active.t, true);
-        const moment = { from: baseline, to: value, delta: value-baseline, oldInfo, newInfo };
+        const moment = {
+          from: baseline,
+          to: value,
+          delta: value - baseline,
+          oldInfo,
+          newInfo
+        };
+
+        // WICHTIG: Der Rang-Vergleich folgt immer dem zuletzt bestätigten Wert –
+        // auch wenn dieser niedriger geworden ist. Dadurch kann derselbe Rang
+        // beim späteren erneuten Überschreiten wieder gefeiert werden.
         state.momentBaselineValue = value;
         state.momentBaselineHasValue = true;
 
-        if (newInfo.idx > oldInfo.idx) showRankUpMoment(active,newInfo,value,moment);
-        else showPersonalRecordMoment(active,moment);
+        if (value > baseline && newInfo.idx > oldInfo.idx) {
+          showRankUpMoment(active, newInfo, value, moment);
+        } else if (value > personalBestBefore) {
+          showPersonalRecordMoment(active, moment);
+        }
 
         if (hasVerifiedAccount()) {
           flushAccountSync().catch(error => console.error("Account final sync:", error));
@@ -8935,8 +8742,12 @@
           state.activeCategory = exercise.category;
           state.historyEntryValue = Number(state.values[exercise.id] || 0);
           state.historyPendingValue = state.historyEntryValue;
-          state.momentBaselineValue = getKnownPersonalBest(exercise);
-          state.momentBaselineHasValue = hasStoredValue(exercise.id) || state.momentBaselineValue > 0;
+
+          // Für Rang-Aufstiege zählt der aktuell eingestellte Wert als Ausgangspunkt.
+          // Der persönliche Bestwert wird weiterhin separat aus dem Verlauf ermittelt.
+          // Dadurch kann ein zuvor verlorener Rang später erneut erreicht werden.
+          state.momentBaselineValue = state.historyEntryValue;
+          state.momentBaselineHasValue = hasStoredValue(exercise.id);
           clearTimeout(state.stepMomentTimer);
           state.pendingRankUp = null;
           renderDetail();

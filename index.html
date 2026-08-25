@@ -7,8 +7,8 @@
   <meta name="color-scheme" content="light dark">
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="./icon-192.png">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%238b72ff'/%3E%3Cstop offset='1' stop-color='%235b3fe7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='20' fill='url(%23g)'/%3E%3Cg transform='rotate(-45 32 32)' fill='white'%3E%3Crect x='13' y='22' width='28' height='7' rx='4'/%3E%3Crect x='23' y='35' width='28' height='7' rx='4' opacity='.58'/%3E%3C/g%3E%3C/svg%3E">
-  <title>CalisthanX – Calisthenics Standards</title>
+  <link rel="icon" href="./icon-192.png">
+  <title>CalisthenX</title>
   <style>
 
     :root {
@@ -1834,7 +1834,7 @@
 
 
 
-    /* ===== CalisthanX Performance Hub ===== */
+    /* ===== CalisthenX Performance Hub ===== */
     .performance-hub { margin-top: 22px; display: grid; grid-template-columns: 1.08fr .92fr; gap: 16px; }
     .hub-card { border: 1px solid var(--line); border-radius: 28px; background: var(--card); box-shadow: var(--shadow-card); overflow: hidden; }
     .next-goal-card { grid-column: 1 / -1; position: relative; min-height: 220px; padding: 28px 34px; color: #fff; background: linear-gradient(135deg,#171321,#2b2048 58%,#7257f7); }
@@ -2170,22 +2170,11 @@
     .closest-item { padding:17px; border:1px solid var(--line); border-radius:19px; background:var(--card-soft); cursor:pointer; }
     .closest-item strong { display:block; margin-top:6px; font-size:16px; }
     .closest-item span { display:block; margin-top:5px; color:var(--muted); font-size:10px; }
-    .share-profile-button { width:100%; margin-top:10px; min-height:42px; border:1px solid var(--line); border-radius:14px; background:#fff; font-size:10px; font-weight:800; cursor:pointer; }
     .history-card { margin-top:16px; padding:27px; border:1px solid var(--line); border-radius:30px; background:var(--card); box-shadow:var(--shadow-card); }
     .history-head { display:flex; justify-content:space-between; gap:18px; align-items:end; margin-bottom:18px; }
     .history-head h2 { margin:5px 0 0; font-size:24px; letter-spacing:-.04em; }
     .history-values { display:flex; gap:8px; flex-wrap:wrap; }
     .history-value { padding:9px 11px; border-radius:13px; background:var(--card-soft); color:var(--muted); font-size:10px; font-weight:750; }
-    .share-panel { width:min(520px,100%); padding:20px; }
-    .share-card { padding:30px; border-radius:28px; color:#fff; background:linear-gradient(145deg,#171321,#2b2048 58%,#7257f7); }
-    .share-name { margin-top:18px; font-size:30px; font-weight:850; letter-spacing:-.05em; }
-    .share-rank { margin-top:5px; color:rgba(255,255,255,.65); font-size:12px; }
-    .share-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:24px; }
-    .share-stat { padding:13px; border:1px solid rgba(255,255,255,.12); border-radius:15px; background:rgba(255,255,255,.07); }
-    .share-stat strong { display:block; font-size:15px; }
-    .share-stat span { display:block; margin-top:4px; color:rgba(255,255,255,.52); font-size:8px; }
-    .share-actions { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-top:12px; }
-    .share-export-note { margin-top:12px; color:var(--muted); font-size:9px; line-height:1.5; text-align:center; }
     @media(max-width:760px){.closest-grid{grid-template-columns:1fr}.closest-card{grid-column:auto}}
 
 
@@ -3076,7 +3065,7 @@
 
 
     /* =========================================================
-       CALISTHANX 4.0 · PR VAULT · APEX SCORE · MASTERY
+       CALISTHENX 4.0 · PR VAULT · APEX SCORE · MASTERY
        ========================================================= */
 
     /* ---------- Apex Score: kompakt in Road to Apex integriert ---------- */
@@ -3675,6 +3664,39 @@
       color: var(--detail-accent,var(--brand));
       font-size: 10px;
       font-weight: 850;
+    }
+
+    .exercise-reset-button {
+      display: inline-flex;
+      min-height: 38px;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      margin-top: 16px;
+      padding: 0 13px;
+      border: 1px solid color-mix(in srgb, var(--danger) 28%, var(--line));
+      border-radius: 12px;
+      color: var(--danger);
+      background: color-mix(in srgb, var(--danger) 6%, var(--card));
+      font-size: 9px;
+      font-weight: 820;
+      cursor: pointer;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+    }
+
+    .exercise-reset-button:hover {
+      border-color: color-mix(in srgb, var(--danger) 55%, var(--line));
+      background: color-mix(in srgb, var(--danger) 11%, var(--card));
+      transform: translateY(-1px);
+    }
+
+    .exercise-reset-button svg { width: 13px; height: 13px; }
+
+    .exercise-reset-button:disabled {
+      opacity: .38;
+      cursor: default;
+      transform: none;
+      box-shadow: none;
     }
 
     /* ---------- Cinematic PR Moments ---------- */
@@ -5536,7 +5558,7 @@
          ============================================================ */
       const SUPABASE_URL = "https://qemaedzzezoabpxwuuqt.supabase.co";
       const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_n3wQjB3XseXWRwG0gqGuvg_qeNi9qlp";
-      const SUPABASE_AUTH_STORAGE_KEY = "calisthanx-auth-v1";
+      const SUPABASE_AUTH_STORAGE_KEY = "calisthenx-auth-v1";
       const LEGACY_SUPABASE_AUTH_STORAGE_KEYS = [
         "clastanic-auth-v1",
         "sb-qemaedzzezoabpxwuuqt-auth-token"
@@ -5690,9 +5712,6 @@
         </button>`;
       }
 
-      let preparedStrengthCardFile = null;
-      let preparedStrengthCardPromise = null;
-
       const state = {
         activeView: "home",
         activeCategory: CATEGORY_KEYS[0],
@@ -5727,7 +5746,7 @@
       function readableBrowserStorage(storageName) {
         try {
           const storage = window[storageName];
-          const testKey = "__calisthanx_storage_test__";
+          const testKey = "__calisthenx_storage_test__";
           storage.setItem(testKey, "1");
           storage.removeItem(testKey);
           return storage;
@@ -6235,8 +6254,7 @@
         state.pendingRankUp = null;
         clearTimeout(state.stepMomentTimer);
         clearTimeout(socialSyncTimer);
-        preparedStrengthCardFile = null;
-        preparedStrengthCardPromise = null;
+
         if (!keepProfile) {
           state.name = "";
           state.profileImage = "";
@@ -6361,7 +6379,7 @@
 
         const legacyCopy = legacyAnonymousUser
           ? "Ein bestehendes anonymes Testprofil wurde erkannt. Mit der Bestätigung wird es in einen dauerhaften E-Mail-Account umgewandelt; Freundescode und vorhandene Online-Daten bleiben dabei erhalten."
-          : "Du kannst CalisthanX ohne Registrierung testen. Im Gastmodus existieren deine Eingaben jedoch nur in dieser geöffneten Sitzung. Sichere sie mit einem einmaligen E-Mail-Code.";
+          : "Du kannst CalisthenX ohne Registrierung testen. Im Gastmodus existieren deine Eingaben jedoch nur in dieser geöffneten Sitzung. Sichere sie mit einem einmaligen E-Mail-Code.";
 
         return `<section class="account-card">
           <div class="account-head">
@@ -6402,7 +6420,7 @@
       }
 
       function renderBootScreen() {
-        document.getElementById("app").innerHTML = `<section class="welcome-shell"><div class="welcome-card"><div class="welcome-mark" aria-hidden="true"></div><div class="welcome-kicker">CalisthanX wird geladen</div><h1 class="welcome-title">Dein Profil.<br><span>Einen Moment.</span></h1><p class="welcome-copy">Eine vorhandene Supabase-Sitzung und deine Cloud-Daten werden geprüft.</p></div></section>`;
+        document.getElementById("app").innerHTML = `<section class="welcome-shell"><div class="welcome-card"><div class="welcome-mark" aria-hidden="true"></div><div class="welcome-kicker">CalisthenX wird geladen</div><h1 class="welcome-title">Dein Profil.<br><span>Einen Moment.</span></h1><p class="welcome-copy">Eine vorhandene Supabase-Sitzung und deine Cloud-Daten werden geprüft.</p></div></section>`;
       }
 
       async function bootstrapApp() {
@@ -6686,7 +6704,7 @@
         if (!sb || !user) return;
 
         friendsChannel = sb
-          .channel(`calisthanx-friendships-${user.id}`)
+          .channel(`calisthenx-friendships-${user.id}`)
           .on(
             "postgres_changes",
             { event: "*", schema: "public", table: "friendships" },
@@ -7291,179 +7309,7 @@
         </section>`;
       }
 
-      function showShareCard() {
-        const overall = getOverallRank();
-        const categories = CATEGORY_KEYS.map(key => ({key,info:getCategoryRank(key)}));
-        const archetype = getAthleteArchetype();
-        const apexScore = getApexScore();
-        const modal = document.createElement("div");
-        modal.className="modal";
-        modal.id="share-modal";
-        modal.onclick=e=>{if(e.target===modal) modal.remove();};
-
-        modal.innerHTML=`<section class="modal-panel share-panel">
-          <div class="share-card">
-            <div class="hub-kicker">CalisthanX Strength Profile</div>
-            <div class="share-name">${escapeHtml(state.name)}</div>
-            <div class="share-rank">Overall Strength · ${escapeHtml(overall.isUnranked?'Offen':overall.name)} · Apex Score ${apexScore.score} · ${escapeHtml(archetype.name)}</div>
-            <div class="share-grid">
-              ${categories.map(({key,info})=>`
-                <div class="share-stat">
-                  <strong>${escapeHtml(DATA[key].label)} · ${escapeHtml(info.isUnranked?'Offen':info.name)}</strong>
-                  <span>${info.entered}/${info.total} Übungen erfasst</span>
-                </div>`).join("")}
-            </div>
-          </div>
-          <div class="share-actions">
-            <button class="quiet-button" onclick="document.getElementById('share-modal')?.remove()">Schließen</button>
-            <button class="primary-button" onclick="caliApp.shareProfile()">Card teilen ↗</button>
-          </div>
-          <div class="share-export-note">Beim Teilen wird diese Strength Card als gestaltetes PNG erzeugt – nicht nur als Text.</div>
-        </section>`;
-        document.body.appendChild(modal);
-
-        // Die Datei schon jetzt vorbereiten. Dadurch bleibt der spätere Klick auf
-        // "Card teilen" eine direkte User-Aktion und navigator.share() kann den
-        // nativen Teilen-Dialog zuverlässig öffnen.
-        preparedStrengthCardFile = null;
-        preparedStrengthCardPromise = createStrengthCardBlob()
-          .then(blob => {
-            const safeName = sanitizeName(state.name).replace(/\s+/g, "-") || "Athlet";
-            const fileName = `CalisthanX-Strength-Card-${safeName}.png`;
-            preparedStrengthCardFile = new File([blob], fileName, { type: "image/png" });
-            return preparedStrengthCardFile;
-          })
-          .catch(error => {
-            console.error("Strength Card Vorbereitung:", error);
-            preparedStrengthCardFile = null;
-            return null;
-          });
-      }
-
-      function escapeXml(value) {
-        return String(value)
-          .replaceAll("&", "&amp;")
-          .replaceAll("<", "&lt;")
-          .replaceAll(">", "&gt;")
-          .replaceAll('"', "&quot;")
-          .replaceAll("'", "&apos;");
-      }
-
-      function strengthCardSvg() {
-        const overall = getOverallRank();
-        const archetype = getAthleteArchetype();
-        const apexScore = getApexScore();
-        const categories = CATEGORY_KEYS.map(key => ({ key, info: getCategoryRank(key) }));
-        const overallLabel = overall.isUnranked ? "Offen" : overall.name;
-        const overallAccent = overall.isUnranked ? "#7257f7" : overall.accent;
-        const name = escapeXml(state.name || "Athlet");
-
-        const cards = categories.map(({key, info}, index) => {
-          const x = index % 2 === 0 ? 72 : 604;
-          const y = index < 2 ? 650 : 824;
-          const label = escapeXml(DATA[key].label);
-          const rank = escapeXml(info.isUnranked ? "Offen" : info.name);
-          const meta = `${info.entered}/${info.total} Übungen`;
-          const accent = getCategoryAccent(key);
-          return `
-            <g transform="translate(${x} ${y})">
-              <rect width="468" height="142" rx="28" fill="rgba(255,255,255,.075)" stroke="rgba(255,255,255,.13)"/>
-              <circle cx="36" cy="36" r="7" fill="${accent}"/>
-              <text x="58" y="41" fill="rgba(255,255,255,.62)" font-size="18" font-weight="800" letter-spacing="1.3">${label.toUpperCase()}</text>
-              <text x="28" y="88" fill="#fff" font-size="34" font-weight="850">${rank}</text>
-              <text x="28" y="118" fill="rgba(255,255,255,.50)" font-size="17" font-weight="650">${escapeXml(meta)}</text>
-            </g>`;
-        }).join("");
-
-        return `<svg xmlns="http://www.w3.org/2000/svg" width="1140" height="1140" viewBox="0 0 1140 1140">
-          <defs>
-            <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#171321"/>
-              <stop offset=".56" stop-color="#2b2048"/>
-              <stop offset="1" stop-color="${overallAccent}"/>
-            </linearGradient>
-            <radialGradient id="glow" cx=".82" cy=".12" r=".56">
-              <stop offset="0" stop-color="${overallAccent}" stop-opacity=".55"/>
-              <stop offset="1" stop-color="${overallAccent}" stop-opacity="0"/>
-            </radialGradient>
-            <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
-              <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#000" flood-opacity=".28"/>
-            </filter>
-          </defs>
-
-          <rect width="1140" height="1140" rx="64" fill="url(#bg)"/>
-          <rect width="1140" height="1140" rx="64" fill="url(#glow)"/>
-
-          <g opacity=".08">
-            ${Array.from({length: 15}, (_, i) => `<path d="M0 ${70+i*72}H1140" stroke="#fff"/>`).join("")}
-            ${Array.from({length: 15}, (_, i) => `<path d="M${70+i*72} 0V1140" stroke="#fff"/>`).join("")}
-          </g>
-
-          <circle cx="1020" cy="1010" r="210" fill="none" stroke="rgba(255,255,255,.10)"/>
-          <circle cx="1020" cy="1010" r="270" fill="none" stroke="rgba(255,255,255,.05)"/>
-
-          <text x="72" y="88" fill="rgba(255,255,255,.54)" font-size="18" font-weight="800" letter-spacing="2.6">CALISTHANX · STRENGTH PROFILE</text>
-          <text x="72" y="176" fill="#fff" font-size="72" font-weight="900" letter-spacing="-3">${name}</text>
-          <text x="72" y="224" fill="rgba(255,255,255,.62)" font-size="24" font-weight="700">Overall Strength · ${escapeXml(overallLabel)} · Apex Score ${apexScore.score}</text>
-
-          <g transform="translate(72 290)">
-            <rect width="440" height="82" rx="41" fill="rgba(255,255,255,.075)" stroke="rgba(255,255,255,.13)"/>
-            <circle cx="44" cy="41" r="9" fill="${archetype.accent}"/>
-            <text x="72" y="49" fill="#fff" font-size="23" font-weight="820">${escapeXml(archetype.name)}</text>
-          </g>
-
-          <g transform="translate(760 116)" filter="url(#shadow)">
-            <circle cx="120" cy="120" r="118" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.14)" stroke-width="2"/>
-            <circle cx="120" cy="120" r="96" fill="${overallAccent}" opacity=".18"/>
-            <text x="120" y="111" fill="rgba(255,255,255,.55)" font-size="20" text-anchor="middle" font-weight="800" letter-spacing="1.8">LEVEL</text>
-            <text x="120" y="151" fill="#fff" font-size="34" text-anchor="middle" font-weight="900">${escapeXml(overallLabel)}</text>
-          </g>
-
-          <text x="72" y="485" fill="rgba(255,255,255,.54)" font-size="18" font-weight="800" letter-spacing="2">ATHLETE IDENTITY</text>
-          <text x="72" y="540" fill="#fff" font-size="38" font-weight="860">${escapeXml(archetype.name)}</text>
-          <text x="72" y="585" fill="rgba(255,255,255,.58)" font-size="20" font-weight="600">
-            <tspan x="72" dy="0">${escapeXml(archetype.copy.slice(0, 66))}</tspan>
-            <tspan x="72" dy="30">${escapeXml(archetype.copy.slice(66, 132))}</tspan>
-          </text>
-
-          ${cards}
-
-          <text x="72" y="1072" fill="rgba(255,255,255,.34)" font-size="16" font-weight="700">Generated locally by CalisthanX</text>
-        </svg>`;
-      }
-
-      async function createStrengthCardBlob() {
-        const svg = strengthCardSvg();
-        const encoded = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
-
-        const image = await new Promise((resolve, reject) => {
-          const img = new Image();
-          img.onload = () => resolve(img);
-          img.onerror = () => reject(new Error("SVG konnte nicht geladen werden."));
-          img.src = encoded;
-        });
-
-        const canvas = document.createElement("canvas");
-        canvas.width = 1140;
-        canvas.height = 1140;
-
-        const ctx = canvas.getContext("2d");
-        if (!ctx) throw new Error("Canvas wird nicht unterstützt.");
-
-        ctx.drawImage(image, 0, 0, 1140, 1140);
-
-        const blob = await new Promise((resolve, reject) => {
-          canvas.toBlob(result => {
-            if (result) resolve(result);
-            else reject(new Error("PNG konnte nicht erzeugt werden."));
-          }, "image/png");
-        });
-
-        return blob;
-      }
-
-
-      function getBalanceData() {
+function getBalanceData() {
         const categories = CATEGORY_KEYS.map(key => ({ key, info: getCategoryRank(key) }));
         const rated = categories.filter(item => !item.info.isUnranked);
 
@@ -7658,7 +7504,7 @@
         return `<div class="athlete-profile-shell">
           <section class="athlete-profile-hero" style="--profile-accent:${overallAccent}">
             <div class="athlete-profile-copy">
-              <div class="athlete-profile-label">CalisthanX Athlete</div>
+              <div class="athlete-profile-label">CalisthenX Athlete</div>
               <div class="athlete-profile-name-row">
                 ${profileAvatarMarkup()}
                 <div class="athlete-profile-name">${escapeHtml(state.name)}</div>
@@ -7669,7 +7515,6 @@
               <div class="athlete-profile-archetype" style="--archetype:${archetype.accent}"><i></i>${escapeHtml(archetype.name)}</div>
               <p class="athlete-profile-signature">${escapeHtml(archetype.copy)}</p>
               <div class="athlete-profile-actions">
-                <button class="athlete-profile-action primary" type="button" onclick="caliApp.showShareCard()">Strength Card teilen ↗</button>
                 <button class="athlete-profile-action" type="button" onclick="caliApp.editName()">Profil bearbeiten</button>
               </div>
             </div>
@@ -7883,10 +7728,10 @@
 
       function brandMarkup() {
         return `
-          <a class="brand" href="#" onclick="caliApp.goHome(); return false;" aria-label="CalisthanX Startseite">
+          <a class="brand" href="#" onclick="caliApp.goHome(); return false;" aria-label="CalisthenX Startseite">
             <span class="brand-mark" aria-hidden="true"></span>
             <span class="brand-copy">
-              <span class="brand-name">CALISTHANX</span>
+              <span class="brand-name">CALISTHENX</span>
               <span class="brand-sub">Strength standards</span>
             </span>
           </a>`;
@@ -8229,6 +8074,7 @@
                     </div>
                     <div class="autosave-note">${hasVerifiedAccount() ? "Änderungen werden automatisch mit deinem Account synchronisiert." : "Gastmodus: Änderungen bleiben nur bis zum Neuladen dieser Seite."}</div>
                     <div class="record-status-row"><span>Personal Record Vault</span><strong id="detail-known-pr">PR · ${escapeHtml(formatValue(getKnownPersonalBest(exercise),exercise.type))}</strong></div>
+                    <button id="exercise-reset-button" class="exercise-reset-button" type="button" onclick="caliApp.requestExerciseReset('${exercise.id}')" aria-label="Diese Übung zurücksetzen" ${hasValue ? "" : "disabled"}><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5.2 8.2A7.5 7.5 0 1 1 4.7 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M4.5 4.8v4.4h4.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Übung zurücksetzen</button>
                   </div>
                 </section>
               </aside>
@@ -8308,6 +8154,7 @@
         const masteryHost = document.getElementById("exercise-mastery-host");
         const historyHost = document.getElementById("exercise-history-host");
         const knownPr = document.getElementById("detail-known-pr");
+        const exerciseResetButton = document.getElementById("exercise-reset-button");
 
         if (display) display.textContent = formatValue(value, exercise.type);
         if (badge) badge.innerHTML = rankBadge(info, 128);
@@ -8325,6 +8172,7 @@
         if (historyHost) historyHost.innerHTML = renderHistory(exercise);
 
         if (knownPr) knownPr.textContent = `PR · ${formatValue(Math.max(getKnownPersonalBest(exercise),value),exercise.type)}`;
+        if (exerciseResetButton) exerciseResetButton.disabled = !hasStoredValue(exercise.id);
 
         document.documentElement.style.setProperty("--accent", visualAccent);
         document.documentElement.style.setProperty("--accent-deep", info.deep);
@@ -8492,7 +8340,7 @@
               <h2 id="reset-modal-title">${hasVerifiedAccount() ? "Trainingsdaten zurücksetzen?" : "Gastdaten löschen?"}</h2>
               <p>${hasVerifiedAccount()
                 ? "Alle Bestwerte und PR-Verläufe werden aus deinem Supabase-Account gelöscht. E-Mail, Anzeigename, Freundescode und Freundschaften bleiben erhalten."
-                : "Alle Bestwerte, PR-Verläufe, dein Name und dein Profilbild werden aus dieser Sitzung entfernt. Danach startet CalisthanX wieder mit dem persönlichen Einstieg."}</p>
+                : "Alle Bestwerte, PR-Verläufe, dein Name und dein Profilbild werden aus dieser Sitzung entfernt. Danach startet CalisthenX wieder mit dem persönlichen Einstieg."}</p>
             </div>
             <div class="reset-actions">
               <button class="quiet-button" type="button" onclick="caliApp.closeReset()">Abbrechen</button>
@@ -8522,6 +8370,94 @@
           toast.classList.remove("visible");
           window.setTimeout(() => toast.remove(), 230);
         }, 2200);
+      }
+
+      let pendingExerciseResetId = null;
+
+      function showExerciseResetModal(exerciseId) {
+        const exercise = ALL_EXERCISES.find(item => item.id === exerciseId);
+        if (!exercise) {
+          showToast("Übung wurde nicht gefunden.");
+          return;
+        }
+
+        pendingExerciseResetId = exerciseId;
+        document.getElementById("exercise-reset-modal")?.remove();
+
+        const modal = document.createElement("div");
+        modal.className = "modal";
+        modal.id = "exercise-reset-modal";
+        modal.setAttribute("role", "dialog");
+        modal.setAttribute("aria-modal", "true");
+        modal.setAttribute("aria-labelledby", "exercise-reset-modal-title");
+        modal.onclick = event => {
+          if (event.target === modal) closeExerciseResetModal();
+        };
+
+        modal.innerHTML = `
+          <section class="modal-panel reset-panel">
+            <div class="reset-body">
+              <div class="reset-symbol" aria-hidden="true">${resetIcon()}</div>
+              <h2 id="exercise-reset-modal-title">${escapeHtml(exercise.name)} zurücksetzen?</h2>
+              <p>Der Bestwert und der komplette PR-Verlauf dieser Übung werden gelöscht. Die Übung steht danach wieder auf „Nicht bewertet“.</p>
+            </div>
+            <div class="reset-actions">
+              <button class="quiet-button" type="button" onclick="caliApp.closeExerciseReset()">Abbrechen</button>
+              <button class="danger-button" type="button" onclick="caliApp.confirmExerciseReset()">Übung zurücksetzen</button>
+            </div>
+          </section>`;
+
+        document.body.appendChild(modal);
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeExerciseResetModal() {
+        document.getElementById("exercise-reset-modal")?.remove();
+        pendingExerciseResetId = null;
+        if (!document.querySelector(".modal")) document.body.style.overflow = "";
+      }
+
+      async function confirmExerciseReset() {
+        const exerciseId = pendingExerciseResetId;
+        const exercise = ALL_EXERCISES.find(item => item.id === exerciseId);
+        if (!exercise) {
+          closeExerciseResetModal();
+          showToast("Übung wurde nicht gefunden.");
+          return;
+        }
+
+        clearTimeout(state.stepMomentTimer);
+        clearTimeout(socialSyncTimer);
+        state.stepMomentTimer = null;
+        state.pendingRankUp = null;
+        state.historyEntryValue = null;
+        state.historyPendingValue = null;
+        state.momentBaselineValue = 0;
+        state.momentBaselineHasValue = false;
+
+        delete state.values[exerciseId];
+        delete state.history[exerciseId];
+
+        // Erst lokal neu zeichnen. So ist der Reset sofort sichtbar.
+        closeExerciseResetModal();
+        renderDetail();
+
+        // Danach genau diesen neuen Zustand speichern/synchronisieren.
+        if (hasVerifiedAccount()) {
+          state.syncState = "pending";
+          try {
+            await flushAccountSync();
+            state.syncState = "synced";
+            state.lastSyncedAt = Date.now();
+          } catch (error) {
+            console.error("Einzelreset Sync:", error);
+            state.syncState = "error";
+            showToast("Übung zurückgesetzt, Cloud-Sync ist fehlgeschlagen.");
+            return;
+          }
+        }
+
+        showToast(`${exercise.name} wurde zurückgesetzt.`);
       }
 
       async function performFullReset() {
@@ -8558,6 +8494,7 @@
           if (document.getElementById("pr-modal")) closePersonalRecordModal();
           else if (document.getElementById("rankup-modal")) closeRankUpModal();
           else if (document.getElementById("name-edit-modal")) closeNameEditModal();
+          else if (document.getElementById("exercise-reset-modal")) closeExerciseResetModal();
           else if (document.getElementById("reset-modal")) closeResetModal();
           else if (document.getElementById("rank-modal")) closeRankModal();
           else if (state.activeExerciseId) {
@@ -8802,46 +8739,6 @@
           applyTheme(current === "dark" ? "light" : "dark");
         },
 
-        showShareCard() { showShareCard(); },
-        async shareProfile() {
-          try {
-            // Idealfall: Die Card wurde beim Öffnen des Modals bereits fertig erzeugt.
-            // navigator.share() wird dann direkt aus dem Button-Klick heraus aufgerufen.
-            let file = preparedStrengthCardFile;
-
-            // Falls die Vorbereitung extrem knapp noch läuft, warten wir kurz auf sie.
-            if (!file && preparedStrengthCardPromise) {
-              file = await preparedStrengthCardPromise;
-            }
-
-            if (!file) {
-              showToast("Strength Card wird noch vorbereitet.");
-              return;
-            }
-
-            if (!navigator.share) {
-              showToast("Der native Teilen-Dialog wird auf diesem Gerät nicht unterstützt.");
-              return;
-            }
-
-            if (typeof navigator.canShare === "function" && !navigator.canShare({ files: [file] })) {
-              showToast("Dieses Gerät kann die Strength Card nicht als Datei teilen.");
-              return;
-            }
-
-            await navigator.share({
-              title: "CalisthanX Strength Card",
-              files: [file]
-            });
-          } catch (error) {
-            // Abbrechen im nativen Teilen-Menü ist kein Fehler.
-            if (error?.name === "AbortError") return;
-
-            console.error("Strength Card Share Fehler:", error);
-            showToast("Der Teilen-Dialog konnte nicht geöffnet werden.");
-          }
-        },
-
         async changeProfileImage(event) {
           const file = event?.target?.files?.[0];
           if (!file) return;
@@ -8871,8 +8768,7 @@
               ctx.drawImage(img, 0, 0, width, height);
               const dataUrl = canvas.toDataURL("image/jpeg", .88);
               saveProfileImage(dataUrl);
-              preparedStrengthCardFile = null;
-              preparedStrengthCardPromise = null;
+
               renderProfilePage();
               showToast("Profilbild aktualisiert.");
             };
@@ -8969,6 +8865,9 @@
         requestReset() { showResetModal(); },
         closeReset() { closeResetModal(); },
         async confirmReset() { await performFullReset(); },
+        requestExerciseReset(exerciseId) { showExerciseResetModal(exerciseId); },
+        closeExerciseReset() { closeExerciseResetModal(); },
+        async confirmExerciseReset() { await confirmExerciseReset(); },
 
         // Abwärtskompatibel für eventuell noch offene alte Ansichten.
         resetAll() { showResetModal(); }
@@ -8994,3 +8893,6 @@
 
 </body>
 </html>
+<style>
+  .athlete-profile-actions { grid-template-columns: 1fr !important; max-width: 220px; }
+</style>
